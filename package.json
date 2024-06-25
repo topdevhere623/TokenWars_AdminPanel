@@ -1,0 +1,71 @@
+{
+  "name": "Web3admin",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build --mode pro",
+    "test": "vue-cli-service build --mode test",
+    "dev": "vue-cli-service build --mode development",
+    "pre": "vue-cli-service build --mode pre"
+  },
+  "dependencies": {
+    "@antv/g2plot": "^2.4.31",
+    "ansi_up": "^5.2.1",
+    "axios": "^0.22.0",
+    "bignumber.js": "^9.1.1",
+    "clipboard": "^2.0.8",
+    "core-js": "^3.30.1",
+    "dayjs": "^1.10.7",
+    "element-ui": "^2.15.6",
+    "eth-sig-util": "^3.0.1",
+    "ethereumjs-util": "^7.1.1",
+    "ethers": "^5.6.2",
+    "exceljs": "^4.3.0",
+    "file-saver": "^2.0.5",
+    "fuse.js": "^6.4.6",
+    "js-base64": "^3.7.2",
+    "js-cookie": "^3.0.1",
+    "jszip": "^3.7.1",
+    "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
+    "path-to-regexp": "^6.2.0",
+    "pinyin": "^2.10.2",
+    "qs": "^6.10.1",
+    "screenfull": "^5.1.0",
+    "script-ext-html-webpack-plugin": "^2.1.5",
+    "svg-sprite-loader": "^6.0.9",
+    "svgo": "^2.7.0",
+    "view-design": "^4.6.1",
+    "vue": "^2.6.14",
+    "vue-clipboard": "^0.0.1",
+    "vue-clipboard2": "^0.3.3",
+    "vue-count-to": "^1.0.13",
+    "vue-quill-editor": "^3.0.6",
+    "vue-router": "^3.5.2",
+    "vuescroll": "^4.17.6",
+    "vuex": "^3.6.2",
+    "walletconnect": "^1.6.5",
+    "web3": "^1.6.0",
+    "web3modal": "^1.9.4",
+    "xlsx": "^0.17.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.5.13",
+    "@vue/cli-service": "^4.5.13",
+    "babel-plugin-import": "^1.13.3",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^8.0.0",
+    "vue-i18n": "^8.26.5",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}

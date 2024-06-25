@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon_收藏</title>
+    <g id="全局启动器" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="全局启动器_3" transform="translate(-32.000000, -209.000000)">
+            <g id="卡片/启动器名称_1" transform="translate(16.000000, 189.000000)">
+                <g id="icon_收藏" transform="translate(16.000000, 20.000000)">
+                    <polygon id="路径" points="0 0 16 0 16 16 0 16"></polygon>
+                    <path d="M8,12.1733333 L3.298,14.8053333 L4.348,9.52 L0.391333333,5.86133333 L5.74266667,5.22666667 L8,0.333333333 L10.2573333,5.22666667 L15.6086667,5.86133333 L11.652,9.52 L12.702,14.8053333 L8,12.1733333 Z M8,10.6453333 L10.8313333,12.23 L10.1986667,9.048 L12.5806667,6.84466667 L9.35866667,6.46266667 L8,3.51666667 L6.64133333,6.46333333 L3.41933333,6.84466667 L5.80133333,9.048 L5.16866667,12.23 L8,10.6453333 Z" id="形状" fill="#000" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,204 @@
+// @import './variables.scss';
+// @import './mixin.scss';
+// @import './transition.scss';
+@import './element-ui.scss';
+// @import './sidebar.scss';
+// @import './btn.scss';
+
+body {
+  height: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, Arial, sans-serif;
+}
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+#app {
+  height: 100%;
+  overflow: auto;
+  padding-bottom: 50px;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+div:focus {
+  outline: none;
+}
+
+.clearfix {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: ' ';
+    clear: both;
+    height: 0;
+  }
+}
+
+//main-container全局样式
+
+// 显卡颜色
+.colorN {
+  color: #84bf40;
+}
+.colorA {
+  color: #f36527;
+}
+.backgroundColorA {
+  background: #623929;
+}
+.backgroundColorN {
+  background: #3f5c1e;
+}
+
+.colorNine {
+  color: #999;
+}
+.colorSeven {
+  color: #777;
+}
+.greenColor {
+  color: #03b615;
+}
+.greenBg {
+  background-color: #03b615;
+}
+.blueColor {
+  color: #09a9ff;
+}
+.blueBg {
+  background-color: #09a9ff;
+}
+.redColor {
+  color: #d9001b;
+}
+.redBg {
+  background-color: #d9001b;
+}
+.orangeColor {
+  color: rgba(255, 130, 9, 1);
+}
+.orangeBg {
+  background-color: rgba(255, 130, 9, 1);
+}
+.public-list-inputs {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+  flex-wrap: wrap;
+}
+.pbulic-space-between {
+  justify-content: space-between;
+}
+.public-totals {
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+  flex-wrap: wrap;
+}
+.public-totals-list {
+  margin-right: 15px;
+  margin-bottom: 10px;
+  &:last-child {
+    margin-right: 0;
+  }
+}
+.dialog-button {
+  display: inline-block;
+  padding: 8px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.dialog-close {
+  background-color: rgba(242, 242, 242, 1);
+  color: #333;
+}
+.dialog-save {
+  background-color: rgba(22, 155, 213, 1);
+  color: #fff;
+  margin-left: 20px;
+}
+
+.publick-button {
+  display: inline-block;
+  margin-right: 5px;
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+// 鼠标为手指
+.cursor {
+  cursor: pointer;
+}
+// 禁用鼠标事件
+.disabled-cursor {
+  cursor: default;
+  pointer-events: none;
+}
+
+/* 文本超出省略号 单行 */
+
+.ellipsis-line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/*  多行 只合适WebKit浏览器或者移动端 */
+.multi-line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  /* 行数 */
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+/* 倒三角 */
+.triangle {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  height: 5px;
+  width: 5px;
+  &::after {
+    content: '';
+    width: 0px;
+    height: 0px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #778390;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
