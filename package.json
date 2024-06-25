@@ -9,6 +9,9 @@
     "dev": "vue-cli-service build --mode development",
     "pre": "vue-cli-service build --mode pre"
   },
+  "engines": {
+    "node": "14.x"
+  },
   "dependencies": {
     "@antv/g2plot": "^2.4.31",
     "ansi_up": "^5.2.1",
