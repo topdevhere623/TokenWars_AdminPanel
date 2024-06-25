@@ -8,25 +8,25 @@
     <div class="remittance-box">
       <div class="remittance-amount remittance-more">
         <div class="remittance-item">
-          <div class="title">总购买数</div>
+          <div class="title">Total purchase number</div>
           <div class="val">
             {{ statisticsData && statisticsData.totalWalletNum }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总购入价值</div>
+          <div class="title">Total purchase value</div>
           <div class="val">
             {{ statisticsData && statisticsData.totalWalletNum }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总GAS</div>
+          <div class="title">Total Gas</div>
           <div class="val">
             {{ statisticsData && statisticsData.totalAssetBalance }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总资产数量</div>
+          <div class="title">Total asset number</div>
           <div class="val">
             {{ statisticsData && statisticsData.totalUserIn }}
           </div>
@@ -34,34 +34,31 @@
       </div>
     </div>
     <el-table :data="tableData" style="width: 100%" class="public-table" border>
-      <el-table-column prop="id" label="HASH" align="center"> </el-table-column>
-      <el-table-column prop="userName" label="NFT系列" align="center">
+      <el-table-column prop="id" label="hash" align="center"> </el-table-column>
+      <el-table-column prop="userName" label="NFT series" align="center">
         <template slot-scope="scope">
           <p>{{ scope.row.userId }}</p>
           <p>{{ scope.row.userName }}</p>
         </template>
       </el-table-column>
-      <el-table-column prop="chainName" label="TOKENID" align="center">
+      <el-table-column prop="chainName" label="tokenid" align="center"> </el-table-column>
+      <el-table-column prop="coin" label="Purchase value" align="center">
       </el-table-column>
-      <el-table-column prop="coin" label="购入价值" align="center">
+      <el-table-column prop="assetBalance" label="market place" align="center">
       </el-table-column>
-      <el-table-column prop="assetBalance" label="交易市场" align="center">
-      </el-table-column>
-      <el-table-column prop="userIn" label="GAS" align="center">
-      </el-table-column>
-      <el-table-column prop="userIn" label="状态" align="center">
-      </el-table-column>
-      <el-table-column prop="platformInGas" label="发起时间" align="center">
+      <el-table-column prop="userIn" label="gas" align="center"> </el-table-column>
+      <el-table-column prop="userIn" label="state" align="center"> </el-table-column>
+      <el-table-column prop="platformInGas" label="the starting time" align="center">
         <template slot-scope="scope">
           {{ timeForStr(scope.row.createTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column prop="collectionSum" label="完成时间" align="center">
+      <el-table-column prop="collectionSum" label="Complete time" align="center">
         <template slot-scope="scope">
           {{ timeForStr(scope.row.createTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column label="查看交易详情" align="center">
+      <el-table-column label="View transaction details" align="center">
         <template slot-scope="scope">
           <chainExplorerSkip :chain="scope.row.chainName" hash="" />
         </template>

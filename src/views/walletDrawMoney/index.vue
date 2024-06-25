@@ -3,38 +3,37 @@
     <el-table :data="tableData" style="width: 100%" class="public-table" border>
       <el-table-column
         prop="outgoingWalletAddress"
-        label="地址"
+        label="address"
         align="center"
         show-overflow-tooltip
       ></el-table-column>
-      <el-table-column prop="chainName" label="类型" align="center">
+      <el-table-column prop="chainName" label="type" align="center">
         <template slot-scope="scope">
-          <p>{{ scope.row.withdrawalType ? "代币提款" : "NFT提款" }}</p>
+          <p>{{ scope.row.withdrawalType ? "Token withdrawal" : "NFT withdrawal" }}</p>
         </template>
       </el-table-column>
-      <el-table-column prop="outgoingChainType" label="链" align="center">
+      <el-table-column prop="outgoingChainType" label="chain" align="center">
       </el-table-column>
-      <el-table-column label="余额" align="center">
+      <el-table-column label="Balance" align="center">
         <template slot-scope="scope">
           <p v-for="item in scope.row.balance" :key="item.coin">
             {{ item.price + item.coin }}
           </p>
         </template>
       </el-table-column>
-      <el-table-column prop="nftNumber" label="NFT" align="center">
-      </el-table-column>
-      <el-table-column label="总转出" align="center">
+      <el-table-column prop="nftNumber" label="nft" align="center"> </el-table-column>
+      <el-table-column label="Always transfer" align="center">
         <template slot-scope="scope">
           <p v-for="item in scope.row.rollOut" :key="item.coin">
             {{ item.price + item.coin }}
           </p>
         </template>
       </el-table-column>
-      <el-table-column prop="rollOutNumber" label="转出次数" align="center">
+      <el-table-column prop="rollOutNumber" label="Turn out" align="center">
       </el-table-column>
-      <el-table-column prop="gasTotal" label="总GAS" align="center">
+      <el-table-column prop="gasTotal" label="Total Gas" align="center">
       </el-table-column>
-      <el-table-column label="资产详情" align="center">
+      <el-table-column label="Asset details" align="center">
         <template slot-scope="scope">
           <chainExplorerSkip :chain="scope.row.chainName" hash="" />
         </template>

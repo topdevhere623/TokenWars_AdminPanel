@@ -15,13 +15,13 @@ const state = {
   accountConfig: '',
   coinConfig: 'USDT',
 
-  // 钱包地址
+  //Wallet address
   account: null,
-  //链接状态
+  //Link state
   isConnect: false,
-  //链id
+  //Chain ID
   chainId: null,
-  // 权限Bytes32
+  //Permissions bytes32
   applyRole: null
 }
 
@@ -272,8 +272,8 @@ const actions = {
     var contract = Vue.prototype.$contract;
     return new Promise((resolve, reject) => {
       if (chain == "ETHEREUM") {
-        console.log("Ethereum主链转账")
-        // Ethereum主链转账
+        console.log("Ethereum main chain transfer")
+        // Ethereum main chain transfer
         contract
           .send("MultiSenders")
           .action("multisendEther", [walletAddr, amount], amountVal)
@@ -287,7 +287,7 @@ const actions = {
         return
       }
 
-      console.log("其他链代币转账")
+      console.log("Other chain token transfer")
       // 其他链代币转账
       contract
         .send("MultiSenders")

@@ -2,19 +2,40 @@
   <div>
     <div class="searchBox">
       <div class="searchLeft">
-        <!-- <el-select size="medium" clearable v-model="searchForm.menuType" placeholder="请选择类型" @change="getTableList">
-          <el-option label="菜单/栏目" value=""></el-option>
-          <el-option label="菜单" :value="1"></el-option>
-          <el-option label="栏目" :value="2"></el-option>
+        <!-- <el-select size="medium" clearable v-model="searchForm.menuType" placeholder="Please choose the type" @change="getTableList">
+          <el-option label="menu/栏目" value=""></el-option>
+          <el-option label="menu" :value="1"></el-option>
+          <el-option label="Column" :value="2"></el-option>
         </el-select> -->
         <!-- <el-button size="medium" type="primary" icon="el-icon-search" @click="getTableList">搜索</el-button> -->
       </div>
       <div class="searchRight">
-        <el-select size="medium" clearable v-model="searchForm.roleId" @change="getTableList" placeholder="请选择角色">
-          <el-option v-for="item in roleList" :key="item.id" :label="item.roleName + '(' + item.remark + ')'" :value="item.id"> </el-option>
+        <el-select
+          size="medium"
+          clearable
+          v-model="searchForm.roleId"
+          @change="getTableList"
+          placeholder="Please select the role"
+        >
+          <el-option
+            v-for="item in roleList"
+            :key="item.id"
+            :label="item.roleName + '(' + item.remark + ')'"
+            :value="item.id"
+          >
+          </el-option>
         </el-select>
-        <el-button size="medium" type="primary" icon="el-icon-search" @click="allotFunc">分配权限</el-button>
-        <el-button size="medium" type="warning" icon="el-icon-plus" @click="addFunc" v-if="developer">增加一级模块</el-button>
+        <el-button size="medium" type="primary" icon="el-icon-search" @click="allotFunc"
+          >assign permissions</el-button
+        >
+        <el-button
+          size="medium"
+          type="warning"
+          icon="el-icon-plus"
+          @click="addFunc"
+          v-if="developer"
+          >Add first -level module</el-button
+        >
         <!-- <el-button size="medium" type="danger" @click="deleteMoreType" v-if="developer"><i class="el-icon-delete" style="margin-right:3px;"></i>批量删除</el-button> -->
       </div>
     </div>
@@ -37,16 +58,19 @@
     >
       <el-table-column type="selection" width="55">
         <template slot-scope="scope">
-          <el-checkbox v-model="scope.row.checked" @change="toselect(scope.row)"></el-checkbox>
+          <el-checkbox
+            v-model="scope.row.checked"
+            @change="toselect(scope.row)"
+          ></el-checkbox>
         </template>
       </el-table-column>
-      <el-table-column prop="menuName" label="模块名"> </el-table-column>
-      <el-table-column prop="permission" label="标识"> </el-table-column>
+      <el-table-column prop="menuName" label="Module name"> </el-table-column>
+      <el-table-column prop="permission" label="Identify"> </el-table-column>
       <el-table-column prop="path" label="path"> </el-table-column>
-      <el-table-column prop="id" label="ID"> </el-table-column>
-      <el-table-column prop="" label="菜单/栏目">
+      <el-table-column prop="id" label="id"> </el-table-column>
+      <el-table-column prop="" label="menu/Column">
         <template slot-scope="scope">
-          <div>{{ scope.row.menuType == 1 ? "菜单" : "栏目" }}</div>
+          <div>{{ scope.row.menuType == 1 ? "menu" : "Column" }}</div>
           <!-- <div @click="changeStatusFunc" style="display:inline-block;">
             <el-switch 
             v-model="scope.row.menuType"
@@ -62,50 +86,72 @@
           </div> -->
         </template>
       </el-table-column>
-      <el-table-column prop="" label="操作" v-if="developer" width="300px">
+      <el-table-column prop="" label="operate" v-if="developer" width="300px">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="editFunc(scope.row)">
-            <i class="el-icon-edit" style="margin-right: 3px"></i>修改
+            <i class="el-icon-edit" style="margin-right: 3px"></i>Revise
           </el-button>
           <el-button size="mini" type="warning" @click="addSubFunc(scope.row)">
-            <i class="el-icon-edit" style="margin-right: 3px"></i>新增子模块
+            <i class="el-icon-edit" style="margin-right: 3px"></i>New enlarged module
           </el-button>
           <el-button size="mini" type="danger" @click="deleteType(scope.row)">
-            <i class="el-icon-delete" style="margin-right: 3px"></i>删除
+            <i class="el-icon-delete" style="margin-right: 3px"></i>delete
           </el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-dialog
       @close="beforeClose"
-      :title="!ruleForm.id ? '添加模块' : '修改模块'"
+      :title="!ruleForm.id ? 'Add module' : 'Modify the module'"
       :visible.sync="dialogVisible"
       width="430px"
       :close-on-click-modal="false"
     >
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="模块名称" prop="menuName" :rules="rules.blurRule">
-          <el-input placeholder="请输入模块名称" v-model.trim="ruleForm.menuName" style="width: 240px"></el-input>
+      <el-form
+        :model="ruleForm"
+        :rules="rules"
+        ref="ruleForm"
+        label-width="100px"
+        class="demo-ruleForm"
+      >
+        <el-form-item label="Module name" prop="menuName" :rules="rules.blurRule">
+          <el-input
+            placeholder="Please enter the module name"
+            v-model.trim="ruleForm.menuName"
+            style="width: 240px"
+          ></el-input>
         </el-form-item>
-        <el-form-item label="模块标识" prop="permission">
-          <el-input placeholder="请输入模块标识" v-model.trim="ruleForm.permission" style="width: 240px"></el-input>
+        <el-form-item label="Module logo" prop="permission">
+          <el-input
+            placeholder="Please enter the module logo"
+            v-model.trim="ruleForm.permission"
+            style="width: 240px"
+          ></el-input>
         </el-form-item>
-        <el-form-item label="模块路径">
-          <el-input placeholder="请输入模块路径" v-model.trim="ruleForm.path" style="width: 240px"></el-input>
+        <el-form-item label="Module path">
+          <el-input
+            placeholder="Please enter the module path"
+            v-model.trim="ruleForm.path"
+            style="width: 240px"
+          ></el-input>
         </el-form-item>
-        <el-form-item label="模块排序">
-          <el-input placeholder="请输入排序" v-model.trim="ruleForm.orderBy" style="width: 240px"></el-input>
+        <el-form-item label="Module sorting">
+          <el-input
+            placeholder="Please enter sorting"
+            v-model.trim="ruleForm.orderBy"
+            style="width: 240px"
+          ></el-input>
         </el-form-item>
-        <el-form-item label="模块类型" prop="menuType">
+        <el-form-item label="Module type" prop="menuType">
           <el-radio-group v-model="ruleForm.menuType">
-            <el-radio :label="1">菜单</el-radio>
-            <el-radio :label="2">栏目</el-radio>
+            <el-radio :label="1">menu</el-radio>
+            <el-radio :label="2">Column</el-radio>
           </el-radio-group>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="submitForm('ruleForm')">确 定</el-button>
+        <el-button @click="dialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')">Sure</el-button>
       </span>
     </el-dialog>
   </div>
@@ -134,7 +180,7 @@ export default {
         menuType: 1,
       },
       rules: {
-        blurRule: [{ required: true, message: "请输入", trigger: "blur" }],
+        blurRule: [{ required: true, message: "please enter", trigger: "blur" }],
       },
       roleList: [],
       multipleSelection: [],
@@ -206,7 +252,8 @@ export default {
         } else {
           this.$set(item, "checked", true);
         }
-        if (item.children && item.children.length > 0) this.initSelect(item.children, type);
+        if (item.children && item.children.length > 0)
+          this.initSelect(item.children, type);
       });
     },
     handleSelectionChange(val) {
@@ -226,12 +273,12 @@ export default {
     },
     allotFunc() {
       if (this.searchForm.roleId === "") {
-        this.$message.error("请选择需要分配的角色");
+        this.$message.error("Please select the role you need to distribute");
         return;
       }
-      this.$confirm(`确定要分配吗吗？`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(`Are you sure to allocate it?`, "hint", {
+        confirmButtonText: "Sure",
+        cancelButtonText: "Cancel",
         type: "warning",
       })
         .then(async () => {
@@ -244,14 +291,14 @@ export default {
             this.multipleSelection = [];
             this.getTableList();
             this.searchForm.roleId = "";
-            this.$message.success("操作成功！");
+            this.$message.success("Successful operation!");
           }
         })
         .catch(() => {});
     },
     changeStatusFunc() {
       if (!this.developer) {
-        this.$message.warning("该功能仅供开发者使用！");
+        this.$message.warning("This function is for developers only!");
         return;
       }
     },
@@ -262,7 +309,7 @@ export default {
         menuType: row.menuType == 1 ? "1" : "0",
       });
       if (res) {
-        this.$message.success("操作成功！");
+        this.$message.success("Successful operation!");
         this.getTableList();
       }
     },
@@ -302,35 +349,35 @@ export default {
     },
     deleteMoreType() {
       if (this.multipleSelection.length == 0) {
-        this.$message.error("请选择需要删除的模块！");
+        this.$message.error("Please select the module you need to delete!");
         return;
       }
-      this.$confirm(`确定要批量删除吗？`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(`Are you sure to delete in batches?`, "hint", {
+        confirmButtonText: "Sure",
+        cancelButtonText: "Cancel",
         type: "warning",
       })
         .then(async () => {
           let menuId = this.multipleSelection.map((x) => x.id);
           let res = await this.$http.batchDelPermission({ ids: menuId });
           if (res) {
-            this.$message.success("操作成功！");
+            this.$message.success("Successful operation!");
             this.getTableList();
           }
         })
         .catch(() => {});
     },
     deleteType(row) {
-      this.$confirm(`确定要删除 ${row.menuName} 模块吗？`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(`Are you sure to delete ${row.menuname} module?`, "hint", {
+        confirmButtonText: "Sure",
+        cancelButtonText: "Cancel",
         type: "warning",
       })
         .then(async () => {
           console.log(row);
           let res = await this.$http.deleteMenu({ id: row.id });
           if (res) {
-            this.$message.success("操作成功！");
+            this.$message.success("Successful operation!");
             this.getTableList();
           }
         })
@@ -348,7 +395,7 @@ export default {
           }
           if (res) {
             this.dialogVisible = false;
-            this.$message.success("操作成功！");
+            this.$message.success("Successful operation!");
             this.getTableList();
             this.$refs["ruleForm"].resetFields();
           }

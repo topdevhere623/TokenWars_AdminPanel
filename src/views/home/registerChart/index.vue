@@ -2,7 +2,7 @@
   <el-card class="register-chart">
     <div slot="header" class="clearfix">
       <div class="report-public-header">
-        <h3>注册用户</h3>
+        <h3>registered user</h3>
         <el-select
           v-model="day"
           :placeholder="$t('public.select')"
@@ -10,7 +10,13 @@
           popper-class="public-select-box"
           @change="mainChartDataRegTotalApi"
         >
-          <el-option v-for="item in options" :key="`${item.key}-${item.value}`" :label="item.label" :value="item.value"> </el-option>
+          <el-option
+            v-for="item in options"
+            :key="`${item.key}-${item.value}`"
+            :label="item.label"
+            :value="item.value"
+          >
+          </el-option>
         </el-select>
       </div>
     </div>
@@ -35,9 +41,9 @@ export default {
       options: options,
       day: "SEVEN",
       sortedMap: [
-        { key: "registerNum", title: "注册人数" },
-        { key: "rechargeNum", title: "充值人数" },
-        { key: "consumeNum", title: "消费人数" },
+        { key: "registerNum", title: "Number of registers" },
+        { key: "rechargeNum", title: "Number of recharge" },
+        { key: "consumeNum", title: "Number of consumers" },
       ],
       dataList: [],
       plot: null,
@@ -58,9 +64,13 @@ export default {
         conversionTag: {
           formatter: (value, datum) => {
             if (value.key == "consumeNum") {
-              return `注册-消费转化率:${value.consumeNumProportion.toFixed(2)}%`;
+              return `Registration-Consumption conversion rate:${value.consumeNumProportion.toFixed(
+                2
+              )}%`;
             } else if (value.key == "rechargeNum") {
-              return `注册-充值转化率:${value.rechargeProportion.toFixed(2)}%`;
+              return `Register-recharge conversion rate:${value.rechargeProportion.toFixed(
+                2
+              )}%`;
             }
           },
         },
@@ -73,7 +83,10 @@ export default {
       this.timer = null;
     },
     async mainChartDataRegTotalApi() {
-      const res = await this.$http.getHomeRegisteredUserChart({ timeLimit: this.day, userType: this.$store.getters.accountConfig || "" });
+      const res = await this.$http.getHomeRegisteredUserChart({
+        timeLimit: this.day,
+        userType: this.$store.getters.accountConfig || "",
+      });
       if (res) {
         this.dataList = this.sortedMap.map((x) => {
           return { ...x, count: res[x.key], ...res };

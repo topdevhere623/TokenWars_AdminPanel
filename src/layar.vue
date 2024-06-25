@@ -22,12 +22,12 @@ export default {
     return {
       subNav: [],
       nameList: {
-        addProduct: "产品",
-        addAgreement: "销售协议",
-        addMill: "矿机",
+        addProduct: "product",
+        addAgreement: "Sales protocol",
+        addMill: "Mining machine",
         addBanner: "banner",
-        addNotice: "公告",
-        adduUserAgreement: "协议",
+        addNotice: "announcement",
+        adduUserAgreement: "protocol",
       },
     };
   },
@@ -41,8 +41,7 @@ export default {
       if (this.nameList.hasOwnProperty(this.$route.name)) {
         let temp = [];
         temp.name =
-          (this.$route.query.id ? "编辑" : "新增") +
-          this.nameList[this.$route.name];
+          (this.$route.query.id ? "edit" : "Increase") + this.nameList[this.$route.name];
         temp.path = "";
         this.subNav.push(temp);
         console.log(this.nameList[this.$route.name]);

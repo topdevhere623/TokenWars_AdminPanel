@@ -4,13 +4,13 @@
       <el-input
         class="public-input"
         style="width: 170px"
-        placeholder="输入HASH或转入钱包"
+        placeholder="Enter Hash or turn into a wallet"
         v-model="obscureField"
         clearable
       />
       <el-input
         class="public-input"
-        placeholder="输入tokenID"
+        placeholder="Enter tokenID"
         v-model="tokenId"
         v-if="typeShow.includes('tokenId')"
         clearable
@@ -20,33 +20,33 @@
         class="public-select-box"
         popper-class="public-select-box"
         v-if="typeShow.includes('behavior')"
-        placeholder="全部行为"
+        placeholder="All behavior"
       >
-        <el-option label="盲盒抽奖" value="Opensea"> </el-option>
-        <el-option label="一元购抽奖" value="blur"> </el-option>
-        <el-option label="代币提款" value="blur"> </el-option>
-        <el-option label="NFT提款" value="blur"> </el-option>
-        <el-option label="归集" value="blur"> </el-option>
-        <el-option label="购入NFT" value="blur"> </el-option>
+        <el-option label="Blind Box Rainers" value="Opensea"> </el-option>
+        <el-option label="One dollar purchase raffle" value="blur"> </el-option>
+        <el-option label="Token withdrawal" value="blur"> </el-option>
+        <el-option label="NFT withdrawal" value="blur"> </el-option>
+        <el-option label="Collect" value="blur"> </el-option>
+        <el-option label="Buy NFT" value="blur"> </el-option>
       </el-select>
       <el-select
         v-model="chainName"
         class="public-select-box"
         popper-class="public-select-box"
         v-if="typeShow.includes('chain')"
-        placeholder="链类型"
+        placeholder="Chain"
       >
-        <el-option label="ETH" value="Opensea"> </el-option>
-        <el-option label="POLYGON" value="blur"> </el-option>
+        <el-option label="eth" value="Opensea"> </el-option>
+        <el-option label="polygon" value="blur"> </el-option>
       </el-select>
       <el-select
         v-model="chainName"
         class="public-select-box"
         popper-class="public-select-box"
         v-if="typeShow.includes('market')"
-        placeholder="交易市场"
+        placeholder="market place"
       >
-        <el-option label="Opensea" value="Opensea"> </el-option>
+        <el-option label="opensea" value="Opensea"> </el-option>
         <el-option label="blur" value="blur"> </el-option>
       </el-select>
       <el-select
@@ -54,54 +54,54 @@
         class="public-select-box"
         popper-class="public-select-box"
         v-if="typeShow.includes('coin')"
-        placeholder="全部代币"
+        placeholder="All token"
       >
-        <el-option label="EHT" value="Opensea"> </el-option>
-        <el-option label="USDT" value="blur"> </el-option>
+        <el-option label="eht" value="Opensea"> </el-option>
+        <el-option label="usdt" value="blur"> </el-option>
       </el-select>
       <el-select
         v-model="chainName"
         class="public-select-box"
         popper-class="public-select-box"
-        placeholder="资产类型"
+        placeholder="Asset type"
         v-if="typeShow.includes('assetType')"
       >
-        <el-option label="ETH" value="ETH"> </el-option>
-        <el-option label="USDT" value="USDT"> </el-option>
+        <el-option label="eth" value="ETH"> </el-option>
+        <el-option label="usdt" value="USDT"> </el-option>
       </el-select>
       <el-select
         v-model="chainName"
         class="public-select-box"
         popper-class="public-select-box"
-        placeholder="状态"
+        placeholder="state"
         v-if="typeShow.includes('state')"
       >
-        <el-option label="成功" value="ETH"> </el-option>
-        <el-option label="失败" value="USDT"> </el-option>
+        <el-option label="success" value="ETH"> </el-option>
+        <el-option label="fail" value="USDT"> </el-option>
       </el-select>
       <div class="public-date-box">
-        <span class="demonstration"> 发起时间 </span>
+        <span class="demonstration"> the starting time </span>
         <el-date-picker
           v-model="changeCreateTime"
           value-format="yyyy-MM-dd HH:mm:ss"
           format="yyyy-MM-dd"
           type="datetimerange"
-          range-separator="到"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          range-separator="arrive"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
         >
         </el-date-picker>
       </div>
       <div class="public-date-box">
-        <span class="demonstration"> 账变时间 </span>
+        <span class="demonstration"> Account change time </span>
         <el-date-picker
           v-model="changeUpdateTime"
           value-format="yyyy-MM-dd HH:mm:ss"
           format="yyyy-MM-dd"
           type="datetimerange"
-          range-separator="到"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          range-separator="arrive"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
         >
         </el-date-picker>
       </div>
@@ -111,7 +111,7 @@
         class="public-search"
         @click="getTableList()"
       >
-        查询
+        Inquire
       </el-button>
       <el-button
         type="primary"
@@ -119,7 +119,7 @@
         class="public-search"
         @click="getTableList()"
       >
-        导出EXCEL
+        Export Excel
       </el-button>
     </div>
   </div>

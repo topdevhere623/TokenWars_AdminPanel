@@ -124,10 +124,10 @@ var service = {
               resolve(false);
             }
           } else if (!response) {
-            Message.error("请求超时，请稍后再试.");
+            Message.error("The request timeout, please try again later.");
             resolve(false);
           } else {
-            Message.error("请求失败");
+            Message.error("Request failed");
             resolve(false);
           }
         })
@@ -212,10 +212,10 @@ var service = {
               resolve(false);
             }
           } else if (!response) {
-            Message.error("请求超时，请稍后再试.");
+            Message.error("The request timeout, please try again later.");
             resolve(false);
           } else {
-            Message.error("请求失败");
+            Message.error("Request failed");
             resolve(false);
           }
         })

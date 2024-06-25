@@ -1,90 +1,219 @@
 <template>
   <div class="page-wrapper">
     <div class="public-list-inputs">
-      <el-input class="public-input" style="width: 140px" placeholder="输入闪兑ID/订单ID" v-model="Id" clearable />
-      <el-input class="public-input" style="width: 140px" placeholder="输入用户ID/昵称" v-model="obscureField" clearable />
-      <el-select v-model="sellCoin" class="public-select-box" popper-class="public-select-box" placeholder="全部卖出币种" clearable>
-        <el-option label="ETH" value="ETH"> </el-option>
-        <el-option label="USDT" value="USDT"> </el-option>
+      <el-input
+        class="public-input"
+        style="width: 140px"
+        placeholder="Input flashing ID/Order ID"
+        v-model="Id"
+        clearable
+      />
+      <el-input
+        class="public-input"
+        style="width: 140px"
+        placeholder="Enter user ID/Nick name"
+        v-model="obscureField"
+        clearable
+      />
+      <el-select
+        v-model="sellCoin"
+        class="public-select-box"
+        popper-class="public-select-box"
+        placeholder="All sell currency"
+        clearable
+      >
+        <el-option label="eth" value="ETH"> </el-option>
+        <el-option label="usdt" value="USDT"> </el-option>
       </el-select>
-      <el-select v-model="flashPlaform" class="public-select-box" popper-class="public-select-box" placeholder="全部闪兑平台" clearable>
-        <el-option label="OKX" value="OKX"> </el-option>
+      <el-select
+        v-model="flashPlaform"
+        class="public-select-box"
+        popper-class="public-select-box"
+        placeholder="All flashing platform"
+        clearable
+      >
+        <el-option label="Okx" value="OKX"> </el-option>
       </el-select>
-      <el-select v-model="flashStatus" class="public-select-box" popper-class="public-select-box" placeholder="状态" clearable>
-        <el-option label="成功" value="TRUE"> </el-option>
-        <el-option label="失败" value="FAIL"> </el-option>
-        <el-option label="挂起" value="FALSE"> </el-option>
+      <el-select
+        v-model="flashStatus"
+        class="public-select-box"
+        popper-class="public-select-box"
+        placeholder="state"
+        clearable
+      >
+        <el-option label="success" value="TRUE"> </el-option>
+        <el-option label="fail" value="FAIL"> </el-option>
+        <el-option label="Hang up" value="FALSE"> </el-option>
       </el-select>
       <div class="public-date-box">
-        <span class="demonstration"> 交易时间 </span>
+        <span class="demonstration"> transaction hour </span>
         <el-date-picker
           v-model="changeTime"
           type="datetimerange"
-          range-separator="到"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          range-separator="arrive"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
         >
         </el-date-picker>
       </div>
-      <el-button type="primary" icon="el-icon-search" class="public-search" @click="fetchFlashManagerList()"> 查询 </el-button>
-      <el-button type="primary" icon="el-icon-search" class="public-search" @click="fetchFlashManagerListExport()"> 导出 </el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-search"
+        class="public-search"
+        @click="fetchFlashManagerList()"
+      >
+        Inquire
+      </el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-search"
+        class="public-search"
+        @click="fetchFlashManagerListExport()"
+      >
+        Export
+      </el-button>
     </div>
     <div class="remittance-box">
       <div class="remittance-amount remittance-more">
         <div class="remittance-item">
-          <div class="title">订单数</div>
+          <div class="title">number of order</div>
           <div class="val">{{ aggregateQuery && aggregateQuery.orderNumbers }}</div>
         </div>
         <div class="remittance-item">
-          <div class="title">总卖出币数</div>
+          <div class="title">Total selling coins</div>
           <div class="val">{{ aggregateQuery && aggregateQuery.sellPrices }}</div>
         </div>
         <div class="remittance-item">
-          <div class="title">总买入币数</div>
+          <div class="title">Total buying currency</div>
           <div class="val">{{ aggregateQuery && aggregateQuery.buyPrices }}</div>
         </div>
         <div class="remittance-item">
-          <div class="title">总手续费</div>
+          <div class="title">Total handling fee</div>
           <div class="val">{{ aggregateQuery && aggregateQuery.feePrices }}</div>
         </div>
         <div class="remittance-item">
-          <div class="title">总差价</div>
+          <div class="title">Total difference</div>
           <div class="val">{{ aggregateQuery && aggregateQuery.diffPrices }}</div>
         </div>
       </div>
     </div>
-    <el-table :data="tableData" style="width: 100%" @sort-change="sortChange" class="public-table" border>
-      <el-table-column prop="id" label="流水号" align="center" key="1"> </el-table-column>
-      <el-table-column prop="userName" width="120" sortable="custom" label="用户" align="center" key="2">
+    <el-table
+      :data="tableData"
+      style="width: 100%"
+      @sort-change="sortChange"
+      class="public-table"
+      border
+    >
+      <el-table-column prop="id" label="serial number" align="center" key="1">
+      </el-table-column>
+      <el-table-column
+        prop="userName"
+        width="120"
+        sortable="custom"
+        label="user"
+        align="center"
+        key="2"
+      >
         <template slot-scope="scope">
-          <p :style="{ color: scope.row.userType == 'INNER' ? 'red' : '#000' }">{{ scope.row.userId || "--" }}</p>
-          <p :style="{ color: scope.row.userType == 'INNER' ? 'red' : '#000' }">{{ scope.row.userName || "--" }}</p>
+          <p :style="{ color: scope.row.userType == 'INNER' ? 'red' : '#000' }">
+            {{ scope.row.userId || "--" }}
+          </p>
+          <p :style="{ color: scope.row.userType == 'INNER' ? 'red' : '#000' }">
+            {{ scope.row.userName || "--" }}
+          </p>
         </template>
       </el-table-column>
-      <el-table-column prop="sellCoin" label="卖出币种" align="center" key="3"> </el-table-column>
-      <el-table-column prop="sellNum" sortable="custom" label="卖出币数" align="center" key="4"> </el-table-column>
-      <el-table-column prop="realRate" sortable="custom" label="实际汇率" align="center" key="5"> </el-table-column>
-      <el-table-column prop="showRate" sortable="custom" label="展示汇率" align="center" key="6"> </el-table-column>
-      <el-table-column prop="buyCoin" label="买入币种" align="center" key="7"> </el-table-column>
-      <el-table-column prop="buyNum" sortable="custom" label="买入数量" align="center" key="8"> </el-table-column>
-      <el-table-column prop="fee" sortable="custom" label="手续费" align="center" key="9"> </el-table-column>
-      <el-table-column prop="feeCoin" label="手续费币种" align="center" key="10"> </el-table-column>
-      <el-table-column prop="flashPlaform" label="闪兑平台" align="center" key="11"> </el-table-column>
-      <el-table-column prop="flashPlaform" label="兑付价格" align="center" key="11">
+      <el-table-column prop="sellCoin" label="Currency" align="center" key="3">
+      </el-table-column>
+      <el-table-column
+        prop="sellNum"
+        sortable="custom"
+        label="Sell ​​currency"
+        align="center"
+        key="4"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="realRate"
+        sortable="custom"
+        label="Actual exchange rate"
+        align="center"
+        key="5"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="showRate"
+        sortable="custom"
+        label="Display exchange rate"
+        align="center"
+        key="6"
+      >
+      </el-table-column>
+      <el-table-column prop="buyCoin" label="Buy currency" align="center" key="7">
+      </el-table-column>
+      <el-table-column
+        prop="buyNum"
+        sortable="custom"
+        label="Purchase quantity"
+        align="center"
+        key="8"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="fee"
+        sortable="custom"
+        label="Handling fee"
+        align="center"
+        key="9"
+      >
+      </el-table-column>
+      <el-table-column prop="feeCoin" label="Fees" align="center" key="10">
+      </el-table-column>
+      <el-table-column
+        prop="flashPlaform"
+        label="Flashing platform"
+        align="center"
+        key="11"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="flashPlaform"
+        label="Redemption price"
+        align="center"
+        key="11"
+      >
         <template slot-scope="scope">
           {{ scope.row.userNum + " " + scope.row.userCoin }}
         </template>
       </el-table-column>
-      <el-table-column prop="flashPlaform" label="状态" align="center" key="11">
+      <el-table-column prop="flashPlaform" label="state" align="center" key="11">
         <template slot-scope="scope">
-          <p v-if="scope.row.flashStatus == 'TRUE'" style="color: #67c23a">成功</p>
-          <p v-else-if="scope.row.flashStatus == 'FAIL'" style="color: #f56c6c">失败</p>
-          <p v-else style="color: #e6a23c">挂起</p>
+          <p v-if="scope.row.flashStatus == 'TRUE'" style="color: #67c23a">success</p>
+          <p v-else-if="scope.row.flashStatus == 'FAIL'" style="color: #f56c6c">fail</p>
+          <p v-else style="color: #e6a23c">Hang up</p>
         </template>
       </el-table-column>
-      <el-table-column prop="flashPlaform" label="闪兑平台" align="center" key="11"> </el-table-column>
-      <el-table-column prop="plaformOrderId" label="平台订单ID" align="center" key="12"> </el-table-column>
-      <el-table-column prop="createTime" sortable="custom" label="交易时间" align="center" key="13">
+      <el-table-column
+        prop="flashPlaform"
+        label="Flashing platform"
+        align="center"
+        key="11"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="plaformOrderId"
+        label="Platform order ID"
+        align="center"
+        key="12"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="createTime"
+        sortable="custom"
+        label="transaction hour"
+        align="center"
+        key="13"
+      >
         <template slot-scope="scope">
           {{ timeForStr(scope.row.createTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
@@ -218,7 +347,7 @@ export default {
       };
 
       const urlStr = config.api + "/flash-manager/pageListExport";
-      exportExcel(urlStr, data, "闪兑管理导出");
+      exportExcel(urlStr, data, "Flashing Management Export");
     },
     handleSizeChange(val) {
       this.size = val;

@@ -3,37 +3,36 @@
     <el-table :data="tableData" style="width: 100%" class="public-table" border>
       <el-table-column
         prop="walletAddress"
-        label="地址"
+        label="address"
         align="center"
         show-overflow-tooltip
       ></el-table-column>
-      <el-table-column prop="chainType" label="链" align="center">
-      </el-table-column>
-      <el-table-column prop="balance" label="余额" align="center">
+      <el-table-column prop="chainType" label="chain" align="center"> </el-table-column>
+      <el-table-column prop="balance" label="Balance" align="center">
         <template slot-scope="scope">
           {{ scope.row.balance + scope.row.coin }}
         </template>
       </el-table-column>
-      <el-table-column prop="transferOutTotal" label="总转入" align="center">
+      <el-table-column prop="transferOutTotal" label="Always transfer" align="center">
         <template slot-scope="scope">
           {{ scope.row.transferInTotal || 0 + scope.row.coin }}
         </template>
       </el-table-column>
-      <el-table-column prop="totalConsumption" label="总消费" align="center">
+      <el-table-column prop="totalConsumption" label="Total consumption" align="center">
         <template slot-scope="scope">
           {{ scope.row.totalConsumption + scope.row.coin }}
         </template>
       </el-table-column>
-      <el-table-column prop="gasTotal" label="总GAS" align="center">
+      <el-table-column prop="gasTotal" label="Total Gas" align="center">
         <template slot-scope="scope">
           {{ scope.row.gasTotal + scope.row.coin }}
         </template>
       </el-table-column>
-      <el-table-column prop="traNumber" label="交易次数" align="center">
+      <el-table-column prop="traNumber" label="Number of transactions" align="center">
       </el-table-column>
-      <el-table-column prop="collNumber" label="归集数量" align="center">
+      <el-table-column prop="collNumber" label="Collect quantity" align="center">
       </el-table-column>
-      <el-table-column label="资产详情" align="center">
+      <el-table-column label="Asset details" align="center">
         <template slot-scope="scope">
           <chainExplorerSkip :chain="scope.row.chainType" hash="" />
         </template>

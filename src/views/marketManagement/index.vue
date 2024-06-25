@@ -1,23 +1,55 @@
 <template>
   <div class="page-wrapper">
     <div class="public-list-inputs">
-      <el-input class="public-input" style="width: 220px" placeholder="输入ID、名称" v-model="Id" clearable />
-      <el-input class="public-input" style="width: 220px" placeholder="输入市场名称" v-model="marketName" clearable />
-      <el-select v-model="marketStatus" class="public-select-box" popper-class="public-select-box" placeholder="全部状态" clearable>
-        <el-option label="封停" value="DISABLE"> </el-option>
-        <el-option label="正常" value="NORMAL"> </el-option>
+      <el-input
+        class="public-input"
+        style="width: 220px"
+        placeholder="Enter ID, name"
+        v-model="Id"
+        clearable
+      />
+      <el-input
+        class="public-input"
+        style="width: 220px"
+        placeholder="Enter the market name"
+        v-model="marketName"
+        clearable
+      />
+      <el-select
+        v-model="marketStatus"
+        class="public-select-box"
+        popper-class="public-select-box"
+        placeholder="All states"
+        clearable
+      >
+        <el-option label="Stop" value="DISABLE"> </el-option>
+        <el-option label="normal" value="NORMAL"> </el-option>
       </el-select>
-      <el-button type="primary" icon="el-icon-search" class="public-search" @click="fetchMarketManagerList()"> 查询 </el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-search"
+        class="public-search"
+        @click="fetchMarketManagerList()"
+      >
+        Inquire
+      </el-button>
     </div>
     <el-table :data="tableData" style="width: 100%" class="public-table" border>
-      <el-table-column prop="id" label="市场ID" align="center" key="1"> </el-table-column>
-      <el-table-column prop="marketName" label="市场名称" align="center" key="2"> </el-table-column>
-      <el-table-column prop="chainName" label="所在链" align="center" key="3"> </el-table-column>
-      <el-table-column prop="contractAddress" label="合约" align="center" key="4"> </el-table-column>
-      <el-table-column prop="id" label="操作" align="center" width="110" key="17">
+      <el-table-column prop="id" label="Market ID" align="center" key="1">
+      </el-table-column>
+      <el-table-column prop="marketName" label="Market name" align="center" key="2">
+      </el-table-column>
+      <el-table-column prop="chainName" label="Chain" align="center" key="3">
+      </el-table-column>
+      <el-table-column prop="contractAddress" label="contract" align="center" key="4">
+      </el-table-column>
+      <el-table-column prop="id" label="operate" align="center" width="110" key="17">
         <template slot-scope="scope">
-          <span class="blueColor publick-button cursor" @click="operatingMarket(scope.row)">
-            {{ scope.row.marketStatus == "DISABLE" ? "解禁" : "冻结" }}
+          <span
+            class="blueColor publick-button cursor"
+            @click="operatingMarket(scope.row)"
+          >
+            {{ scope.row.marketStatus == "DISABLE" ? "Ban" : "freeze" }}
           </span>
         </template>
       </el-table-column>
@@ -83,11 +115,17 @@ export default {
     },
     // 冻结/解禁
     operatingMarket(row) {
-      this.$confirm(`确定要${row.marketStatus == "DISABLE" ? "解禁" : "冻结"}市场『${row.marketName || row.id}』吗?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "info",
-      })
+      this.$confirm(
+        `Determine${row.marketStatus == "DISABLE" ? "Ban" : "freeze"} market『${
+          row.marketName || row.id
+        }』?`,
+        "hint",
+        {
+          confirmButtonText: "Sure",
+          cancelButtonText: "Cancel",
+          type: "info",
+        }
+      )
         .then(async () => {
           let res = null;
           if (row.marketStatus == "DISABLE") {
@@ -103,7 +141,7 @@ export default {
           }
           if (res) {
             this.fetchMarketManagerList();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {

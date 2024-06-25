@@ -1,94 +1,188 @@
 <template>
   <div class="page-wrapper">
     <div class="public-list-inputs">
-      <el-input class="public-input" style="width: 140px;" placeholder="输入流水号" v-model="Id" clearable />
-      <el-input class="public-input" style="width: 140px;" placeholder="输入用户ID" v-model="userId" clearable />
-      <el-select v-model="flowSource" class="public-select-box" popper-class="public-select-box" placeholder="全部来源"
-        clearable>
-        <el-option label="注册" value="REG">
-        </el-option>
-        <el-option label="消费" value="CONSUME">
-        </el-option>
-        <el-option label="邀请" value="INVITE">
-        </el-option>
-        <el-option label="下级消费" value="DOWN_CONSUME">
-        </el-option>
+      <el-input
+        class="public-input"
+        style="width: 140px"
+        placeholder="Enter flowing water number"
+        v-model="Id"
+        clearable
+      />
+      <el-input
+        class="public-input"
+        style="width: 140px"
+        placeholder="Enter user ID"
+        v-model="userId"
+        clearable
+      />
+      <el-select
+        v-model="flowSource"
+        class="public-select-box"
+        popper-class="public-select-box"
+        placeholder="All sources"
+        clearable
+      >
+        <el-option label="注册" value="REG"> </el-option>
+        <el-option label="消费" value="CONSUME"> </el-option>
+        <el-option label="邀请" value="INVITE"> </el-option>
+        <el-option label="下级消费" value="DOWN_CONSUME"> </el-option>
       </el-select>
       <div class="public-date-box">
-        <span class="demonstration">
-          账变时间
-        </span>
-        <el-date-picker v-model="changeTime" type="datetimerange" range-separator="到" start-placeholder="开始时间"
-          end-placeholder="结束时间">
+        <span class="demonstration"> Account change time </span>
+        <el-date-picker
+          v-model="changeTime"
+          type="datetimerange"
+          range-separator="到"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
+        >
         </el-date-picker>
       </div>
-      <el-button type="primary" icon="el-icon-search" class="public-search" @click="fetchAssetPointFlowList()">
-        查询
+      <el-button
+        type="primary"
+        icon="el-icon-search"
+        class="public-search"
+        @click="fetchAssetPointFlowList()"
+      >
+        Inquire
       </el-button>
-      <el-button type="primary" icon="el-icon-download" class="public-search" @click="onExport()">
-        导出
+      <el-button
+        type="primary"
+        icon="el-icon-download"
+        class="public-search"
+        @click="onExport()"
+      >
+        Export
       </el-button>
     </div>
     <div class="remittance-box">
       <div class="remittance-amount remittance-more">
         <div class="remittance-item">
-          <div class="title">总流水数</div>
+          <div class="title">Total flowing water</div>
           <div class="val">{{ aggregateQuery && aggregateQuery.flowNumberTotal }}</div>
         </div>
         <div class="remittance-item">
-          <div class="title">总积分产出</div>
+          <div class="title">Total points are produced</div>
           <div class="val">{{ aggregateQuery && aggregateQuery.pointOutputTotal }}</div>
         </div>
       </div>
     </div>
-    <el-table :data="tableData" style="width: 100%" @sort-change="sortChange" class="public-table" border>
-      <el-table-column prop="id" sortable="custom" label="流水号" align="center" key="1">
+    <el-table
+      :data="tableData"
+      style="width: 100%"
+      @sort-change="sortChange"
+      class="public-table"
+      border
+    >
+      <el-table-column
+        prop="id"
+        sortable="custom"
+        label="serial number"
+        align="center"
+        key="1"
+      >
       </el-table-column>
-      <el-table-column prop="userName" sortable="custom" width="120" label="用户" align="center" key="2">
+      <el-table-column
+        prop="userName"
+        sortable="custom"
+        width="120"
+        label="user"
+        align="center"
+        key="2"
+      >
         <template slot-scope="scope">
-          <p :style="{ color: scope.row.userType == 'INNER' ? 'red' : '#000' }">{{ scope.row.userId || '--' }}</p>
-          <p :style="{ color: scope.row.userType == 'INNER' ? 'red' : '#000' }">{{ scope.row.userName || '--' }}</p>
+          <p :style="{ color: scope.row.userType == 'INNER' ? 'red' : '#000' }">
+            {{ scope.row.userId || "--" }}
+          </p>
+          <p :style="{ color: scope.row.userType == 'INNER' ? 'red' : '#000' }">
+            {{ scope.row.userName || "--" }}
+          </p>
         </template>
       </el-table-column>
-      <el-table-column prop="flowSource" sortable="custom" label="来源" align="center" key="3">
+      <el-table-column
+        prop="flowSource"
+        sortable="custom"
+        label="来源"
+        align="center"
+        key="3"
+      >
         <template slot-scope="scope">
-          <span v-if="scope.row.flowSource == 'REG'">注册</span>
-          <span v-if="scope.row.flowSource == 'CONSUME'">消费</span>
-          <span v-if="scope.row.flowSource == 'INVITE'">邀请</span>
-          <span v-if="scope.row.flowSource == 'DOWN_CONSUME'">下级消费</span>
+          <span v-if="scope.row.flowSource == 'REG'">register</span>
+          <span v-if="scope.row.flowSource == 'CONSUME'">Consumption</span>
+          <span v-if="scope.row.flowSource == 'INVITE'">invite</span>
+          <span v-if="scope.row.flowSource == 'DOWN_CONSUME'"
+            >Lower -level consumption</span
+          >
         </template>
       </el-table-column>
-      <el-table-column prop="downId" sortable="custom" label="下级ID" align="center" key="4">
+      <el-table-column
+        prop="downId"
+        sortable="custom"
+        label="Lower ID"
+        align="center"
+        key="4"
+      >
       </el-table-column>
-      <el-table-column prop="orderNumber" label="交易单号" align="center" key="5">
+      <el-table-column
+        prop="orderNumber"
+        label="Transaction number number"
+        align="center"
+        key="5"
+      >
       </el-table-column>
-      <el-table-column prop="changePoint" sortable="custom" label="数量" align="center" key="6">
+      <el-table-column
+        prop="changePoint"
+        sortable="custom"
+        label="quantity"
+        align="center"
+        key="6"
+      >
       </el-table-column>
-      <el-table-column prop="totalPoint" sortable="custom" label="总积分" align="center" key="7">
+      <el-table-column
+        prop="totalPoint"
+        sortable="custom"
+        label="total points"
+        align="center"
+        key="7"
+      >
       </el-table-column>
-      <el-table-column prop="createTime" sortable="custom" label="账变时间" align="center" key="8">
+      <el-table-column
+        prop="createTime"
+        sortable="custom"
+        label="Account change time"
+        align="center"
+        key="8"
+      >
         <template slot-scope="scope">
-          {{ timeForStr(scope.row.createTime, 'YYYY-MM-DD HH:mm:ss') }}
+          {{ timeForStr(scope.row.createTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination v-if="baseUserPage && baseUserPage.total" background @size-change="handleSizeChange"
-      @current-change="handleCurrentChange" :current-page="page" :page-sizes="pagination.pageSizes" :page-size="size"
-      layout=" sizes, prev, pager, next, jumper" :total="baseUserPage.total" class="public-pagination">
+    <el-pagination
+      v-if="baseUserPage && baseUserPage.total"
+      background
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="page"
+      :page-sizes="pagination.pageSizes"
+      :page-size="size"
+      layout=" sizes, prev, pager, next, jumper"
+      :total="baseUserPage.total"
+      class="public-pagination"
+    >
     </el-pagination>
   </div>
 </template>
 
 <script>
 import bigNumber from "bignumber.js";
-import { timeForStr, exportExcel } from '@/utils';
-import pagination from '@/mixins/pagination';
+import { timeForStr, exportExcel } from "@/utils";
+import pagination from "@/mixins/pagination";
 import config from "@/config/env";
 export default {
-  name: 'IntegralTurnover',
+  name: "IntegralTurnover",
   // 模板引入
-  components: {
-  },
+  components: {},
   // 数据
   data() {
     return {
@@ -98,13 +192,13 @@ export default {
       changeTime: null, // 账变时间
       sortData: {
         orderBy: null,
-        orderType: null
+        orderType: null,
       },
       page: 1,
       size: 20,
       tableData: null,
       baseUserPage: null,
-      aggregateQuery: null
+      aggregateQuery: null,
     };
   },
   mixins: [pagination],
@@ -118,10 +212,10 @@ export default {
       let startTime = null;
       let endTime = null;
       if (changeTime && changeTime[0]) {
-        startTime = timeForStr(changeTime[0], 'YYYY-MM-DD HH:mm:ss');
+        startTime = timeForStr(changeTime[0], "YYYY-MM-DD HH:mm:ss");
       }
       if (changeTime && changeTime[1]) {
-        endTime = timeForStr(changeTime[1], 'YYYY-MM-DD HH:mm:ss');
+        endTime = timeForStr(changeTime[1], "YYYY-MM-DD HH:mm:ss");
       }
 
       return {
@@ -129,7 +223,7 @@ export default {
         userId: this.userId, // 用户ID
         flowSource: this.flowSource, // 来源
         startTime,
-        endTime
+        endTime,
       };
     },
     /**
@@ -179,17 +273,17 @@ export default {
     // 列表导出
     onExport() {
       const search = this.searchFun();
-      const urlStr = config.api + '/asset-point-flow/exportExcel';
+      const urlStr = config.api + "/asset-point-flow/exportExcel";
       const { coin, userType } = this;
       const data = {
         ...{
           coin: coin,
-          userType: userType
+          userType: userType,
         },
         ...search,
       };
 
-      exportExcel(urlStr, data, "积分流水导出")
+      exportExcel(urlStr, data, "Confatting water export");
     },
     handleSizeChange(val) {
       this.size = val;
@@ -213,11 +307,11 @@ export default {
     },
   },
   // 挂载后
-  mounted() { },
+  mounted() {},
   // 更新后
-  updated() { },
+  updated() {},
   // 销毁
-  beforeDestroy() { },
+  beforeDestroy() {},
 };
 </script>
 
@@ -242,7 +336,7 @@ export default {
     padding-bottom: 0;
   }
 
-  &>div {
+  & > div {
     min-width: 200px;
   }
 }

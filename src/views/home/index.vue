@@ -1,12 +1,31 @@
 <template>
   <div class="report-box">
     <card></card>
-    <dataChart class="mg" :typeList="goldFlowSearch" @change="changeTypeCash" :dataList="goldFlowDataList" defaultTime="TWENTYFOURHOUR">
-      金流监测
+    <dataChart
+      class="mg"
+      :typeList="goldFlowSearch"
+      @change="changeTypeCash"
+      :dataList="goldFlowDataList"
+      defaultTime="TWENTYFOURHOUR"
+    >
+      Golden current monitoring
     </dataChart>
-    <dataChart class="mg" :typeList="dataDrawSearch" :dataList="dataDrawDataList" @change="changeTypeChart"> 数据图表 </dataChart>
-    <dataChart class="mg" :typeList="retainedSearch" :dataList="retainedDataList" :tooltip="retainedChartTooltip" @change="changeTypeKeep">
-      留存数据
+    <dataChart
+      class="mg"
+      :typeList="dataDrawSearch"
+      :dataList="dataDrawDataList"
+      @change="changeTypeChart"
+    >
+      Data chart
+    </dataChart>
+    <dataChart
+      class="mg"
+      :typeList="retainedSearch"
+      :dataList="retainedDataList"
+      :tooltip="retainedChartTooltip"
+      @change="changeTypeKeep"
+    >
+      Retain data
     </dataChart>
     <div class="mg flex">
       <registerChart class="register-chart"></registerChart>
@@ -47,23 +66,23 @@ export default {
   data() {
     return {
       goldFlowSearch: [
-        { type: "BALANCE", name: "余额" },
-        { type: "POINT", name: "积分" },
+        { type: "BALANCE", name: "Balance" },
+        { type: "POINT", name: "integral" },
       ],
       goldFlowDataList: [],
       dataDrawSearch: [
-        { type: "PEOPLES", name: "人数" },
-        { type: "RECHARGE", name: "充值" },
-        { type: "CONSUME", name: "消费" },
-        { type: "REVENUE", name: "收入" },
-        { type: "WITHDRAWALS", name: "提款" },
+        { type: "PEOPLES", name: "Number of people" },
+        { type: "RECHARGE", name: "top up" },
+        { type: "CONSUME", name: "Consumption" },
+        { type: "REVENUE", name: "income" },
+        { type: "WITHDRAWALS", name: "Withdraw" },
       ],
       dataDrawDataList: [],
       retainedSearch: [
-        { type: "CILIU", name: "次留" },
-        { type: "SEVEN", name: "7日" },
-        { type: "FOURTEEN", name: "14日" },
-        { type: "THIRTY", name: "30日" },
+        { type: "CILIU", name: "Stay" },
+        { type: "SEVEN", name: "The 7th" },
+        { type: "FOURTEEN", name: "14th" },
+        { type: "THIRTY", name: "30 days" },
       ],
       coin: ["ETH", "USDT", "WETH", "OKT"],
       retainedDataList: [],
@@ -105,7 +124,11 @@ export default {
         assetType = data.type;
         timeLimit = data.day;
       }
-      const res = await this.$http.getHomeCashFlowDetection({ assetType, timeLimit, userType: this.userType });
+      const res = await this.$http.getHomeCashFlowDetection({
+        assetType,
+        timeLimit,
+        userType: this.userType,
+      });
       if (res) {
         const formatRes = this.dataFormat(res);
         const newArray = [];
@@ -133,7 +156,11 @@ export default {
         type = data.type;
         timeLimit = data.day;
       }
-      const res = await this.$http.getHomeDataChart({ type, timeLimit, userType: this.userType });
+      const res = await this.$http.getHomeDataChart({
+        type,
+        timeLimit,
+        userType: this.userType,
+      });
       if (res) {
         if (type == this.dataDrawSearch[0].type) {
           const newArray = [];
@@ -143,16 +170,16 @@ export default {
                 const newObject = {
                   type:
                     key === "recharge"
-                      ? "充值"
+                      ? "top up"
                       : key === "consume"
-                      ? "消费"
+                      ? "Consumption"
                       : key === "login"
-                      ? "登录"
+                      ? "Log in"
                       : key === "register"
-                      ? "注册"
+                      ? "register"
                       : key === "withdrawals"
-                      ? "提款"
-                      : "其他",
+                      ? "Withdraw"
+                      : "other",
                   value: obj[key],
                   time: obj.time,
                 };
@@ -168,7 +195,7 @@ export default {
             for (let key in obj) {
               if (key !== "time") {
                 const newObject = {
-                  type: key === "totalAmount" ? "总计" : key,
+                  type: key === "totalAmount" ? "total" : key,
                   value: obj[key],
                   time: obj.time,
                 };
@@ -188,11 +215,15 @@ export default {
         retainedDimension = data.type;
         timeLimit = data.day;
       }
-      const res = await this.$http.getHomeRetainedData({ retainedDimension, timeLimit, userType: this.userType });
+      const res = await this.$http.getHomeRetainedData({
+        retainedDimension,
+        timeLimit,
+        userType: this.userType,
+      });
       if (res) {
         this.retainedDataList = res.map((x) => {
           let obj = {
-            type: "留存比例",
+            type: "Retain",
             value: x.proportion,
             time: x.dayTime,
             ...x,
@@ -208,15 +239,15 @@ export default {
                   <p class="tool-tip-title">${data.time}</p>
                   <ul>
                     <li>
-                      <p class="label">留存：</p>
+                      <p class="label">Reserve:</p>
                       <p class="label">${data.value + "%"}</p>
                     </li>
                     <li>
-                      <p class="label">注册人数：</p>
+                      <p class="label">Number of registered people:</p>
                       <p class="label">${data.registerNum}</p>
                     </li>
                     <li>
-                      <p class="label">登录人数：</p>
+                      <p class="label">Number of login:</p>
                       <p class="label">${data.loginNum}</p>
                     </li>
                   </ul>

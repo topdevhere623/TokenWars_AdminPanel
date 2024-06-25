@@ -2,24 +2,34 @@
   <div class="page-wrapper">
     <el-table :data="tableData" style="width: 100%" class="public-table" border>
       <el-table-column prop="id" label="ID" align="center" key="1"> </el-table-column>
-      <el-table-column prop="channelName" label="渠道名" align="center" key="5"> </el-table-column>
-      <el-table-column prop="gasWalletAddress" label="手续费比例" align="center">
+      <el-table-column prop="channelName" label="Channel name" align="center" key="5">
+      </el-table-column>
+      <el-table-column prop="gasWalletAddress" label="Proportion of fees" align="center">
         <template slot-scope="scope">
-          <p>{{scope.row.fee*100}}%</p>
+          <p>{{ scope.row.fee * 100 }}%</p>
         </template>
       </el-table-column>
       <el-table-column prop="gasWalletAddress" label="状态" align="center">
         <template slot-scope="scope">
-          <p v-if="scope.row.status == 'TRUE'" style="color: #67c23a">启用</p>
-          <p v-else style="color: #f56c6c">禁用</p>
+          <p v-if="scope.row.status == 'TRUE'" style="color: #67c23a">Open up</p>
+          <p v-else style="color: #f56c6c">Disable</p>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" key="15">
         <template slot-scope="scope">
-          <span class="blueColor publick-button cursor" @click="operatingFunc(scope.row, 'close')" v-if="scope.row.status == 'TRUE'">
-            禁用
+          <span
+            class="blueColor publick-button cursor"
+            @click="operatingFunc(scope.row, 'close')"
+            v-if="scope.row.status == 'TRUE'"
+          >
+            Disable
           </span>
-          <span class="blueColor publick-button cursor" @click="operatingFunc(scope.row, 'open')" v-else>启用 </span>
+          <span
+            class="blueColor publick-button cursor"
+            @click="operatingFunc(scope.row, 'open')"
+            v-else
+            >Open up
+          </span>
         </template>
       </el-table-column>
     </el-table>
@@ -52,16 +62,19 @@ export default {
       }
     },
     operatingFunc(row, type) {
-      this.$confirm(`确定要${type == "open" ? `启用` : "停用"}吗?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(`Determine${type == "open" ? `Open up` : "Stop"}?`, "hint", {
+        confirmButtonText: "Sure",
+        cancelButtonText: "Cancel",
         type: "warning",
       })
         .then(async () => {
-          let res = await this.$http.setLegalupdateStatus({ id: row.id, status: type == "open" ? true : false });
+          let res = await this.$http.setLegalupdateStatus({
+            id: row.id,
+            status: type == "open" ? true : false,
+          });
           if (res) {
             this.getTableList();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {

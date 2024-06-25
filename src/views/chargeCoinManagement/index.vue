@@ -1,29 +1,48 @@
 <template>
   <div class="page-wrapper">
     <el-table :data="tableData" style="width: 100%" class="public-table" border>
-      <el-table-column prop="id" label="币ID" align="center" key="1"> </el-table-column>
-      <el-table-column prop="img" label="图标" width="120px" align="center" key="2">
+      <el-table-column prop="id" label="Currency ID" align="center" key="1">
+      </el-table-column>
+      <el-table-column prop="img" label="icon" width="120px" align="center" key="2">
         <template slot-scope="scope">
           <div style="width: 40px; height: 40px">
-            <el-image style="height: 100%" :src="scope.row.img" :preview-src-list="[scope.row.img]"> </el-image>
+            <el-image
+              style="height: 100%"
+              :src="scope.row.img"
+              :preview-src-list="[scope.row.img]"
+            >
+            </el-image>
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="coinName" label="币种名" align="center" key="3"> </el-table-column>
-      <el-table-column prop="chainName" label="支持链" align="center" key="5"> </el-table-column>
-      <el-table-column prop="gasWalletAddress" label="状态" align="center">
+      <el-table-column prop="coinName" label="Currency name" align="center" key="3">
+      </el-table-column>
+      <el-table-column prop="chainName" label="Support chain" align="center" key="5">
+      </el-table-column>
+      <el-table-column prop="gasWalletAddress" label="state" align="center">
         <template slot-scope="scope">
-          <p v-if="scope.row.isDisable == false" style="color: #67c23a">启用</p>
-          <p v-else style="color: #f56c6c">禁用</p>
+          <p v-if="scope.row.isDisable == false" style="color: #67c23a">Open up</p>
+          <p v-else style="color: #f56c6c">Disable</p>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" key="15">
+      <el-table-column label="operate" align="center" key="15">
         <template slot-scope="scope">
-          <span class="blueColor publick-button cursor" @click="handleEdit(scope.row)">编辑</span>
-          <span class="blueColor publick-button cursor" @click="operatingFunc(scope.row, 'close')" v-if="scope.row.isDisable == false">
-            禁用
+          <span class="blueColor publick-button cursor" @click="handleEdit(scope.row)"
+            >edit</span
+          >
+          <span
+            class="blueColor publick-button cursor"
+            @click="operatingFunc(scope.row, 'close')"
+            v-if="scope.row.isDisable == false"
+          >
+            Disable
           </span>
-          <span class="blueColor publick-button cursor" @click="operatingFunc(scope.row, 'open')" v-else>启用 </span>
+          <span
+            class="blueColor publick-button cursor"
+            @click="operatingFunc(scope.row, 'open')"
+            v-else
+            >Open up
+          </span>
         </template>
       </el-table-column>
     </el-table>
@@ -42,17 +61,23 @@
     </el-pagination>
     <el-dialog
       v-if="showDialog"
-      title="编辑币种"
+      title="Editor"
       :visible.sync="showDialog"
       width="740px"
       :close-on-click-modal="false"
       :before-close="handleClose"
     >
-      <el-form ref="ruleForm" class="add-form" :rules="rules" :model="ruleForm" label-width="60px">
-        <el-form-item label="代币">
+      <el-form
+        ref="ruleForm"
+        class="add-form"
+        :rules="rules"
+        :model="ruleForm"
+        label-width="60px"
+      >
+        <el-form-item label="Token">
           <p style="line-height: 28px">{{ row.coinName }}</p>
         </el-form-item>
-        <el-form-item label="图标" prop="img" :rules="rules.select">
+        <el-form-item label="icon" prop="img" :rules="rules.select">
           <el-upload
             :action="uploadUrl"
             :class="{ hide: hideUpload }"
@@ -73,41 +98,67 @@
         </el-form-item>
       </el-form>
       <el-table :data="ruleForm?.chainList" style="width: 100%" border>
-        <el-table-column prop="chainName" label="链" align="center" key="1"> </el-table-column>
-        <el-table-column prop="minPrice" label="默认归集阈值" align="center" key="2">
+        <el-table-column prop="chainName" label="chain" align="center" key="1">
+        </el-table-column>
+        <el-table-column
+          prop="minPrice"
+          label="The default collection threshold"
+          align="center"
+          key="2"
+        >
           <template slot-scope="scope">
-            <el-input v-model="scope.row.minPrice" type="number" autocomplete="off" class="danger"></el-input>
+            <el-input
+              v-model="scope.row.minPrice"
+              type="number"
+              autocomplete="off"
+              class="danger"
+            ></el-input>
           </template>
         </el-table-column>
-        <el-table-column prop="minimumWithdrawalAmount" label="强制归集阈值" align="center" key="3">
+        <el-table-column
+          prop="minimumWithdrawalAmount"
+          label="Compulsory collection threshold"
+          align="center"
+          key="3"
+        >
           <template slot-scope="scope">
-            <el-input v-model="scope.row.minimumWithdrawalAmount" type="number" autocomplete="off" class="danger"></el-input>
+            <el-input
+              v-model="scope.row.minimumWithdrawalAmount"
+              type="number"
+              autocomplete="off"
+              class="danger"
+            ></el-input>
           </template>
         </el-table-column>
         <el-table-column prop="gas" label="gas" align="center" key="4"> </el-table-column>
-        <el-table-column prop="id" label="状态" align="center" key="5">
+        <el-table-column prop="id" label="state" align="center" key="5">
           <template slot-scope="scope">
-            <p v-if="scope.row.isDisplay == false" style="color: #67c23a">已启用</p>
-            <p v-else style="color: #f56c6c">已停止</p>
+            <p v-if="scope.row.isDisplay == false" style="color: #67c23a">activated</p>
+            <p v-else style="color: #f56c6c">stopped</p>
           </template>
         </el-table-column>
-        <el-table-column prop="assetBalance" label="操作" align="center" key="6">
+        <el-table-column prop="assetBalance" label="operate" align="center" key="6">
           <template slot-scope="scope">
             <span
               class="blueColor publick-button cursor"
               @click="saveFunc(scope.row, 'close', scope.$index)"
               v-if="scope.row.isDisplay == false"
             >
-              停用
+              Stop
             </span>
-            <span class="blueColor publick-button cursor" @click="saveFunc(scope.row, 'open', scope.$index)" v-else>启用 </span>
+            <span
+              class="blueColor publick-button cursor"
+              @click="saveFunc(scope.row, 'open', scope.$index)"
+              v-else
+              >Open up
+            </span>
           </template>
         </el-table-column>
       </el-table>
 
       <span slot="footer" class="dialog-footer">
-        <el-button @click="handleClose()">取 消</el-button>
-        <el-button type="primary" @click="submitForm()">确 定</el-button>
+        <el-button @click="handleClose()">Cancel</el-button>
+        <el-button type="primary" @click="submitForm()">Sure</el-button>
       </span>
     </el-dialog>
   </div>
@@ -141,8 +192,10 @@ export default {
       },
       ruleForm: {},
       rules: {
-        select: [{ required: true, message: "请选择", trigger: ["blur", "change"] }],
-        blur: [{ required: true, message: "请输入", trigger: ["blur", "change"] }],
+        select: [
+          { required: true, message: "please choose", trigger: ["blur", "change"] },
+        ],
+        blur: [{ required: true, message: "please enter", trigger: ["blur", "change"] }],
       },
       chainList: chainList,
     };
@@ -184,9 +237,9 @@ export default {
     },
     // 删除
     handleDel(row) {
-      this.$confirm(`确定要删除系列『${row.seriesName || row.id}』吗?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(`Are you sure to delete the series "${row.seriesname || row.id}"?`, {
+        confirmButtonText: "Sure",
+        cancelButtonText: "Cancel",
         type: "info",
       })
         .then(async () => {
@@ -195,7 +248,7 @@ export default {
           });
           if (res) {
             this.getTableList();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {
@@ -219,13 +272,13 @@ export default {
         this.ruleForm.img = res.data;
         return;
       }
-      this.$message.error("上传失败");
+      this.$message.error("upload failed");
     },
     handleBefore(file) {
       const _this = this;
       const is1M = file.size / 1024 / 1024 < 2; // 限制小于2M
       if (!is1M) {
-        _this.$message.error("文件过大，文件大小小于2M");
+        _this.$message.error("The file is too large, and the file size is less than 2M");
       }
       return is1M;
     },
@@ -237,7 +290,7 @@ export default {
       this.fileImg = [];
     },
     handExceed(fiel) {
-      this.$message.error("文件只能上传一个");
+      this.$message.error("File can only upload one");
     },
     setFun(row) {},
     // 提交
@@ -245,7 +298,7 @@ export default {
       this.$refs.ruleForm.validate(async (valid) => {
         if (valid) {
           if (this.fileImg.length == 0) {
-            this.$message.error("请上传图片！");
+            this.$message.error("Please upload the picture!");
             return;
           }
 
@@ -258,7 +311,7 @@ export default {
           if (res) {
             this.handleClose();
             this.$refs["ruleForm"].resetFields();
-            this.$message.success("操作成功！");
+            this.$message.success("Successful operation!");
             this.getTableList();
             this.fileImg = [];
           }
@@ -277,9 +330,9 @@ export default {
       this.getTableList(false);
     },
     saveFunc(row, type, index) {
-      this.$confirm(`确定要${type == "open" ? `启用` : "停用"}吗?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(`Determine${type == "open" ? `Open up` : "Stop"}?`, "hint", {
+        confirmButtonText: "Sure",
+        cancelButtonText: "Cancel",
         type: "warning",
       })
         .then(async () => {
@@ -291,7 +344,7 @@ export default {
           let res = await this.$http.transferCoinUpdate({ ...ruleForm });
           if (res) {
             this.getTableList();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {
@@ -299,16 +352,19 @@ export default {
         });
     },
     operatingFunc(row, type) {
-      this.$confirm(`确定要${type == "open" ? `启用` : "停用"}吗?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(`Determine${type == "open" ? `Open up` : "Stop"}?`, "hint", {
+        confirmButtonText: "Sure",
+        cancelButtonText: "Cancel",
         type: "warning",
       })
         .then(async () => {
-          let res = await this.$http.transferCoinModifyState({ coin: row.coinName, isDisable: type == "open" ? false : true });
+          let res = await this.$http.transferCoinModifyState({
+            coin: row.coinName,
+            isDisable: type == "open" ? false : true,
+          });
           if (res) {
             this.getTableList();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {
@@ -324,7 +380,7 @@ export default {
       });
       if (res) {
         this.getTableListFunc(false);
-        this.$message.success("操作成功");
+        this.$message.success("Successful operation");
       }
     },
   },

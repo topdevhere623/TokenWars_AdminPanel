@@ -1,10 +1,10 @@
 <template>
   <div class="page-wrapper">
     <el-tabs tab-position="left">
-      <el-tab-pane label="基础配置">
+      <el-tab-pane label="Basic configuration">
         <div class="points-settings">
           <div class="setting-item">
-            <div class="setting-title">注册拉新开始时间</div>
+            <div class="setting-title">Register and pull new start time</div>
             <div class="setting-val">
               <el-date-picker
                 class="public-input"
@@ -12,17 +12,17 @@
                 value-format="yyyy-MM-dd HH:mm:ss"
                 v-model="points.regCountdownTime"
                 type="datetime"
-                placeholder="Select time"
+                placeholder="select time"
               />
             </div>
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>下级佣金比例</span>
+              <span>Sub -commission ratio</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="下级消费后给上级返佣的基础比例，本质上是流水*流水佣金比例*"
+                content="the basic proportion of returning commission returns after subordinates after consumption is essentially flowing water*Flowing commission ratio*"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -33,7 +33,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入下级佣金比例"
+                placeholder="enter the proportion of subordinates commissions"
                 v-model="points.downCommissionRate"
                 clearable
               >
@@ -43,11 +43,14 @@
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>下级空投积分额外比例</span>
+              <span
+                >The additional proportion of the lower -level air investment
+                accumulation</span
+              >
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="成功邀请后下级给上级返的积分比例"
+                content="successful invitation to return to the superiors to return to the superiors"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -58,7 +61,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入下级空投积分额外比例"
+                placeholder="Enter the additional proportion of the lower air investment accumulation"
                 v-model="points.downPointRate"
                 clearable
               >
@@ -68,11 +71,11 @@
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>消费积分系数</span>
+              <span>Consumption integration coefficient</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="消费产生积分的系数，现在好像没用了"
+                content="The coefficient of consumption produces points, it seems useless now"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -83,7 +86,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入消费积分系数"
+                placeholder="Enter the consumption integration coefficient"
                 v-model="points.consumePointRate"
                 clearable
               >
@@ -93,11 +96,11 @@
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>流水佣金比例</span>
+              <span>Flow commission ratio</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="与下级佣金比例搭配，此处含义其实就是庄家优势"
+                content="With the proportion of commissions in the lower level, the meaning here is actually the advantage of the dealer"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -108,7 +111,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入流水佣金比率"
+                placeholder="Input flow commission ratio"
                 v-model="points.flowCommissionRate"
                 clearable
               >
@@ -118,11 +121,11 @@
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>联系客服名称</span>
+              <span>Contact customer service name</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="提款限制时弹窗显示的客服名称"
+                content="The customer service name displayed in the pop -up window when the withdrawal is limited"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -132,7 +135,7 @@
               <el-input
                 class="public-input"
                 style="width: 300px"
-                placeholder="输入联系客服名称"
+                placeholder="Enter contact customer service name"
                 v-model="points.customerName"
                 clearable
               >
@@ -141,11 +144,11 @@
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>联系客服链接</span>
+              <span>Contact customer service link</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="提款限制和余额界面联系客服的链接"
+                content="Links to customer service for withdrawal restrictions and balance interfaces"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -155,7 +158,7 @@
               <el-input
                 class="public-input"
                 style="width: 300px"
-                placeholder="输入客服链接"
+                placeholder="Enter customer service link"
                 v-model="points.customerLink"
                 clearable
               >
@@ -164,11 +167,11 @@
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>landingPage跳转链接</span>
+              <span>LANDINGPAGE jump link link</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="从landingpage注册后自动跳转的页面"
+                content="Page automatically jumping after registering from LandingPage"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -178,7 +181,7 @@
               <el-input
                 class="public-input"
                 style="width: 300px"
-                placeholder="输入landingPage跳转链接"
+                placeholder="Enter LANDINGPAGE jump link link"
                 v-model="points.jumpAddress"
                 clearable
               >
@@ -190,11 +193,11 @@
             style="width: 160px"
             size="medium"
             @click="submitPoints()"
-            >确认修改</el-button
+            >Confirm the changes</el-button
           >
         </div>
       </el-tab-pane>
-      <el-tab-pane label="提款配置">
+      <el-tab-pane label="Withdrawal configuration">
         <div class="withdrawal-settings">
           <!-- <div class="setting-item">
         <div class="setting-title">代币提现手续费</div>
@@ -203,7 +206,7 @@
             class="public-input"
             type="number"
             style="width: 300px"
-            placeholder="输入代币提现手续费"
+            placeholder="Enter tokens withdrawal fees"
             v-model="withdrawals.withdrawalFees"
             clearable
           >
@@ -213,11 +216,11 @@
       </div> -->
           <div class="setting-item">
             <div class="setting-title">
-              <span>最低提款金额</span>
+              <span>Minimum withdrawal amount</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="这里设置最低提款金额，必须高于此金额且高于GAS费才能提款，0为不限制"
+                content="The minimum withdrawal amount is set here, which must be higher than this amount and higher than the GAS fee to withdraw money. 0 is not limited"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -228,7 +231,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入最低提款金额"
+                placeholder="Enter the minimum withdrawal amount"
                 v-model="withdrawals.minWithdrawal"
                 clearable
               >
@@ -237,13 +240,13 @@
             </div>
           </div>
           <div class="setting-item">
-            <div class="setting-title">pvp充值限制</div>
+            <div class="setting-title">PVP recharge restriction</div>
             <div class="setting-val">
               <el-input
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入pvp充值限制"
+                placeholder="Enter PVP recharge restriction"
                 v-model="withdrawals.pvpThresholds"
                 clearable
               >
@@ -253,11 +256,11 @@
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>自动审核流水阈值</span>
+              <span>Automatic review of flow threshold</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="用户总消费大于此数据时才会触发下面的审核阈值进入自动审核阶段"
+                content="When the total consumption of the user is greater than this data, the following review threshold will be triggered to enter the automatic audit stage"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -268,7 +271,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入自动审核流水阈值"
+                placeholder="Enter automatic review of the flowing water threshold"
                 v-model="withdrawals.auditFlowThresholds"
                 clearable
               >
@@ -278,11 +281,11 @@
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>激活返佣阈值</span>
+              <span>Activate the Returning Threshold</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="存款大于此金额的下级才会给上级返佣"
+                content="The lower -level deposit will return to the superiors to return to the commission"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -293,7 +296,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入激活返佣阈值"
+                placeholder="Enter activation threshold"
                 v-model="withdrawals.activateRebateThreshold"
                 clearable
               >
@@ -303,11 +306,11 @@
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>NFT提现手续费</span>
+              <span>NFT withdrawal fee</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="NFT提款收取的固定手续费金额，实际前台会换算成USDT进行扣款"
+                content="The amount of fixed handling fee collected by NFT withdrawal will be converted into USDT for deduction at the actual front desk"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -318,7 +321,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入NFT提现手续费"
+                placeholder="Enter NFT withdrawal handling fee"
                 v-model="withdrawals.nftWithdrawalFees"
                 clearable
               >
@@ -328,11 +331,11 @@
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>提币免费次数</span>
+              <span>Free trips</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="此处设置玩家有几次不扣gas费提款的机会"
+                content="There are several opportunities to set up the player several times without deducting the GAS fee"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -343,21 +346,21 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入下浮汇率"
+                placeholder="Enter the floating rate"
                 v-model="withdrawals.freeFeeCoinNumber"
                 clearable
               >
-                <template slot="append">次</template>
+                <template slot="append">Second-rate</template>
               </el-input>
             </div>
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>单次审核阈值</span>
+              <span>Single review threshold</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="单次提款小于此数值时无需审核自动通过"
+                content="When a single withdrawal is less than this value, it does not need to be reviewed automatically"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -368,7 +371,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入审核阈值"
+                placeholder="Enter the review threshold"
                 v-model="withdrawals.auditThresholds"
                 clearable
               >
@@ -378,11 +381,11 @@
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>累计审核阈值</span>
+              <span>Cumulative review threshold</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="用户提款的限制，即无、每天、每周还是每月共能提多少"
+                content="The restrictions on user withdrawal, that is, no, daily, weekly or how much you can withdraw every month,"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -393,7 +396,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入提现总量"
+                placeholder="Enter the total amount of withdrawal"
                 v-model="withdrawals.withdrawalLimits"
                 clearable
               >
@@ -403,21 +406,21 @@
                 style="width: 200px"
                 v-model="withdrawals.withdrawalDayLimits"
                 class="public-select-box"
-                placeholder="选择时段"
+                placeholder="Selection period"
               >
-                <el-option label="每日" :value="1" />
-                <el-option label="每周" :value="7" />
-                <el-option label="每月" :value="30" />
+                <el-option label="daily" :value="1" />
+                <el-option label="weekly" :value="7" />
+                <el-option label="per month" :value="30" />
               </el-select>
             </div>
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>闪兑入金上浮比例</span>
+              <span>Flash and gold floating ratio</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="这里就是闪兑差额配置，上浮好像没用了"
+                content="Here is the flashing difference configuration, it seems useless to float up"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -428,7 +431,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入上浮汇率"
+                placeholder="Enter the floating rate"
                 v-model="withdrawals.upRate"
                 clearable
               >
@@ -437,13 +440,13 @@
             </div>
           </div>
           <div class="setting-item">
-            <div class="setting-title">闪兑出金下浮比例</div>
+            <div class="setting-title">Flashing out of gold and floating ratio</div>
             <div class="setting-val">
               <el-input
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入下浮汇率"
+                placeholder="Enter the floating rate"
                 v-model="withdrawals.downRate"
                 clearable
               >
@@ -457,19 +460,19 @@
             style="width: 160px"
             size="medium"
             @click="submitWithdrawal()"
-            >确认修改</el-button
+            >Confirm the changes</el-button
           >
         </div>
       </el-tab-pane>
-      <el-tab-pane label="NFT&一元购配置">
+      <el-tab-pane label="nft&一元购配置">
         <div class="recycling-settings">
           <div class="setting-item">
             <div class="setting-title">
-              <span>外部NFT回收比例</span>
+              <span>External NFT recycling ratio</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="这里就是设置所有盲盒内除平台NFT外的所有NFT的回收价值比率"
+                content="Here is to set up the recycling value ratio of all NFTs outside the Blind Box NFT"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -480,7 +483,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入回收比例"
+                placeholder="Enter the recycling ratio"
                 v-model="nftReclaimRate"
                 clearable
               >
@@ -493,17 +496,17 @@
             style="width: 160px"
             size="medium"
             @click="submitRecycle()"
-            >确认修改</el-button
+            >Confirm the changes</el-button
           >
         </div>
         <div class="recycling-settings">
           <div class="setting-item">
             <div class="setting-title">
-              <span>一元购服务费</span>
+              <span>One dollar purchase service fee</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="这里设置的一元购服务费"
+                content="The one -dollar purchase service fee set here"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -514,7 +517,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入服务费"
+                placeholder="Input service fee"
                 v-model="serviceFee"
                 clearable
               >
@@ -527,17 +530,17 @@
             style="width: 160px"
             size="medium"
             @click="submitServiceFee()"
-            >确认修改</el-button
+            >Confirm the changes</el-button
           >
         </div>
         <div class="recycling-settings">
           <div class="setting-item">
             <div class="setting-title">
-              <span>一元购溢价上限</span>
+              <span>One dollar purchase premium limit</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="这里设置的是限制eth一元购最大超出eth本身价值的比例"
+                content="What is set here is the proportion of restricted ETH one dollar purchase beyond ETH itself value"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -548,7 +551,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入一元购溢价上限"
+                placeholder="Enter the one -dollar purchase premium limit"
                 v-model="ticketExceeding"
                 clearable
               >
@@ -561,17 +564,17 @@
             style="width: 160px"
             size="medium"
             @click="submitTicketExceeding()"
-            >确认修改</el-button
+            >Confirm the changes</el-button
           >
         </div>
         <div class="recycling-settings">
           <div class="setting-item">
             <div class="setting-title">
-              <span>一元购NFT天数上限</span>
+              <span>One dollar purchase NFT days upper limit</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="决定用户挂单NFT一元购最多可以选择多少天"
+                content="Determine how many days can you choose to buy a single NFT one dollar to buy"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -582,11 +585,11 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入NFT天数上限"
+                placeholder="Enter NFT days upper limit"
                 v-model="ticketNftDays"
                 clearable
               >
-                <template slot="append">天</template>
+                <template slot="append">day</template>
               </el-input>
             </div>
           </div>
@@ -595,17 +598,17 @@
             style="width: 160px"
             size="medium"
             @click="submitTicketNftDays()"
-            >确认修改</el-button
+            >Confirm the changes</el-button
           >
         </div>
         <div class="recycling-settings">
           <div class="setting-item">
             <div class="setting-title">
-              <span>一元购币种天数上限</span>
+              <span>One dollar purchase of the number of days limit</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="决定用户挂单ETH一元购最多可以选择多少天"
+                content="Determine how many days can be selected for the user to hang a single dollar to buy"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -616,11 +619,11 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入一元购币种天数上限"
+                placeholder="Enter the upper limit of the number of days of one dollar purchase"
                 v-model="ticketCoinDays"
                 clearable
               >
-                <template slot="append">天</template>
+                <template slot="append">day</template>
               </el-input>
             </div>
           </div>
@@ -629,19 +632,19 @@
             style="width: 160px"
             size="medium"
             @click="submitTicketCoinDays()"
-            >确认修改</el-button
+            >Confirm the changes</el-button
           >
         </div>
       </el-tab-pane>
-      <el-tab-pane label="Token War配置">
+      <el-tab-pane label="token War配置">
         <div class="withdrawal-settings">
           <div class="setting-item">
             <div class="setting-title">
-              <span>最低消费</span>
+              <span>Minimum consumption</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="限制tokenwar最低消费金额，即首次消费金额"
+                content="Limit the minimum consumption amount of TokenWar, that is, the first consumption amount"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -652,7 +655,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入最低消费"
+                placeholder="Enter minimum consumption"
                 v-model="battle.lowPriceLimit"
                 clearable
               >
@@ -662,11 +665,11 @@
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>票单价</span>
+              <span>Ticket unit price</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="限制tokenwar最低每次投入金额"
+                content="Limit the minimum investment amount of TokenWar"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -677,7 +680,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入票单价"
+                placeholder="Enter ticket unit price"
                 v-model="battle.singlePrice"
                 clearable
               >
@@ -687,11 +690,11 @@
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>手续费</span>
+              <span>Handling fee</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="tokenwar手续费比例"
+                content="Tokenwar handling fee ratio"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -702,7 +705,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入手续费"
+                placeholder="Enter the handling fee"
                 v-model="battle.fee"
                 clearable
               >
@@ -712,11 +715,11 @@
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>单局时长</span>
+              <span>Duration in a single game</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="这里设置货币战争每一局单局时长"
+                content="Here is a single game of each game of the currency war."
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -727,21 +730,21 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入单局时长"
+                placeholder="Enter a single game duration"
                 v-model="battle.singleTime"
                 clearable
               >
-                <template slot="append">秒</template>
+                <template slot="append">Second</template>
               </el-input>
             </div>
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>加速人数</span>
+              <span>Number of acceleration</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="这里设置货币战争参与人数达到多少时进入加速倒计时"
+                content="When the number of currency war participants are set up, when the number of participants reached, enter the acceleration countdown"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -752,21 +755,21 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入加速人数"
+                placeholder="Enter the number of acceleration"
                 v-model="battle.fastLimitNumber"
                 clearable
               >
-                <template slot="append">人</template>
+                <template slot="append">man</template>
               </el-input>
             </div>
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>购票延时</span>
+              <span>Ticket purchase delay</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="这个时间决定加速倒计时的初始时长，以及新消费延时长度"
+                content="This time decides to accelerate the initial duration of countdown, as well as the length of the new consumption delay"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -777,7 +780,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入购票延时"
+                placeholder="Enter ticket purchase delay"
                 v-model="battle.ticketPurchaseDelay"
                 clearable
               >
@@ -787,11 +790,11 @@
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>大奖投入比</span>
+              <span>Grand Prize Investment Comparison</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="这里决定每一轮的流水有多少将进入大奖奖池"
+                content="Here is how many flowing water will enter the award prize pool"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -802,7 +805,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入大奖投入比"
+                placeholder="Enter a prize investment ratio"
                 v-model="battle.awardInvestmentRatio"
                 clearable
               >
@@ -812,11 +815,11 @@
           </div>
           <div class="setting-item">
             <div class="setting-title">
-              <span>大奖触发金额</span>
+              <span>Grand prize trigger amount</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="这里决定大奖奖池积累到什么程度后进入endwar"
+                content="Where to what level of the prize prize pool is decided to enter the endwar"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -827,7 +830,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入大奖触发金额"
+                placeholder="Enter the award trigger amount"
                 v-model="battle.awardTriggerAmount"
                 clearable
               >
@@ -840,19 +843,19 @@
             style="width: 160px"
             size="medium"
             @click="submitWarGameSetting()"
-            >确认修改</el-button
+            >Confirm the changes</el-button
           >
         </div>
       </el-tab-pane>
-      <el-tab-pane label="充值活动配置">
+      <el-tab-pane label="Configuration of recharge activities">
         <div class="wallet-settings">
           <div class="setting-item">
             <div class="setting-title">
-              <span>Token War流水记录比率</span>
+              <span>Token WAR running record ratio</span>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="这里三个值决定的是这三个游戏在参加充值送金活动中计算有效流水的比例"
+                content="The three values ​​here determine that these three games calculate the proportion of effective flowing water in participating in the recharge and delivery activities"
                 placement="top-start"
               >
                 <i class="el-icon-warning-outline"></i>
@@ -863,7 +866,7 @@
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入Token War流水记录比率"
+                placeholder="Enter token WAR running record ratio"
                 v-model="gameRatesData.tokenWarFlowRate"
                 clearable
               >
@@ -872,13 +875,13 @@
             </div>
           </div>
           <div class="setting-item">
-            <div class="setting-title">盲盒流水记录比率</div>
+            <div class="setting-title">Blind box flow record ratio</div>
             <div class="setting-val">
               <el-input
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入盲盒流水记录比率"
+                placeholder="Enter blind box flow record ratio"
                 v-model="gameRatesData.boxFlowRate"
                 clearable
               >
@@ -887,13 +890,13 @@
             </div>
           </div>
           <div class="setting-item">
-            <div class="setting-title">一元购流水记录比率</div>
+            <div class="setting-title">One dollar purchase flow record ratio</div>
             <div class="setting-val">
               <el-input
                 class="public-input"
                 type="number"
                 style="width: 300px"
-                placeholder="输入一元购流水记录比率"
+                placeholder="Enter the one -dollar purchasing water record ratio"
                 v-model="gameRatesData.oneFlowRate"
                 clearable
               >
@@ -906,14 +909,14 @@
             style="width: 160px"
             size="medium"
             @click="setActivityGameSettingFunc()"
-            >确认修改</el-button
+            >Confirm the changes</el-button
           >
         </div>
       </el-tab-pane>
-      <el-tab-pane label="归集钱包配置">
+      <el-tab-pane label="Collect wallet configuration">
         <div class="wallet-settings">
           <div class="operating-box">
-            <span>归集钱包设置</span>
+            <span>Collect wallet settings</span>
             <!-- <el-button type="primary" style="width: 160px" @click="showDialog = true">新增钱包</el-button> -->
           </div>
           <el-table
@@ -925,7 +928,7 @@
             <el-table-column
               prop="type"
               width="320"
-              label="钱包类型"
+              label="Wallet type"
               align="center"
               key="1"
             >
@@ -933,7 +936,7 @@
             <el-table-column
               prop="walletAddress"
               width="320"
-              label="钱包地址"
+              label="Wallet address"
               align="center"
               key="2"
             >
@@ -941,15 +944,12 @@
             <el-table-column
               prop="flowId"
               width="200"
-              label="余额"
+              label="Balance"
               align="center"
               key="3"
             >
               <template slot-scope="scope">
-                <div
-                  v-for="(item, index) in scope.row.innetWalletList"
-                  :key="index"
-                >
+                <div v-for="(item, index) in scope.row.innetWalletList" :key="index">
                   {{ `${item.coin}:${item.assetBalance}` }}
                 </div>
               </template>
@@ -957,33 +957,30 @@
             <el-table-column
               prop="walletStatus"
               width="100"
-              label="激活状态"
+              label="Activation state"
               align="center"
               key="43"
             >
               <template slot-scope="scope">
-                <span
-                  style="color: #04b000"
-                  v-if="scope.row.walletStatus == 'NORMAL'"
-                >
-                  已激活
+                <span style="color: #04b000" v-if="scope.row.walletStatus == 'NORMAL'">
+                  activated
                 </span>
-                <span style="color: red" v-else> 未激活 </span>
+                <span style="color: red" v-else> inactivated </span>
               </template>
             </el-table-column>
-            <el-table-column label="操作" align="center" key="5" fixed="right">
+            <el-table-column label="operate" align="center" key="5" fixed="right">
               <template slot-scope="scope">
                 <span
                   class="blueColor publick-button cursor"
                   @click="walletActive(scope.row)"
                 >
-                  激活
+                  activation
                 </span>
                 <span
                   class="blueColor publick-button cursor"
                   @click="walletDel(scope.row)"
                 >
-                  删除
+                  delete
                 </span>
               </template>
             </el-table-column>
@@ -1003,21 +1000,17 @@
           </el-pagination>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="邀请文本配置">
+      <el-tab-pane label="Invite text configuration">
         <div class="invite-settings">
-          <div
-            class="setting-item"
-            v-for="(item, index) in inviteList"
-            :key="index"
-          >
+          <div class="setting-item" v-for="(item, index) in inviteList" :key="index">
             <div class="setting-title">
-              <span v-if="index == 0">邀请文本</span>
+              <span v-if="index == 0">Invite text</span>
             </div>
             <div class="setting-val">
               <el-input
                 class="public-input"
                 style="width: 100%"
-                placeholder="输入邀请文本（单行）"
+                placeholder="Enter the invitation text (single line)"
                 v-model="item.text"
                 clearable
               >
@@ -1037,41 +1030,41 @@
             style="width: 160px"
             size="medium"
             @click="submitInvite()"
-            >确认修改</el-button
+            >Confirm the changes</el-button
           >
         </div>
       </el-tab-pane>
     </el-tabs>
     <el-dialog
       v-if="showDialog"
-      title="新增归集钱包"
+      title="Newly added wallet"
       :visible.sync="showDialog"
       width="440px"
       :close-on-click-modal="false"
       :before-close="handleClose"
     >
       <el-form ref="ruleForm" class="add-form" label-width="80px">
-        <el-form-item label="钱包类型" prop="reclaimRate">
+        <el-form-item label="Wallet type" prop="reclaimRate">
           <el-select
             style="width: 300px"
             v-model="walletAddrType"
-            placeholder="选择钱包类型"
+            placeholder="Select wallet type"
           >
-            <el-option label="EVM" value="EVM" />
-            <el-option label="TRON" value="TRON" />
+            <el-option label="evm" value="EVM" />
+            <el-option label="tron" value="TRON" />
           </el-select>
         </el-form-item>
-        <el-form-item label="钱包地址" prop="reclaimRate">
+        <el-form-item label="Wallet address" prop="reclaimRate">
           <el-input
             v-model="walletAddr"
             style="width: 300px"
-            placeholder="请输入钱包地址"
+            placeholder="Please enter the wallet address"
           ></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="handleClose()">取 消</el-button>
-        <el-button type="primary" @click="submitForm()">确 定</el-button>
+        <el-button @click="handleClose()">Cancel</el-button>
+        <el-button type="primary" @click="submitForm()">Sure</el-button>
       </span>
     </el-dialog>
   </div>
@@ -1223,7 +1216,7 @@ export default {
       ruleForm.oneFlowRate = ruleForm.oneFlowRate / 100;
       const res = await this.$http.setActivityGameSetting({ ...ruleForm });
       if (res) {
-        this.$message.success("操作成功");
+        this.$message.success("Successful operation");
         this.findActivityGameSettingFunc();
       }
     },
@@ -1237,9 +1230,7 @@ export default {
           downCommissionRate: new bigNumber(res.downCommissionRate)
             .multipliedBy(100)
             .toFixed(2), //下级佣金比例
-          downPointRate: new bigNumber(res.downPointRate)
-            .multipliedBy(100)
-            .toFixed(2), //下级积分比例
+          downPointRate: new bigNumber(res.downPointRate).multipliedBy(100).toFixed(2), //下级积分比例
           consumePointRate: new bigNumber(res.consumePointRate)
             .multipliedBy(100)
             .toFixed(2), //消费积分
@@ -1266,7 +1257,9 @@ export default {
         !consumePointRate ||
         !flowCommissionRate
       ) {
-        this.$message.error("积分配置相关参数不完整，请补充完整后重试");
+        this.$message.error(
+          "The related parameters of the integration configuration are incomplete, please add after complete"
+        );
         return;
       }
 
@@ -1276,10 +1269,7 @@ export default {
           new bigNumber(downCommissionRate).dividedBy(100),
           4
         ), //下级佣金比例
-        downPointRate: accurateDecimal(
-          new bigNumber(downPointRate).dividedBy(100),
-          4
-        ), //下级积分比例
+        downPointRate: accurateDecimal(new bigNumber(downPointRate).dividedBy(100), 4), //下级积分比例
         consumePointRate: accurateDecimal(
           new bigNumber(consumePointRate).dividedBy(100),
           4
@@ -1292,7 +1282,7 @@ export default {
 
       if (res) {
         this.fetchPointConfig();
-        this.$message.success("操作成功");
+        this.$message.success("Successful operation");
       }
     },
     // 提现配置查询
@@ -1350,7 +1340,7 @@ export default {
 
       if (res) {
         this.fetchWithdrawalConfig();
-        this.$message.success("操作成功");
+        this.$message.success("Successful operation");
       }
     },
     // NFT回收配置查询
@@ -1369,20 +1359,19 @@ export default {
       const { nftReclaimRate } = this;
 
       if (!nftReclaimRate) {
-        this.$message.error("NFT回收配置相关参数不完整，请补充完整后重试");
+        this.$message.error(
+          "NFT recycling configuration related parameters are incomplete, please replenish after complete review"
+        );
         return;
       }
 
       const res = await this.$http.recycleConfigSet({
-        nftReclaimRate: accurateDecimal(
-          new bigNumber(nftReclaimRate).dividedBy(100),
-          4
-        ),
+        nftReclaimRate: accurateDecimal(new bigNumber(nftReclaimRate).dividedBy(100), 4),
       });
 
       if (res) {
         this.fetchRecycleConfig();
-        this.$message.success("操作成功");
+        this.$message.success("Successful operation");
       }
     },
     // 一元购服务费
@@ -1401,20 +1390,17 @@ export default {
       const { serviceFee } = this;
 
       if (!serviceFee) {
-        this.$message.error("请输入一元购服务费");
+        this.$message.error("Please enter the one -dollar purchase service fee");
         return;
       }
 
       const res = await this.$http.updateServiceCharge({
-        servicePrice: accurateDecimal(
-          new bigNumber(serviceFee).dividedBy(100),
-          4
-        ),
+        servicePrice: accurateDecimal(new bigNumber(serviceFee).dividedBy(100), 4),
       });
 
       if (res) {
         this.fetchServiceCharge();
-        this.$message.success("操作成功");
+        this.$message.success("Successful operation");
       }
     },
     // 一元购溢价
@@ -1433,20 +1419,17 @@ export default {
       const { ticketExceeding } = this;
 
       if (!ticketExceeding) {
-        this.$message.error("请输入一元购溢价上限");
+        this.$message.error("Please enter a one -dollar purchase premium limit");
         return;
       }
 
       const res = await this.$http.updateTicketExceeding({
-        servicePrice: accurateDecimal(
-          new bigNumber(ticketExceeding).dividedBy(100),
-          4
-        ),
+        servicePrice: accurateDecimal(new bigNumber(ticketExceeding).dividedBy(100), 4),
       });
 
       if (res) {
         this.fetchTicketExceeding();
-        this.$message.success("操作成功");
+        this.$message.success("Successful operation");
       }
     },
     // 一元购NFT天数上限
@@ -1462,7 +1445,9 @@ export default {
       const { ticketNftDays } = this;
 
       if (!ticketNftDays) {
-        this.$message.error("请输入一元购NFT天数上限");
+        this.$message.error(
+          "Please enter the upper limit of the number of days of NFT for one yuan"
+        );
         return;
       }
 
@@ -1472,7 +1457,7 @@ export default {
 
       if (res) {
         this.fetchTicketNftDays();
-        this.$message.success("操作成功");
+        this.$message.success("Successful operation");
       }
     },
     // 一元购币种天数上限
@@ -1488,7 +1473,9 @@ export default {
       const { ticketCoinDays } = this;
 
       if (!ticketCoinDays) {
-        this.$message.error("请输入一元购NFT天数上限");
+        this.$message.error(
+          "Please enter the upper limit of the number of days of NFT for one yuan"
+        );
         return;
       }
 
@@ -1498,7 +1485,7 @@ export default {
 
       if (res) {
         this.fetchTicketCoinDays();
-        this.$message.success("操作成功");
+        this.$message.success("Successful operation");
       }
     },
 
@@ -1537,7 +1524,9 @@ export default {
         !awardInvestmentRatio ||
         !awardTriggerAmount
       ) {
-        this.$message.error("战争配置相关参数不完整，请补充完整后重试");
+        this.$message.error(
+          "The related parameters of the war configuration are incomplete, please replenish it after complete review"
+        );
         return;
       }
 
@@ -1552,13 +1541,13 @@ export default {
 
       if (res) {
         this.fetchWarGameSetting();
-        this.$message.success("操作成功");
+        this.$message.success("Successful operation");
       }
     },
     // 新增归集钱包
     async submitForm() {
       if (!this.walletAddr) {
-        this.$message.error("请输入归集钱包地址");
+        this.$message.error("Please enter the gathering of wallet address");
         return;
       }
 
@@ -1571,23 +1560,27 @@ export default {
       if (res) {
         this.handleClose();
         this.fetchSystemWalletList();
-        this.$message.success("操作成功");
+        this.$message.success("Successful operation");
       }
     },
     //激活钱包
     walletActive(row) {
-      this.$confirm(`确定要激活钱包『${row.walletAddress}』吗?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "info",
-      })
+      this.$confirm(
+        `Are you sure you want to activate the wallet "${row.walletaddress}"?`,
+        "hint",
+        {
+          confirmButtonText: "Sure",
+          cancelButtonText: "Cancel",
+          type: "info",
+        }
+      )
         .then(async () => {
           const res = await this.$http.systemWalletActive({
             id: row.id,
           });
           if (res) {
             this.fetchSystemWalletList();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {
@@ -1596,18 +1589,22 @@ export default {
     },
     //删除钱包
     walletDel(row) {
-      this.$confirm(`确定要删除钱包『${row.walletAddress}』吗?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "info",
-      })
+      this.$confirm(
+        `Are you sure you want to delete the wallet "${row.walletaddress}"?`,
+        "hint",
+        {
+          confirmButtonText: "Sure",
+          cancelButtonText: "Cancel",
+          type: "info",
+        }
+      )
         .then(async () => {
           const res = await this.$http.systemWalletDel({
             id: row.id,
           });
           if (res) {
             this.fetchSystemWalletList();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {
@@ -1650,7 +1647,7 @@ export default {
         invites += "," + element.text;
       });
       if (!invites) {
-        this.$message.error("请输入邀请文本");
+        this.$message.error("Please enter the invitation text");
         return;
       }
 
@@ -1660,7 +1657,7 @@ export default {
 
       if (res) {
         this.fetchInviteSetting();
-        this.$message.success("操作成功");
+        this.$message.success("Successful operation");
       }
     },
     handleClose(done) {

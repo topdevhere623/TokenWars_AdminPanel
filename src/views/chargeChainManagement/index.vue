@@ -1,35 +1,59 @@
 <template>
   <div class="page-wrapper">
     <el-table :data="tableData" style="width: 100%" class="public-table" border>
-      <el-table-column prop="id" label="链ID" align="center"> </el-table-column>
-      <el-table-column prop="chain" label="链名" align="center"> </el-table-column>
-      <!-- <el-table-column prop="price" label="全称" align="center"> </el-table-column> -->
+      <el-table-column prop="id" label="Chain ID" align="center"> </el-table-column>
+      <el-table-column prop="chain" label="Chain name" align="center"> </el-table-column>
+      <!-- <el-table-column prop="price" label="Full name" align="center"> </el-table-column> -->
       <el-table-column prop="rpc" label="rpc" align="center">
         <template slot-scope="scope">
-          <span class="blueColor publick-button cursor" @click="openRpc(scope.row)">{{ scope.row.rpc }}</span>
+          <span class="blueColor publick-button cursor" @click="openRpc(scope.row)">{{
+            scope.row.rpc
+          }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="gas" label="提款手续费" align="center"> </el-table-column>
-      <el-table-column prop="chainCoin" label="手续费币种" align="center"> </el-table-column>
-      <el-table-column prop="confirmTheHeight" label="几次确认" align="center"> </el-table-column>
-      <el-table-column prop="minGasForce" label="触发强制归集gas(USDT）" align="center" width="120px">
+      <el-table-column prop="gas" label="A withdrawal fee" align="center">
+      </el-table-column>
+      <el-table-column prop="chainCoin" label="Fees" align="center"> </el-table-column>
+      <el-table-column
+        prop="confirmTheHeight"
+        label="Several confirmation"
+        align="center"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="minGasForce"
+        label="Trigger forced collection GAS(USDT）"
+        align="center"
+        width="120px"
+      >
         <template slot-scope="scope">
           <p style="color: #f56c6c">{{ scope.row.minGasForce }}</p>
         </template>
       </el-table-column>
-      <el-table-column label="状态" align="center">
+      <el-table-column label="state" align="center">
         <template slot-scope="scope">
-          <p v-if="scope.row.isDisplay == false" style="color: #67c23a">已启用</p>
-          <p v-else style="color: #f56c6c">已停止</p>
+          <p v-if="scope.row.isDisplay == false" style="color: #67c23a">activated</p>
+          <p v-else style="color: #f56c6c">stopped</p>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center">
+      <el-table-column label="operate" align="center">
         <template slot-scope="scope">
-          <span class="blueColor publick-button cursor" @click="setFun(scope.row)">配置</span>
-          <span class="blueColor publick-button cursor" @click="operatingFunc(scope.row, 'close')" v-if="scope.row.isDisplay == false">
-            停用
+          <span class="blueColor publick-button cursor" @click="setFun(scope.row)"
+            >Configuration</span
+          >
+          <span
+            class="blueColor publick-button cursor"
+            @click="operatingFunc(scope.row, 'close')"
+            v-if="scope.row.isDisplay == false"
+          >
+            Stop
           </span>
-          <span class="blueColor publick-button cursor" @click="operatingFunc(scope.row, 'open')" v-else>启用 </span>
+          <span
+            class="blueColor publick-button cursor"
+            @click="operatingFunc(scope.row, 'open')"
+            v-else
+            >Open up
+          </span>
         </template>
       </el-table-column>
     </el-table>
@@ -47,30 +71,54 @@
       class="public-pagination"
     >
     </el-pagination>
-    <el-dialog title="充提链配置" :visible.sync="dialogVisible" width="40%">
+    <el-dialog
+      title="Chain chain configuration"
+      :visible.sync="dialogVisible"
+      width="40%"
+    >
       <el-form ref="ruleForm" :model="ruleForm" label-width="150px" :rules="rules">
-        <el-form-item label="提款手续费gas" prop="gas" :rules="rules.blur">
+        <el-form-item
+          label="A withdrawal handling fee GAS"
+          prop="gas"
+          :rules="rules.blur"
+        >
           <el-input v-model="ruleForm.gas" type="number" autocomplete="off"> </el-input>
         </el-form-item>
-        <el-form-item label="确认次数" prop="confirmTheHeight" :rules="rules.blur">
-          <el-input v-model.number="ruleForm.confirmTheHeight" type="number" autocomplete="off"></el-input>
+        <el-form-item
+          label="Number of confirmation times"
+          prop="confirmTheHeight"
+          :rules="rules.blur"
+        >
+          <el-input
+            v-model.number="ruleForm.confirmTheHeight"
+            type="number"
+            autocomplete="off"
+          ></el-input>
         </el-form-item>
-        <el-form-item label="触发强制归集GAS" prop="minGasForce" :rules="rules.blur">
-          <el-input v-model="ruleForm.minGasForce" type="number" autocomplete="off"></el-input>
+        <el-form-item
+          label="Trigger forced collection GAS"
+          prop="minGasForce"
+          :rules="rules.blur"
+        >
+          <el-input
+            v-model="ruleForm.minGasForce"
+            type="number"
+            autocomplete="off"
+          ></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveFunc">确 定</el-button>
+        <el-button @click="dialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="saveFunc">Sure</el-button>
       </span>
     </el-dialog>
-    <el-dialog title="切换rpc" :visible.sync="rpcDialogVisible" width="30%">
+    <el-dialog title="Switch RPC" :visible.sync="rpcDialogVisible" width="30%">
       <div class="rpc-box">
-        <p>主要</p>
+        <p>main</p>
         <div class="rpc-item">
           <el-radio v-model="rpcVal" label="1">{{ row?.rpcUrl1 }}</el-radio>
         </div>
-        <p class="mgr-t">备用</p>
+        <p class="mgr-t">spare</p>
         <div class="rpc-item">
           <div>
             <el-radio v-model="rpcVal" label="2">{{ row?.rpcUrl2 }}</el-radio>
@@ -79,8 +127,8 @@
         </div>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="rpcDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="rpcSaveFunc">确 定</el-button>
+        <el-button @click="rpcDialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="rpcSaveFunc">Sure</el-button>
       </span>
     </el-dialog>
   </div>
@@ -105,7 +153,7 @@ export default {
       rpcDialogVisible: false,
       ruleForm: {},
       rules: {
-        blur: [{ required: true, message: "请输入", trigger: "blur" }],
+        blur: [{ required: true, message: "please enter", trigger: "blur" }],
       },
       row: null,
       rpcVal: null,
@@ -140,9 +188,9 @@ export default {
       this.dialogVisible = true;
     },
     operatingFunc(row, type) {
-      this.$confirm(`确定要${type == "open" ? `启用` : "停用"}吗?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(`Determine${type == "open" ? `Open up` : "Stop"}?`, "hint", {
+        confirmButtonText: "Sure",
+        cancelButtonText: "Cancel",
         type: "warning",
       })
         .then(async () => {
@@ -152,7 +200,7 @@ export default {
           });
           if (res) {
             this.getTableList();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {
@@ -174,7 +222,10 @@ export default {
       });
     },
     async rpcSaveFunc(row) {
-      let res = await this.$http.transferChainUpdate({ id: this.row.id, rpcNum: this.rpcVal });
+      let res = await this.$http.transferChainUpdate({
+        id: this.row.id,
+        rpcNum: this.rpcVal,
+      });
       if (res) {
         this.rpcDialogVisible = false;
         this.getTableList();

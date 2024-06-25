@@ -1,5 +1,5 @@
 export default {
-  '100002': '数据库异常',
-  '100004': '账号或密码不存在或用户被删除',
-  '40000': '获取数据失败'
+  '100002': 'Database abnormalities',
+  '100004': 'Account or password does not exist or the user is deleted',
+  '40000': 'Failure to obtain data'
 }

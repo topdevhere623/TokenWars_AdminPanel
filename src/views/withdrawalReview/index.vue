@@ -1,102 +1,166 @@
 <template>
   <div class="page-wrapper">
     <div class="public-list-inputs">
-      <el-input class="public-input" style="width: 140px" placeholder="输入订单ID" v-model="Id" clearable />
-      <el-input class="public-input" style="width: 140px" placeholder="输入用户ID" v-model="userId" clearable />
-      <el-select v-model="auditStatus" class="public-select-box" popper-class="public-select-box" placeholder="全部状态" clearable>
-        <el-option label="待审核" value="WAIT"> </el-option>
-        <el-option label="转帐中" value="TRANSFERRING"> </el-option>
-        <el-option label="转账成功" value="SUCCESS"> </el-option>
-        <el-option label="转账失败" value="FAIL"> </el-option>
-        <el-option label="已拒绝" value="REFUSE"> </el-option>
+      <el-input
+        class="public-input"
+        style="width: 140px"
+        placeholder="Enter order ID"
+        v-model="Id"
+        clearable
+      />
+      <el-input
+        class="public-input"
+        style="width: 140px"
+        placeholder="Enter user ID"
+        v-model="userId"
+        clearable
+      />
+      <el-select
+        v-model="auditStatus"
+        class="public-select-box"
+        popper-class="public-select-box"
+        placeholder="All states"
+        clearable
+      >
+        <el-option label="To be reviewed" value="WAIT"> </el-option>
+        <el-option label="Transfer" value="TRANSFERRING"> </el-option>
+        <el-option label="Successful transfer" value="SUCCESS"> </el-option>
+        <el-option label="Failed to transfer" value="FAIL"> </el-option>
+        <el-option label="rejected" value="REFUSE"> </el-option>
       </el-select>
-      <el-select v-model="withdrawalType" class="public-select-box" popper-class="public-select-box" placeholder="全部类型" clearable>
-        <el-option label="ETH" value="ETH"> </el-option>
-        <el-option label="NFT" value="NFT"> </el-option>
-        <el-option label="USDT" value="USDT"> </el-option>
+      <el-select
+        v-model="withdrawalType"
+        class="public-select-box"
+        popper-class="public-select-box"
+        placeholder="All types"
+        clearable
+      >
+        <el-option label="eth" value="ETH"> </el-option>
+        <el-option label="nft" value="NFT"> </el-option>
+        <el-option label="usdt" value="USDT"> </el-option>
       </el-select>
 
-      <el-select v-model="outgoingChainType" class="public-select-box" popper-class="public-select-box" placeholder="全部链" clearable>
-        <el-option v-for="(item, index) in chainDrop" :key="index" :label="item.chain" :value="item.chain"> </el-option>
+      <el-select
+        v-model="outgoingChainType"
+        class="public-select-box"
+        popper-class="public-select-box"
+        placeholder="All chain"
+        clearable
+      >
+        <el-option
+          v-for="(item, index) in chainDrop"
+          :key="index"
+          :label="item.chain"
+          :value="item.chain"
+        >
+        </el-option>
       </el-select>
 
       <div class="public-date-box">
-        <span class="demonstration"> 发起时间 </span>
+        <span class="demonstration"> the starting time </span>
         <el-date-picker
           v-model="applicationTime"
           type="datetimerange"
           range-separator="到"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
         >
         </el-date-picker>
       </div>
       <div class="public-date-box">
-        <span class="demonstration"> 审核时间 </span>
+        <span class="demonstration"> Review time </span>
         <el-date-picker
           v-model="reviewTime"
           type="datetimerange"
           range-separator="到"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
         >
         </el-date-picker>
       </div>
       <div class="public-date-box">
-        <span class="demonstration"> 到账时间 </span>
+        <span class="demonstration"> Time to account </span>
         <el-date-picker
           v-model="receiptTime"
           type="datetimerange"
           range-separator="到"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
         >
         </el-date-picker>
       </div>
-      <el-button type="primary" icon="el-icon-search" class="public-search" @click="fetchAssetWithdrawalList()"> 查询 </el-button>
-      <el-button type="primary" icon="el-icon-download" class="public-search" @click="onExport()"> 导出 </el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-search"
+        class="public-search"
+        @click="fetchAssetWithdrawalList()"
+      >
+        查询
+      </el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-download"
+        class="public-search"
+        @click="onExport()"
+      >
+        导出
+      </el-button>
     </div>
     <div class="remittance-box">
       <div class="remittance-amount remittance-more">
         <div class="remittance-item">
-          <div class="title">总订单数</div>
+          <div class="title">Total order number</div>
           <div class="val">
             {{ aggregateQuery && aggregateQuery.totalNumber }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总提款金额</div>
+          <div class="title">Total withdrawal amount</div>
           <div class="val">
             {{ aggregateQuery && aggregateQuery.withdrawalPrices }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总手续费</div>
+          <div class="title">Total handling fee</div>
           <div class="val">
             {{ aggregateQuery && aggregateQuery.serviceFees }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总实际到账</div>
+          <div class="title">Total reality</div>
           <div class="val">
             {{ aggregateQuery && aggregateQuery.actualArrivals }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总GAS</div>
+          <div class="title">Total Gas</div>
           <div class="val">{{ aggregateQuery && aggregateQuery.gases }}</div>
         </div>
         <div class="remittance-item">
-          <div class="title">提款账户余额</div>
+          <div class="title">A withdrawal account balance</div>
           <div class="val">
             {{ aggregateQuery && aggregateQuery.withdrawalBalance }}
           </div>
         </div>
       </div>
     </div>
-    <el-table :data="tableData" style="width: 100%" @sort-change="sortChange" class="public-table" border>
-      <el-table-column prop="flowId" label="订单ID" align="center" key="1"> </el-table-column>
-      <el-table-column prop="userName" sortable="custom" width="120" label="用户" align="center" key="2">
+    <el-table
+      :data="tableData"
+      style="width: 100%"
+      @sort-change="sortChange"
+      class="public-table"
+      border
+    >
+      <el-table-column prop="flowId" label="Order ID" align="center" key="1">
+      </el-table-column>
+      <el-table-column
+        prop="userName"
+        sortable="custom"
+        width="120"
+        label="user"
+        align="center"
+        key="2"
+      >
         <template slot-scope="scope">
           <p :style="{ color: scope.row.userType == 'INNER' ? 'red' : '#000' }">
             {{ scope.row.userId || "--" }}
@@ -106,67 +170,191 @@
           </p>
         </template>
       </el-table-column>
-      <el-table-column prop="assetBalance" sortable="custom" width="130" :label="`用户余额`" align="center" key="3"> </el-table-column>
-      <el-table-column prop="outgoingChainType" sortable="custom" width="130" :label="`链`" align="center" key="19"> </el-table-column>
-      <el-table-column prop="coin" sortable="custom" width="130" :label="`币种`" align="center" key="20"> </el-table-column>
-      <el-table-column prop="withdrawalPrice" sortable="custom" width="130" :label="`提款金额`" align="center" key="4"> </el-table-column>
-      <el-table-column prop="userName" width="80" label="提出NFT" align="center" key="5">
+      <el-table-column
+        prop="assetBalance"
+        sortable="custom"
+        width="130"
+        :label="`User balance`"
+        align="center"
+        key="3"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="outgoingChainType"
+        sortable="custom"
+        width="130"
+        :label="`Chain`"
+        align="center"
+        key="19"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="coin"
+        sortable="custom"
+        width="130"
+        :label="`Currency`"
+        align="center"
+        key="20"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="withdrawalPrice"
+        sortable="custom"
+        width="130"
+        :label="`Withdraw money`"
+        align="center"
+        key="4"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="userName"
+        width="80"
+        label="Proposal NFT"
+        align="center"
+        key="5"
+      >
         <template slot-scope="scope">
           <span
             style="color: #0e9efd; cursor: pointer"
             v-if="scope.row.withdrawalType == 'NFT'"
             @click="showWithdrawNft(scope.row.outWithdrawalNftList, 1)"
-            >查看</span
+            >Check</span
           >
           <span v-else>--</span>
         </template>
       </el-table-column>
-      <el-table-column prop="serviceFee" width="120" sortable="custom" :label="`手续费`" align="center" key="6"> </el-table-column>
-      <el-table-column prop="userCoin" width="120" sortable="custom" label="目标币种" align="center" key="7"> </el-table-column>
-      <el-table-column prop="actualArrival" width="120" sortable="custom" label="实际到账" align="center" key="8">
+      <el-table-column
+        prop="serviceFee"
+        width="120"
+        sortable="custom"
+        :label="`Handling fees`"
+        align="center"
+        key="6"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="userCoin"
+        width="120"
+        sortable="custom"
+        label="Target currency"
+        align="center"
+        key="7"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="actualArrival"
+        width="120"
+        sortable="custom"
+        label="Actually"
+        align="center"
+        key="8"
+      >
         <template slot-scope="scope">
           <span
             style="color: #0e9efd; cursor: pointer"
             v-if="scope.row.withdrawalType == 'NFT'"
             @click="showWithdrawNft(scope.row.arrivedWithdrawalnftlist, 2)"
-            >查看</span
+            >Check</span
           >
           <span v-else>{{ scope.row.actualArrival }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="flowId" label="流水号" align="center" key="9"> </el-table-column>
-      <el-table-column prop="hash" label="HASH" width="300" align="center" key="10"> </el-table-column>
-      <el-table-column prop="gas" sortable="custom" label="GAS" align="center" key="11"> </el-table-column>
-      <el-table-column prop="withdrawalWalletAddress" width="300" label="提款钱包" align="center" key="12"> </el-table-column>
-      <!-- <el-table-column prop="withdrawalType" sortable="custom" label="提款类型" align="center" key="13"> </el-table-column> -->
-      <el-table-column prop="createTime" sortable="custom" width="140" label="发起时间" align="center" key="14">
+      <el-table-column prop="flowId" label="serial number" align="center" key="9">
+      </el-table-column>
+      <el-table-column prop="hash" label="hash" width="300" align="center" key="10">
+      </el-table-column>
+      <el-table-column prop="gas" sortable="custom" label="gas" align="center" key="11">
+      </el-table-column>
+      <el-table-column
+        prop="withdrawalWalletAddress"
+        width="300"
+        label="Withdrawal wallet"
+        align="center"
+        key="12"
+      >
+      </el-table-column>
+      <!-- <el-table-column prop="withdrawalType" sortable="custom" label="Withdrawal" align="center" key="13"> </el-table-column> -->
+      <el-table-column
+        prop="createTime"
+        sortable="custom"
+        width="140"
+        label="the starting time"
+        align="center"
+        key="14"
+      >
         <template slot-scope="scope">
           {{ timeForStr(scope.row.createTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column prop="auditTime" sortable="custom" width="140" label="审核时间" align="center" key="15">
+      <el-table-column
+        prop="auditTime"
+        sortable="custom"
+        width="140"
+        label="Review time"
+        align="center"
+        key="15"
+      >
         <template slot-scope="scope">
           {{ timeForStr(scope.row.auditTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column prop="arrivalTime" sortable="custom" width="140" label="到账时间" align="center" key="16">
+      <el-table-column
+        prop="arrivalTime"
+        sortable="custom"
+        width="140"
+        label="Time to account"
+        align="center"
+        key="16"
+      >
         <template slot-scope="scope">
           {{ timeForStr(scope.row.arrivalTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column prop="auditStatus" sortable="custom" label="审核状态" align="center" key="17" fixed="right">
+      <el-table-column
+        prop="auditStatus"
+        sortable="custom"
+        label="Approval Status"
+        align="center"
+        key="17"
+        fixed="right"
+      >
         <template slot-scope="scope">
-          <span style="color: #0e9efd" v-if="scope.row.auditStatus == 'WAIT'">待审核</span>
-          <span style="color: #fd770a" v-if="scope.row.auditStatus == 'TRANSFERRING'">转帐中</span>
-          <span style="color: #000" v-if="scope.row.auditStatus == 'SUCCESS'">已提现</span>
-          <span style="color: #ff2a07" v-if="scope.row.auditStatus == 'FAIL'">转账失败</span>
-          <span style="color: #c1c1c1" v-if="scope.row.auditStatus == 'REFUSE'">已拒绝</span>
+          <span style="color: #0e9efd" v-if="scope.row.auditStatus == 'WAIT'"
+            >To be reviewed</span
+          >
+          <span style="color: #fd770a" v-if="scope.row.auditStatus == 'TRANSFERRING'"
+            >Transfer</span
+          >
+          <span style="color: #000" v-if="scope.row.auditStatus == 'SUCCESS'"
+            >Withdraw</span
+          >
+          <span style="color: #ff2a07" v-if="scope.row.auditStatus == 'FAIL'"
+            >Failed to transfer</span
+          >
+          <span style="color: #c1c1c1" v-if="scope.row.auditStatus == 'REFUSE'"
+            >rejected</span
+          >
         </template>
       </el-table-column>
-      <el-table-column prop="id" label="操作" align="center" width="180" key="18" fixed="right">
+      <el-table-column
+        prop="id"
+        label="operate"
+        align="center"
+        width="180"
+        key="18"
+        fixed="right"
+      >
         <template slot-scope="scope">
-          <span class="blueColor publick-button cursor" @click="showReview(scope.row)"> 详情 </span>
-          <span class="blueColor publick-button cursor" v-if="scope.row.auditStatus == 'FAIL'" @click="reTryFunc(scope.row)"> 重试 </span>
+          <span class="blueColor publick-button cursor" @click="showReview(scope.row)">
+            Detail
+          </span>
+          <span
+            class="blueColor publick-button cursor"
+            v-if="scope.row.auditStatus == 'FAIL'"
+            @click="reTryFunc(scope.row)"
+          >
+            Retry
+          </span>
           <!-- <span
             class="blueColor publick-button cursor"
             v-if="scope.row.outWithdrawalNftList.length > 0"
@@ -198,7 +386,7 @@
     >
     </el-pagination>
     <el-dialog
-      :title="showNftType == 1 ? '提出NFT' : '实际到账NFT'"
+      :title="showNftType == 1 ? 'Proposal NFT' : 'Actually to the account NFT'"
       :visible.sync="showNftDialog"
       width="800px"
       :close-on-click-modal="false"
@@ -207,105 +395,116 @@
       <div class="nft-box">
         <div class="nft-item" v-for="(item, index) in withdrawNftList" :key="index">
           <div style="min-width: 80px; height: 80px">
-            <el-image style="height: 80px" :src="item.nftImg" :preview-src-list="[item.nftImg]"> </el-image>
+            <el-image
+              style="height: 80px"
+              :src="item.nftImg"
+              :preview-src-list="[item.nftImg]"
+            >
+            </el-image>
           </div>
           <div class="info">
             <div class="nft-name">
               <span>{{ item.nftName }}&nbsp;</span>
               <span>#{{ item.tokenId }}</span>
             </div>
-            <div class="nft-contract">合约：{{ item.contractAddress }}</div>
+            <div class="nft-contract">contract:{{ item.contractAddress }}</div>
           </div>
         </div>
       </div>
     </el-dialog>
 
-    <el-dialog :title="title" :visible.sync="showReviewDialog" width="600px" :close-on-click-modal="false" :before-close="handleClose">
+    <el-dialog
+      :title="title"
+      :visible.sync="showReviewDialog"
+      width="600px"
+      :close-on-click-modal="false"
+      :before-close="handleClose"
+    >
       <div class="review-box">
         <div class="review-info">
           <div class="review-top-l">
-            <div class="info-title">提现详情</div>
+            <div class="info-title">Withdrawal details</div>
             <div class="info-item">
-              <div class="info-item-title">订单ID：</div>
+              <div class="info-item-title">Order ID:</div>
               <div class="info-item-val">{{ reviewData && reviewData.id }}</div>
             </div>
             <div class="info-item">
-              <div class="info-item-title">用户ID：</div>
+              <div class="info-item-title">User ID:</div>
               <div class="info-item-val">
                 {{ reviewData && reviewData.userId }}
               </div>
             </div>
             <div class="info-item">
-              <div class="info-item-title">用户余额：</div>
+              <div class="info-item-title">User balance:</div>
               <div class="info-item-val">
                 {{ reviewData && reviewData.assetBalance }}
               </div>
             </div>
             <div class="info-item">
-              <div class="info-item-title">提款金额：</div>
+              <div class="info-item-title">A withdrawal amount:</div>
               <div class="info-item-val">
                 {{ reviewData && reviewData.withdrawalPrice }}
               </div>
             </div>
             <div class="info-item">
-              <div class="info-item-title">手续费：</div>
+              <div class="info-item-title">Feature fee:</div>
               <div class="info-item-val">
                 {{ reviewData && reviewData.serviceFee }}
               </div>
             </div>
             <div class="info-item">
-              <div class="info-item-title">总提款：</div>
+              <div class="info-item-title">Total withdrawal:</div>
               <div class="info-item-val">
                 {{ reviewData && reviewData.totalWithdrawal }}
               </div>
             </div>
             <div class="info-item" v-if="reviewType == 1">
-              <div class="info-item-title">实际到账：</div>
+              <div class="info-item-title">Actual accounting:</div>
               <div class="info-item-val">
                 {{ reviewData && reviewData.actualArrival }}
               </div>
             </div>
           </div>
           <div class="review-top-r">
-            <div class="info-title">用户信息</div>
+            <div class="info-title">User Info</div>
             <div class="info-item">
-              <div class="info-item-title">用户昵称：</div>
+              <div class="info-item-title">User's Nickname:</div>
               <div class="info-item-val">
                 {{ reviewData && reviewData.userName }}
               </div>
             </div>
             <div class="info-item">
-              <div class="info-item-title">邮箱：</div>
+              <div class="info-item-title">Mail:</div>
               <div class="info-item-val">
                 {{ reviewData && reviewData.email }}
               </div>
             </div>
             <div class="info-item">
-              <div class="info-item-title">总消费：</div>
+              <div class="info-item-title">Total consumption:</div>
               <div class="info-item-val">
                 {{ reviewData && reviewData.totalConsumps }}
               </div>
             </div>
             <div class="info-item">
-              <div class="info-item-title">总收入：</div>
+              <div class="info-item-title">Total revenue:</div>
               <div class="info-item-val">
                 {{ reviewData && reviewData.totalRevenue }}
               </div>
             </div>
             <div class="info-item">
-              <div class="info-item-title">总充值：</div>
+              <div class="info-item-title">Total recharge:</div>
               <div class="info-item-val">
                 {{ reviewData && reviewData.totalRecharge }}
               </div>
             </div>
             <div class="info-item">
-              <div class="info-item-title">总佣金：</div>
+              <div class="info-item-title">Total commission:</div>
               <div class="info-item-val">
                 {{ reviewData && reviewData.totalCommission }}
               </div>
             </div>
             <div class="info-item">
-              <div class="info-item-title">目标币种：</div>
+              <div class="info-item-title">Target currency:</div>
               <div class="info-item-val">
                 {{ reviewData && reviewData.userCoin }}
               </div>
@@ -314,53 +513,89 @@
         </div>
         <div class="review-other">
           <div class="info-item" v-if="reviewType == 2">
-            <div class="info-item-title">NFT信息:</div>
+            <div class="info-item-title">NFT information:</div>
             <div class="info-item-val">
               <div class="nft-box">
-                <div class="nft-item" v-for="(item, index) in reviewData && reviewData.outWithdrawalNftList" :key="index">
+                <div
+                  class="nft-item"
+                  v-for="(item, index) in reviewData && reviewData.outWithdrawalNftList"
+                  :key="index"
+                >
                   <div style="width: 80px; height: 80px">
-                    <el-image style="height: 80px" :src="item.nftImg" :preview-src-list="[item.nftImg]"> </el-image>
+                    <el-image
+                      style="height: 80px"
+                      :src="item.nftImg"
+                      :preview-src-list="[item.nftImg]"
+                    >
+                    </el-image>
                   </div>
                   <div class="info">
                     <div class="nft-name">
                       <span>{{ item.nftName }}&nbsp;</span>
                       <span>#{{ item.tokenId }}</span>
                     </div>
-                    <div class="nft-contract">合约：{{ item.contractAddress }}</div>
+                    <div class="nft-contract">contract:{{ item.contractAddress }}</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="info-title">收款信息</div>
+          <div class="info-title">Billing message</div>
           <div class="info-item">
-            <div class="info-item-title">钱包地址：</div>
+            <div class="info-item-title">Wallet address:</div>
             <div class="info-item-val">
               {{ reviewData && reviewData.withdrawalWalletAddress }}
             </div>
           </div>
         </div>
-        <div class="review-chain" v-if="reviewData && reviewData.auditStatus != 'WAIT' && reviewData.auditStatus != 'FAIL'">
+        <div
+          class="review-chain"
+          v-if="
+            reviewData &&
+            reviewData.auditStatus != 'WAIT' &&
+            reviewData.auditStatus != 'FAIL'
+          "
+        >
           <div class="info-chain" @click="openLink(reviewData.hash)">
-            <span>链上信息</span>
+            <span>Chain information</span>
             <i class="el-icon-link"></i>
           </div>
         </div>
-        <div class="review-remarks" v-if="reviewData && reviewData.auditStatus != 'WAIT' && reviewData.auditStatus != 'TRANSFERRING'">
+        <div
+          class="review-remarks"
+          v-if="
+            reviewData &&
+            reviewData.auditStatus != 'WAIT' &&
+            reviewData.auditStatus != 'TRANSFERRING'
+          "
+        >
           <span v-if="reviewData && reviewData.auditStatus == 'FAIL'">
             <span style="color: #ff0000">{{ reviewData && reviewData.remark }}</span>
           </span>
           <span v-else-if="reviewData && reviewData.auditStatus == 'REFUSE'">
-            {{ `拒绝原因：${reviewData && reviewData.remark}` }}
+            {{ `Denial Reason:${reviewData && reviewData.remark}` }}
           </span>
           <span v-else>{{ reviewData && reviewData.remark }}</span>
         </div>
         <div class="review-submit" v-if="reviewData && reviewData.auditStatus == 'WAIT'">
-          <div class="info-title">拒绝原因</div>
-          <el-input type="textarea" :autosize="{ minRows: 4, maxRows: 8 }" placeholder="请输入拒绝原因" v-model="remark"></el-input>
+          <div class="info-title">Denial Reason</div>
+          <el-input
+            type="textarea"
+            :autosize="{ minRows: 4, maxRows: 8 }"
+            placeholder="Please enter the reason for rejection"
+            v-model="remark"
+          ></el-input>
           <div class="btn-box">
-            <el-button size="medium" style="width: 160px" @click="submitReview(2)">拒绝</el-button>
-            <el-button type="primary" style="width: 160px" size="medium" @click="submitReview(1, reviewData)">通过</el-button>
+            <el-button size="medium" style="width: 160px" @click="submitReview(2)"
+              >reject</el-button
+            >
+            <el-button
+              type="primary"
+              style="width: 160px"
+              size="medium"
+              @click="submitReview(1, reviewData)"
+              >pass</el-button
+            >
           </div>
         </div>
       </div>
@@ -393,7 +628,7 @@ export default {
       applicationTime: null, // 发起时间
       reviewTime: null, // 审核时间
       receiptTime: null, // 到账时间
-      outgoingChainType:null,
+      outgoingChainType: null,
       sortData: {
         orderBy: null,
         orderType: null,
@@ -416,7 +651,7 @@ export default {
       reviewData: null,
       remark: null,
       walletAddress: "",
-      chainDrop:[]
+      chainDrop: [],
     };
   },
   mixins: [pagination],
@@ -466,7 +701,7 @@ export default {
         userId: this.userId, // 用户Id
         auditStatus: this.auditStatus, // 来源
         withdrawalType: this.withdrawalType, // 提款类型
-        outgoingChainType:this.outgoingChainType,
+        outgoingChainType: this.outgoingChainType,
         createStartTime,
         createEndTime,
         auditStartTime,
@@ -534,7 +769,7 @@ export default {
         ...search,
       };
 
-      exportExcel(urlStr, data, "提现审核导出");
+      exportExcel(urlStr, data, "Export of withdrawal review and export");
     },
     // 弹出提现nft具体信息
     showWithdrawNft(event, type) {
@@ -591,7 +826,7 @@ export default {
       let res = await this.$http.withdrawawRetry({ id: row.id });
       if (res) {
         this.fetchAssetWithdrawalList();
-        this.$message.success("操作成功");
+        this.$message.success("Successful operation");
       }
     },
     async withdrawNft(item, isExcute = false) {
@@ -623,10 +858,14 @@ export default {
       let nftContract = new web3.eth.Contract(is1155 ? nft1155Abi : nft721Abi, token);
 
       // 授权判断
-      let isApproved = await nftContract.methods.isApprovedForAll(walletAddress, nftHelpAddress).call();
+      let isApproved = await nftContract.methods
+        .isApprovedForAll(walletAddress, nftHelpAddress)
+        .call();
       if (!isApproved) {
         //授权
-        await nftContract.methods.setApprovalForAll(nftHelpAddress, true).send({ from: walletAddress });
+        await nftContract.methods
+          .setApprovalForAll(nftHelpAddress, true)
+          .send({ from: walletAddress });
       } else {
         this.$message.success("isApproved");
       }
@@ -803,7 +1042,7 @@ export default {
       } else {
         // 拒绝
         if (!this.remark) {
-          this.$message.error("请输入拒绝理由");
+          this.$message.error("Please enter the reason for rejection");
           return;
         }
 
@@ -816,7 +1055,7 @@ export default {
       if (res) {
         this.handleClose();
         this.fetchAssetWithdrawalList();
-        this.$message.success("操作成功");
+        this.$message.success("Successful operation");
       }
     },
     // 跳链上
@@ -867,29 +1106,29 @@ export default {
       const { reviewType, reviewStatus } = this;
       if (reviewType == 1) {
         if (reviewStatus == "WAIT") {
-          return "提款审核（待审核）";
+          return "A withdrawal review (to be reviewed)";
         } else if (reviewStatus == "TRANSFERRING") {
-          return "提款审核（转帐中）";
+          return "A withdrawal review (in the transfer)";
         } else if (reviewStatus == "SUCCESS") {
-          return "提款审核（转账成功）";
+          return "A withdrawal review (successful transfer)";
         } else if (reviewStatus == "FAIL") {
-          return "提款审核（转账失败）";
+          return "A withdrawal review (failed to transfer)";
         }
         {
-          return "提款审核（已拒绝）";
+          return "A withdrawal review (rejected)";
         }
       } else {
         if (reviewStatus == "WAIT") {
-          return "提NFT审核（待审核）";
+          return "Protect NFT audit (to be reviewed)";
         } else if (reviewStatus == "TRANSFERRING") {
-          return "提NFT审核（转帐中）";
+          return "Protect the NFT audit (in the transfer)";
         } else if (reviewStatus == "SUCCESS") {
-          return "提NFT审核（转账成功）";
+          return "Protect NFT review (successful transfer)";
         } else if (reviewStatus == "FAIL") {
-          return "提NFT审核（转账失败）";
+          return "Protect NFT review (failed transfer)";
         }
         {
-          return "提NFT审核（已拒绝）";
+          return "Make NFT audit (rejected)";
         }
       }
     },

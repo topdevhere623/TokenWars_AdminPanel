@@ -4,21 +4,21 @@
       <el-input
         class="public-input"
         style="width: 140px"
-        placeholder="输入卡号"
+        placeholder="Input card number"
         v-model="id"
         clearable
       />
       <el-input
         class="public-input"
         style="width: 140px"
-        placeholder="输入兑换账号"
+        placeholder="Enter the exchange account"
         v-model="userName"
         clearable
       />
       <el-input
         class="public-input"
         style="width: 140px"
-        placeholder="输入备注"
+        placeholder="Input remarks"
         v-model="remark"
         clearable
       />
@@ -26,75 +26,75 @@
         v-model="cardStatus"
         class="public-select-box"
         popper-class="public-select-box"
-        placeholder="全部状态"
+        placeholder="All states"
         clearable
       >
-        <el-option label="待兑换" value="1"> </el-option>
-        <el-option label="已兑换" value="2"> </el-option>
-        <el-option label="失效" value="3"> </el-option>
+        <el-option label="Be exchanged" value="1"> </el-option>
+        <el-option label="Exchanged" value="2"> </el-option>
+        <el-option label="Fail" value="3"> </el-option>
       </el-select>
       <el-select
         v-model="cardType"
         class="public-select-box"
         popper-class="public-select-box"
-        placeholder="全部类型"
+        placeholder="All types"
         clearable
       >
-        <el-option label="单次" value="SINGLE"> </el-option>
-        <el-option label="私聊发码" value="PRIVATE"> </el-option>
-        <el-option label="无限制" value="UNLIMITED"> </el-option>
-        <el-option label="礼品卡" value="GIFTCARD"> </el-option>
+        <el-option label="single" value="SINGLE"> </el-option>
+        <el-option label="Private chat code" value="PRIVATE"> </el-option>
+        <el-option label="Unlimited" value="UNLIMITED"> </el-option>
+        <el-option label="gift card" value="GIFTCARD"> </el-option>
       </el-select>
       <div class="public-date-box">
-        <span class="demonstration"> 金额区间 </span>
+        <span class="demonstration"> Amount </span>
         <el-input
           type="number"
           style="width: 120px; border: 1px solid #dcdfe6; border-radius: 4px"
-          placeholder="最低价"
+          placeholder="Minimum price"
           v-model="amountStart"
           clearable
         />
         <el-input
           type="number"
           style="width: 120px; border: 1px solid #dcdfe6; border-radius: 4px"
-          placeholder="最高价"
+          placeholder="Highest price"
           v-model="amountEnd"
           clearable
         />
       </div>
       <div class="public-date-box">
-        <span class="demonstration"> 创建时间 </span>
+        <span class="demonstration"> Creation time </span>
         <el-date-picker
           v-model="createTime"
           value-format="yyyy-MM-dd HH:mm:ss"
           type="datetimerange"
-          range-separator="到"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          range-separator="arrive"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
         >
         </el-date-picker>
       </div>
       <div class="public-date-box">
-        <span class="demonstration"> 失效时间 </span>
+        <span class="demonstration"> Failure time </span>
         <el-date-picker
           v-model="failureTime"
           value-format="yyyy-MM-dd HH:mm:ss"
           type="datetimerange"
-          range-separator="到"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          range-separator="arrive"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
         >
         </el-date-picker>
       </div>
       <div class="public-date-box">
-        <span class="demonstration"> 兑换时间 </span>
+        <span class="demonstration"> Redeem time </span>
         <el-date-picker
           v-model="conversionTime"
           value-format="yyyy-MM-dd HH:mm:ss"
           type="datetimerange"
-          range-separator="到"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          range-separator="arrive"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
         >
         </el-date-picker>
       </div>
@@ -104,7 +104,7 @@
         class="public-search"
         @click="getTableListFunc()"
       >
-        查询
+        Inquire
       </el-button>
       <el-button
         type="primary"
@@ -112,7 +112,7 @@
         class="public-search"
         @click="onExport()"
       >
-        导出
+        Export
       </el-button>
       <el-button
         type="primary"
@@ -120,7 +120,7 @@
         class="public-search"
         @click="addFunc()"
       >
-        添加
+        Add to
       </el-button>
       <el-button
         type="danger"
@@ -128,7 +128,7 @@
         class="public-search"
         @click="handleBatchInvalidation()"
       >
-        批量失效
+        Failure
       </el-button>
       <el-button
         type="primary"
@@ -136,31 +136,31 @@
         class="public-search"
         @click="couponsFunc()"
       >
-        配置获取渠道
+        Configuration acquisition channel
       </el-button>
     </div>
     <div class="remittance-box">
       <div class="remittance-amount remittance-more">
         <div class="remittance-item">
-          <div class="title">总礼品码</div>
+          <div class="title">General Gift Code</div>
           <div class="val">
             {{ aggregateQuery && aggregateQuery.redeemCodeTotal }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">已兑换数</div>
+          <div class="title">Exchange number</div>
           <div class="val">
             {{ aggregateQuery && aggregateQuery.redeemedNumber }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">已兑换金额</div>
+          <div class="title">Exchange amount</div>
           <div class="val">
             {{ aggregateQuery && aggregateQuery.redeemedAmountTotal }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">剩余金额</div>
+          <div class="title">balance</div>
           <div class="val">
             {{ aggregateQuery && aggregateQuery.notRedeemedAmountTotal }}
           </div>
@@ -176,51 +176,44 @@
     >
       <el-table-column
         prop="id"
-        label="卡号"
+        label="card number"
         align="center"
         key="1"
       ></el-table-column>
-      <el-table-column prop="cardamom" label="卡密" align="center" key="2">
+      <el-table-column prop="cardamom" label="Dense" align="center" key="2">
       </el-table-column>
-      <el-table-column prop="amount" label="金额" align="center" key="3">
+      <el-table-column prop="amount" label="Amount" align="center" key="3">
       </el-table-column>
-      <el-table-column prop="cardSource" label="来源" align="center" key="4">
+      <el-table-column prop="cardSource" label="source" align="center" key="4">
         <template slot-scope="scope">
           <span>
-            {{ scope.row.cardSource == "PLATFORM" ? "平台" : "其他" }}
+            {{ scope.row.cardSource == "PLATFORM" ? "platform" : "other" }}
           </span>
         </template>
       </el-table-column>
-      <el-table-column prop="cardType" label="类型" align="center" key="5">
+      <el-table-column prop="cardType" label="type" align="center" key="5">
         <template slot-scope="scope">
           <p>
             {{
               scope.row.cardType == "SINGLE"
-                ? "单次"
+                ? "single"
                 : scope.row.cardType == "PRIVATE"
-                ? "私聊码"
+                ? "Private chat code"
                 : scope.row.cardType == "UNLIMITED"
-                ? "无限制"
-                : "礼品卡"
+                ? "Unlimited"
+                : "gift card"
             }}
           </p>
         </template>
       </el-table-column>
-      <el-table-column prop="cardStatus" label="状态" align="center" key="6">
+      <el-table-column prop="cardStatus" label="state" align="center" key="6">
         <template slot-scope="scope">
-          <p v-if="scope.row.cardStatus == 2" style="color: #67c23a">已兑换</p>
-          <p v-else-if="scope.row.cardStatus == 3" style="color: #f56c6c">
-            失效
-          </p>
-          <p v-else style="color: #888888">待兑换</p>
+          <p v-if="scope.row.cardStatus == 2" style="color: #67c23a">Exchanged</p>
+          <p v-else-if="scope.row.cardStatus == 3" style="color: #f56c6c">Fail</p>
+          <p v-else style="color: #888888">Be exchanged</p>
         </template>
       </el-table-column>
-      <el-table-column
-        prop="rebateRate"
-        label="兑换账号"
-        align="center"
-        key="7"
-      >
+      <el-table-column prop="rebateRate" label="Exchange account" align="center" key="7">
         <template slot-scope="scope">
           <p :style="{ color: scope.row.userType == 'INNER' ? 'red' : '#000' }">
             {{ scope.row.userId || "--" }}
@@ -230,12 +223,18 @@
           </p>
         </template>
       </el-table-column>
-      <el-table-column prop="remark" label="备注" align="center" key="20" show-overflow-tooltip> 
+      <el-table-column
+        prop="remark"
+        label="Remark"
+        align="center"
+        key="20"
+        show-overflow-tooltip
+      >
       </el-table-column>
       <el-table-column
         prop="createTime"
         width="140"
-        label="创建时间"
+        label="Creation time"
         align="center"
         key="8"
       >
@@ -246,7 +245,7 @@
       <el-table-column
         prop="expirationTime"
         width="140"
-        label="失效时间"
+        label="Failure time"
         align="center"
         key="9"
       >
@@ -257,7 +256,7 @@
       <el-table-column
         prop="redeemTime"
         width="140"
-        label="兑换时间"
+        label="Redeem time"
         align="center"
         key="10"
       >
@@ -265,13 +264,13 @@
           {{ timeForStr(scope.row.redeemTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column prop="id" label="操作" align="center" key="19">
+      <el-table-column prop="id" label="operate" align="center" key="19">
         <template slot-scope="scope">
           <span
             v-if="scope.row.cardStatus == 1"
             class="blueColor publick-button cursor"
             @click="handleInvalid(scope.row)"
-            >失效</span
+            >Fail</span
           >
         </template>
       </el-table-column>
@@ -292,7 +291,7 @@
     <el-dialog
       width="440px"
       :close-on-click-modal="false"
-      title="创建兑换码"
+      title="Create the exchange code"
       :visible.sync="showAddFunc"
       append-to-body
       :before-close="handleClose"
@@ -304,57 +303,45 @@
         :model="ruleForm"
         label-width="80px"
       >
-        <el-form-item label="金额" prop="amount" :rules="rules.blur">
-          <el-input
-            style="width: 300px"
-            type="number"
-            v-model="ruleForm.amount"
-          >
+        <el-form-item label="Amount" prop="amount" :rules="rules.blur">
+          <el-input style="width: 300px" type="number" v-model="ruleForm.amount">
             <template slot="append">U</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="数量" prop="number" :rules="rules.blur">
-          <el-input
-            style="width: 300px"
-            type="number"
-            v-model.number="ruleForm.number"
-          >
+        <el-form-item label="quantity" prop="number" :rules="rules.blur">
+          <el-input style="width: 300px" type="number" v-model.number="ruleForm.number">
           </el-input>
         </el-form-item>
-        <el-form-item label="类型" prop="cardType" :rules="rules.select">
+        <el-form-item label="type" prop="cardType" :rules="rules.select">
           <el-select style="width: 300px" v-model="ruleForm.cardType" clearable>
-            <el-option label="单次" value="SINGLE"> </el-option>
-            <el-option label="私聊发码" value="PRIVATE"> </el-option>
-            <el-option label="无限制" value="UNLIMITED"> </el-option>
-            <el-option label="礼品卡" value="GIFTCARD"> </el-option>
+            <el-option label="single" value="SINGLE"> </el-option>
+            <el-option label="Private chat code" value="PRIVATE"> </el-option>
+            <el-option label="Unlimited" value="UNLIMITED"> </el-option>
+            <el-option label="gift card" value="GIFTCARD"> </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="有效期">
+        <el-form-item label="Validity period">
           <el-input
             style="width: 300px"
             type="number"
             v-model.number="ruleForm.validDate"
           >
-            <template slot="append">天</template>
+            <template slot="append">sky</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="备注">
-          <el-input
-            style="width: 300px"
-            v-model="ruleForm.remark"
-          >
-          </el-input>
+        <el-form-item label="Remark">
+          <el-input style="width: 300px" v-model="ruleForm.remark"> </el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="handleClose()">取 消</el-button>
-        <el-button type="primary" @click="submitFunc()">确 定</el-button>
+        <el-button @click="handleClose()">Cancel</el-button>
+        <el-button type="primary" @click="submitFunc()">Sure</el-button>
       </span>
     </el-dialog>
     <el-dialog
       width="440px"
       :close-on-click-modal="false"
-      title="渠道配置"
+      title="Channel configuration"
       :visible.sync="showCouponsFunc"
       append-to-body
       :before-close="handleClose"
@@ -366,22 +353,16 @@
         :model="couponsForm"
         label-width="80px"
       >
-        <el-form-item
-          label="渠道名称"
-          prop="channelName"
-          :rules="rules.channelName"
-        >
-          <el-input style="width: 300px" v-model="couponsForm.channelName">
-          </el-input>
+        <el-form-item label="Channel name" prop="channelName" :rules="rules.channelName">
+          <el-input style="width: 300px" v-model="couponsForm.channelName"> </el-input>
         </el-form-item>
-        <el-form-item label="链接" prop="url" :rules="rules.url">
-          <el-input style="width: 300px" v-model.number="couponsForm.url">
-          </el-input>
+        <el-form-item label="Link" prop="url" :rules="rules.url">
+          <el-input style="width: 300px" v-model.number="couponsForm.url"> </el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="handleClose()">取 消</el-button>
-        <el-button type="primary" @click="submitCouponsFunc()">确 定</el-button>
+        <el-button @click="handleClose()">Cancel</el-button>
+        <el-button type="primary" @click="submitCouponsFunc()">Sure</el-button>
       </span>
     </el-dialog>
   </div>
@@ -403,7 +384,7 @@ export default {
       id: null,
       userName: null,
       inviteCode: null,
-      remark:null,
+      remark: null,
       createTime: null,
       failureTime: null,
       conversionTime: null,
@@ -427,15 +408,13 @@ export default {
         number: null,
         cardType: null,
         validDate: 30,
-        remark:null
+        remark: null,
       },
       rules: {
         select: [
-          { required: true, message: "请选择", trigger: ["blur", "change"] },
+          { required: true, message: "please choose", trigger: ["blur", "change"] },
         ],
-        blur: [
-          { required: true, message: "请输入", trigger: ["blur", "change"] },
-        ],
+        blur: [{ required: true, message: "please enter", trigger: ["blur", "change"] }],
       },
       showCouponsFunc: false,
       couponsForm: {
@@ -444,11 +423,9 @@ export default {
       },
       couponsRules: {
         channelName: [
-          { required: true, message: "请输入", trigger: ["blur", "change"] },
+          { required: true, message: "please enter", trigger: ["blur", "change"] },
         ],
-        url: [
-          { required: true, message: "请输入", trigger: ["blur", "change"] },
-        ],
+        url: [{ required: true, message: "please enter", trigger: ["blur", "change"] }],
       },
     };
   },
@@ -474,7 +451,7 @@ export default {
       return {
         id: this.id,
         userName: this.userName,
-        remark:this.remark,
+        remark: this.remark,
         cardStatus: this.cardStatus,
         cardType: this.cardType,
         amountStart: this.amountStart,
@@ -535,9 +512,9 @@ export default {
     },
     // 失效
     handleInvalid(event) {
-      this.$confirm("确定要执行此操作吗?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm("Are you sure to perform this operation?", "hint", {
+        confirmButtonText: "Sure",
+        cancelButtonText: "Cancel",
         type: "info",
       })
         .then(async () => {
@@ -546,7 +523,7 @@ export default {
           });
           if (res) {
             this.getTableListFunc();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {
@@ -555,9 +532,9 @@ export default {
     },
     // 批量失效
     handleBatchInvalidation() {
-      this.$confirm("确定要执行此操作吗?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm("Are you sure to perform this operation?", "hint", {
+        confirmButtonText: "Sure",
+        cancelButtonText: "Cancel",
         type: "info",
       })
         .then(async () => {
@@ -567,7 +544,7 @@ export default {
           });
           if (res) {
             this.getTableListFunc();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {
@@ -586,7 +563,7 @@ export default {
           if (res) {
             this.handleClose();
             this.getTableListFunc();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         }
       });
@@ -604,7 +581,7 @@ export default {
         ...search,
       };
 
-      exportExcel(urlStr, data, "兑换码列表导出");
+      exportExcel(urlStr, data, "Export of the redemption code list");
     },
     // 加载渠道配置
     async getFindRedeemTextSetting() {
@@ -630,7 +607,7 @@ export default {
           if (res) {
             this.handleClose();
             this.getFindRedeemTextSetting();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         }
       });

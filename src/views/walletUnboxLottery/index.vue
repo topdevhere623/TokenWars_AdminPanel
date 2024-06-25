@@ -4,7 +4,7 @@
       <el-input
         class="public-input"
         style="width: 220px"
-        placeholder="输入ID、用户ID、钱包地址"
+        placeholder="Enter ID, user ID, wallet address"
         v-model="obscureField"
         clearable
       />
@@ -12,43 +12,43 @@
         v-model="chainName"
         class="public-select-box"
         popper-class="public-select-box"
-        placeholder="链"
+        placeholder="chain"
       >
-        <el-option label="ETH" value="ETH"> </el-option>
-        <el-option label="测试网" value="Goerli"> </el-option>
+        <el-option label="eth" value="ETH"> </el-option>
+        <el-option label="Test network" value="Goerli"> </el-option>
       </el-select>
       <el-select
         v-model="coin"
         class="public-select-box"
         popper-class="public-select-box"
-        placeholder="币种"
+        placeholder="Currency"
       >
-        <el-option label="ETH" value="ETH"> </el-option>
-        <el-option label="BNB" value="BNB"> </el-option>
+        <el-option label="eth" value="ETH"> </el-option>
+        <el-option label="bnb" value="BNB"> </el-option>
       </el-select>
       <div class="public-date-box">
-        <span class="demonstration"> 创建时间 </span>
+        <span class="demonstration"> Creation time </span>
         <el-date-picker
           v-model="changeCreateTime"
           value-format="yyyy-MM-dd HH:mm:ss"
           format="yyyy-MM-dd"
           type="datetimerange"
           range-separator="到"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
         >
         </el-date-picker>
       </div>
       <div class="public-date-box">
-        <span class="demonstration"> 账变时间 </span>
+        <span class="demonstration"> Account change time </span>
         <el-date-picker
           v-model="changeUpdateTime"
           value-format="yyyy-MM-dd HH:mm:ss"
           format="yyyy-MM-dd"
           type="datetimerange"
           range-separator="到"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
         >
         </el-date-picker>
       </div>
@@ -58,37 +58,37 @@
         class="public-search"
         @click="getTableList()"
       >
-        查询
+        Inquire
       </el-button>
     </div>
     <div class="remittance-box">
       <div class="remittance-amount remittance-more">
         <div class="remittance-item">
-          <div class="title">总钱包数</div>
+          <div class="title">Total wallet number</div>
           <div class="val">
             {{ statisticsData && statisticsData.totalWalletNum }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总余额</div>
+          <div class="title">Total balance</div>
           <div class="val">
             {{ statisticsData && statisticsData.totalAssetBalance }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总平台转入</div>
+          <div class="title">General platform transfer</div>
           <div class="val">
             {{ statisticsData && statisticsData.totalUserIn }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总抽奖次数</div>
+          <div class="title">Total lottery</div>
           <div class="val">
             {{ statisticsData && statisticsData.totalCollectionAmount }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总GAS</div>
+          <div class="title">Total Gas</div>
           <div class="val">
             {{ statisticsData && statisticsData.totalPlatformInGas }}
           </div>
@@ -96,42 +96,39 @@
       </div>
     </div>
     <el-table :data="tableData" style="width: 100%" class="public-table" border>
-      <el-table-column prop="id" label="ID" align="center"> </el-table-column>
+      <el-table-column prop="id" label="id" align="center"> </el-table-column>
       <el-table-column
         prop="walletAddress"
-        label="地址"
+        label="address"
         align="center"
         show-overflow-tooltip
       ></el-table-column>
-      <el-table-column prop="userName" label="所属用户" align="center">
+      <el-table-column prop="userName" label="Subordinate" align="center">
         <template slot-scope="scope">
           <p>{{ scope.row.userId }}</p>
           <p>{{ scope.row.userName }}</p>
         </template>
       </el-table-column>
-      <el-table-column prop="chainName" label="链" align="center">
+      <el-table-column prop="chainName" label="chain" align="center"> </el-table-column>
+      <el-table-column prop="coin" label="Currency" align="center"> </el-table-column>
+      <el-table-column prop="assetBalance" label="Balance" align="center">
       </el-table-column>
-      <el-table-column prop="coin" label="币种" align="center">
+      <el-table-column prop="platformIn" label="Platform transfer" align="center">
       </el-table-column>
-      <el-table-column prop="assetBalance" label="余额" align="center">
+      <el-table-column prop="lotteryNum" label="Number of draws" align="center">
       </el-table-column>
-      <el-table-column prop="platformIn" label="平台转入" align="center">
-      </el-table-column>
-      <el-table-column prop="lotteryNum" label="抽奖次数" align="center">
-      </el-table-column>
-      <el-table-column prop="lotteryGas" label="GAS" align="center">
-      </el-table-column>
-      <el-table-column prop="createTime" label="创建时间" align="center">
+      <el-table-column prop="lotteryGas" label="gas" align="center"> </el-table-column>
+      <el-table-column prop="createTime" label="Creation time" align="center">
         <template slot-scope="scope">
           {{ timeForStr(scope.row.createTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column prop="updateTime" label="最后账变时间" align="center">
+      <el-table-column prop="updateTime" label="Last account change time" align="center">
         <template slot-scope="scope">
           {{ timeForStr(scope.row.updateTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column label="资产详情" align="center">
+      <el-table-column label="Asset details" align="center">
         <template slot-scope="scope">
           <chainExplorerSkip :chain="scope.row.chainName" hash="" />
         </template>
@@ -221,9 +218,7 @@ export default {
 
       delete data.size;
       delete data.page;
-      const statisticsData = await this.$http.getWalletBoxLotteryStatistics(
-        data
-      );
+      const statisticsData = await this.$http.getWalletBoxLotteryStatistics(data);
       if (statisticsData) {
         this.statisticsData = statisticsData;
       }

@@ -1,64 +1,197 @@
 <template>
   <div class="page-wrapper">
     <div class="public-list-inputs">
-      <el-input class="public-input" style="width: 220px" placeholder="输入ID、名称" v-model="obscureField" clearable />
-      <el-button type="primary" icon="el-icon-search" class="public-search" @click="fetchNftPlatformList()"> 查询 </el-button>
-      <el-button type="primary" icon="el-icon-circle-plus-outline" class="public-search" @click="showDialog = true"> 创建NFT </el-button>
+      <el-input
+        class="public-input"
+        style="width: 220px"
+        placeholder="Enter ID, name"
+        v-model="obscureField"
+        clearable
+      />
+      <el-button
+        type="primary"
+        icon="el-icon-search"
+        class="public-search"
+        @click="fetchNftPlatformList()"
+      >
+        Inquire
+      </el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-circle-plus-outline"
+        class="public-search"
+        @click="showDialog = true"
+      >
+        Create NFT
+      </el-button>
     </div>
     <div class="remittance-box">
       <div class="remittance-amount remittance-more">
         <div class="remittance-item">
-          <div class="title">总藏品数</div>
+          <div class="title">Total collection</div>
           <div class="val">{{ aggregateQuery && aggregateQuery.collNumberTotal }}</div>
         </div>
       </div>
     </div>
-    <el-table :data="tableData" style="width: 100%" class="public-table" @sort-change="sortChange" border>
-      <el-table-column prop="id" sortable="custom" label="NFT ID" align="center" key="1"> </el-table-column>
-      <el-table-column prop="seriesImg" label="NFT图" width="120px" align="center" key="2">
+    <el-table
+      :data="tableData"
+      style="width: 100%"
+      class="public-table"
+      @sort-change="sortChange"
+      border
+    >
+      <el-table-column prop="id" sortable="custom" label="nft ID" align="center" key="1">
+      </el-table-column>
+      <el-table-column
+        prop="seriesImg"
+        label="NFT diagram"
+        width="120px"
+        align="center"
+        key="2"
+      >
         <template slot-scope="scope">
           <div style="width: 100px; height: 100px">
-            <el-image style="height: 100%" :src="scope.row.seriesImg" :preview-src-list="[scope.row.seriesImg]"> </el-image>
+            <el-image
+              style="height: 100%"
+              :src="scope.row.seriesImg"
+              :preview-src-list="[scope.row.seriesImg]"
+            >
+            </el-image>
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="seriesType" label="类型" align="center" key="3">
+      <el-table-column prop="seriesType" label="type" align="center" key="3">
         <template slot-scope="scope">
           {{ scope.row.seriesType == "COIN" ? "币" : "图" }}
         </template>
       </el-table-column>
-      <el-table-column prop="seriesName" label="系列名称" align="center" key="4"> </el-table-column>
-      <el-table-column prop="chainType" label="所在链" align="center" key="5"> </el-table-column>
-      <el-table-column prop="tokenId" label="tokenId" align="center" key="6"> </el-table-column>
-      <el-table-column prop="price" sortable="custom" :label="`价值(${'ETH'})`" align="center" key="7">
+      <el-table-column prop="seriesName" label="Series name" align="center" key="4">
+      </el-table-column>
+      <el-table-column prop="chainType" label="Chain" align="center" key="5">
+      </el-table-column>
+      <el-table-column prop="tokenId" label="tokenId" align="center" key="6">
+      </el-table-column>
+      <el-table-column
+        prop="price"
+        sortable="custom"
+        :label="`value(${'eth'})`"
+        align="center"
+        key="7"
+      >
         <template slot-scope="scope">
           {{ scope.row.seriesType == "COIN" ? scope.row.price : "--" }}
         </template>
       </el-table-column>
-      <el-table-column prop="price" sortable="custom" :label="`价值(${coin})`" align="center" key="8" width="100px">
+      <el-table-column
+        prop="price"
+        sortable="custom"
+        :label="`Value ($ {coin})`"
+        align="center"
+        key="8"
+        width="100px"
+      >
         <template slot-scope="scope">
-          {{ scope.row.seriesType == "COIN" ? (scope.row.usdtLastPrice * scope.row.price).toFixed(4) : scope.row.price }}
+          {{
+            scope.row.seriesType == "COIN"
+              ? (scope.row.usdtLastPrice * scope.row.price).toFixed(4)
+              : scope.row.price
+          }}
         </template>
       </el-table-column>
-      <el-table-column prop="contractAddress" label="合约" align="center" key="9"> </el-table-column>
-      <el-table-column prop="relevancyBoxNumber" sortable="custom" label="关联盲盒" align="center" key="10"> </el-table-column>
-      <el-table-column prop="openNumberTotal" sortable="custom" label="开出数量" align="center" key="11"> </el-table-column>
-      <el-table-column prop="openPriceTotal" sortable="custom" label="开出总价值" align="center" key="12"> </el-table-column>
-      <el-table-column prop="sellNumberTotal" sortable="custom" label="转卖数量" align="center" key="13"> </el-table-column>
-      <el-table-column prop="sellPriceTotal" sortable="custom" label="转卖总价值" align="center" key="14"> </el-table-column>
-      <el-table-column prop="outNumberTotal" sortable="custom" label="提出数量" align="center" key="15"> </el-table-column>
-      <el-table-column prop="relevancyUserNumber" sortable="custom" label="用户持有" align="center" key="16"> </el-table-column>
-      <el-table-column prop="relevancyFoundryNumber" sortable="custom" label="铸造数量" align="center" key="17"> </el-table-column>
-      <el-table-column prop="reclaimRate" sortable="custom" label="回收比例" align="center" key="18">
+      <el-table-column prop="contractAddress" label="contract" align="center" key="9">
+      </el-table-column>
+      <el-table-column
+        prop="relevancyBoxNumber"
+        sortable="custom"
+        label="Associated blind box"
+        align="center"
+        key="10"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="openNumberTotal"
+        sortable="custom"
+        label="Quantity"
+        align="center"
+        key="11"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="openPriceTotal"
+        sortable="custom"
+        label="Global value"
+        align="center"
+        key="12"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="sellNumberTotal"
+        sortable="custom"
+        label="Resale quantity"
+        align="center"
+        key="13"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="sellPriceTotal"
+        sortable="custom"
+        label="Total value of resale"
+        align="center"
+        key="14"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="outNumberTotal"
+        sortable="custom"
+        label="Quantity"
+        align="center"
+        key="15"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="relevancyUserNumber"
+        sortable="custom"
+        label="User hold"
+        align="center"
+        key="16"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="relevancyFoundryNumber"
+        sortable="custom"
+        label="Casting quantity"
+        align="center"
+        key="17"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="reclaimRate"
+        sortable="custom"
+        label="Recycling ratio"
+        align="center"
+        key="18"
+      >
         <template slot-scope="scope">
-          {{ `${new bigNumber(scope.row.reclaimRate || 0).multipliedBy(100).toFixed(2)}%` }}
+          {{
+            `${new bigNumber(scope.row.reclaimRate || 0).multipliedBy(100).toFixed(2)}%`
+          }}
         </template>
       </el-table-column>
-      <el-table-column prop="id" label="操作" align="center" key="19">
+      <el-table-column prop="id" label="operate" align="center" key="19">
         <template slot-scope="scope">
-          <span class="blueColor publick-button cursor" @click="approve(scope.row)" v-if="scope.row.seriesType == 'PIC'"> 授权 </span>
-          <span class="blueColor publick-button cursor" @click="handleEdit(scope.row)"> 编辑 </span>
-          <span class="blueColor publick-button cursor" @click="handleDel(scope.row)"> 删除 </span>
+          <span
+            class="blueColor publick-button cursor"
+            @click="approve(scope.row)"
+            v-if="scope.row.seriesType == 'PIC'"
+          >
+            Authorize
+          </span>
+          <span class="blueColor publick-button cursor" @click="handleEdit(scope.row)">
+            edit
+          </span>
+          <span class="blueColor publick-button cursor" @click="handleDel(scope.row)">
+            delete
+          </span>
         </template>
       </el-table-column>
     </el-table>
@@ -77,52 +210,72 @@
     </el-pagination>
     <el-dialog
       v-if="showDialog"
-      :title="operatingType == 1 ? '创建NFT' : '编辑NFT'"
+      :title="operatingType == 1 ? 'Create NFT' : 'Edit NFT'"
       :visible.sync="showDialog"
       width="540px"
       :close-on-click-modal="false"
       :before-close="handleClose"
     >
-      <el-form ref="ruleForm" class="add-form" :rules="rules" :model="ruleForm" label-width="130px">
-        <el-form-item label="名称" prop="seriesName">
+      <el-form
+        ref="ruleForm"
+        class="add-form"
+        :rules="rules"
+        :model="ruleForm"
+        label-width="130px"
+      >
+        <el-form-item label="name" prop="seriesName">
           <el-input
             :disabled="ruleForm.seriesType !== 'COIN' && operatingType != 1"
             v-model="ruleForm.seriesName"
             style="width: 300px"
-            placeholder="请输入名称"
+            placeholder="Please enter the name"
           />
         </el-form-item>
-        <el-form-item label="类型" prop="seriesType">
-          <el-select :disabled="operatingType != 1" v-model="ruleForm.seriesType" style="width: 300px" placeholder="请选择类型">
-            <el-option label="币" value="COIN" />
-            <el-option label="图" value="PIC" />
+        <el-form-item label="type" prop="seriesType">
+          <el-select
+            :disabled="operatingType != 1"
+            v-model="ruleForm.seriesType"
+            style="width: 300px"
+            placeholder="Please choose the type"
+          >
+            <el-option label="currency" value="COIN" />
+            <el-option label="picture" value="PIC" />
           </el-select>
         </el-form-item>
-        <el-form-item label="合约地址" prop="contractAddress">
+        <el-form-item label="Contract address" prop="contractAddress">
           <el-input
             :disabled="ruleForm.seriesType !== 'COIN' && operatingType != 1"
             v-model="ruleForm.contractAddress"
             style="width: 300px"
-            placeholder="请输入合约地址"
+            placeholder="Please enter the contract address"
           >
             <template slot="append">
-              <el-button @click="fetchNftSeries()">查询</el-button>
+              <el-button @click="fetchNftSeries()">Inquire</el-button>
             </template></el-input
           >
         </el-form-item>
         <template v-if="ruleForm.seriesType !== 'COIN'">
           <el-form-item label="tokenId" prop="tokenId">
-            <el-input :disabled="operatingType != 1" v-model="ruleForm.tokenId" style="width: 300px" placeholder="请输入tokenId" />
+            <el-input
+              :disabled="operatingType != 1"
+              v-model="ruleForm.tokenId"
+              style="width: 300px"
+              placeholder="Please enter tokenId"
+            />
           </el-form-item>
         </template>
         <template v-else>
-          <el-form-item label="币种" prop="seriesCoin">
-            <el-select :disabled="operatingType != 1" v-model="ruleForm.seriesCoin" style="width: 300px">
-              <el-option label="ETH" value="ETH"></el-option>
+          <el-form-item label="Currency" prop="seriesCoin">
+            <el-select
+              :disabled="operatingType != 1"
+              v-model="ruleForm.seriesCoin"
+              style="width: 300px"
+            >
+              <el-option label="eth" value="ETH"></el-option>
             </el-select>
           </el-form-item>
         </template>
-        <el-form-item label="图片" prop="seriesImg">
+        <el-form-item label="picture" prop="seriesImg">
           <el-upload
             :disabled="ruleForm.seriesType !== 'COIN' && operatingType != 1"
             :action="uploadUrl"
@@ -142,34 +295,50 @@
             <i class="el-icon-plus" />
           </el-upload>
         </el-form-item>
-        <el-form-item label="所在链" prop="chainId">
-          <el-select :disabled="ruleForm.seriesType !== 'COIN' && operatingType != 1" v-model="ruleForm.chainId" style="width: 300px">
-            <el-option v-for="(item, index) in chainList" :key="index" :label="item.chainName" :value="item.chainId">
+        <el-form-item label="Chain" prop="chainId">
+          <el-select
+            :disabled="ruleForm.seriesType !== 'COIN' && operatingType != 1"
+            v-model="ruleForm.chainId"
+            style="width: 300px"
+          >
+            <el-option
+              v-for="(item, index) in chainList"
+              :key="index"
+              :label="item.chainName"
+              :value="item.chainId"
+            >
               <span style="float: left">{{ item.chainName }}</span>
               <span style="float: right; color: #8492a6">{{ item.type }}</span>
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="价值" prop="price">
+        <el-form-item label="value" prop="price">
           <el-input
             :disabled="ruleForm.seriesType !== 'COIN' && operatingType != 1"
             type="number"
             v-model="ruleForm.price"
             style="width: 300px"
-            placeholder="请输入价值"
+            placeholder="Please enter value"
           >
-            <template slot="append">{{ ruleForm.seriesType == "COIN" ? "ETH" : "USDT" }}</template>
+            <template slot="append">{{
+              ruleForm.seriesType == "COIN" ? "ETH" : "USDT"
+            }}</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="回收比例" prop="reclaimRate">
-          <el-input type="number" v-model="ruleForm.reclaimRate" style="width: 300px" placeholder="请输入回收比例">
+        <el-form-item label="Recycling ratio" prop="reclaimRate">
+          <el-input
+            type="number"
+            v-model="ruleForm.reclaimRate"
+            style="width: 300px"
+            placeholder="Please enter the recycling ratio"
+          >
             <template slot="append">%</template>
           </el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="handleClose()">取 消</el-button>
-        <el-button type="primary" @click="submitForm()">确 定</el-button>
+        <el-button @click="handleClose()">Cancel</el-button>
+        <el-button type="primary" @click="submitForm()">Sure</el-button>
       </span>
     </el-dialog>
   </div>
@@ -195,7 +364,7 @@ export default {
     var validateRate = (rule, value, callback) => {
       var patt = new RegExp(/^(100|[1-9]?\d(\.\d\d?\d?)?)$|0$/);
       if (!patt.test(value)) {
-        callback(new Error("请输入0-100的百分数"));
+        callback(new Error("Please enter a percentage of 0-100"));
       } else {
         callback();
       }
@@ -234,15 +403,57 @@ export default {
         reclaimRate: null, // 回收比例
       },
       rules: {
-        tokenId: [{ required: true, message: "请输入tokenId", trigger: ["blur", "change"] }],
-        contractAddress: [{ required: true, message: "请输入合约地址", trigger: ["blur", "change"] }],
-        chainId: [{ required: true, message: "请选择链", trigger: ["blur", "change"] }],
-        price: [{ required: true, message: "请输入价值", trigger: ["blur", "change"] }],
-        seriesName: [{ required: true, message: "请输入名称", trigger: ["blur", "change"] }],
-        seriesType: [{ required: true, message: "请选择类型", trigger: ["blur", "change"] }],
-        seriesImg: [{ required: true, message: "请选择NFT图片", trigger: ["blur", "change"] }],
+        tokenId: [
+          {
+            required: true,
+            message: "Please enter tokenId",
+            trigger: ["blur", "change"],
+          },
+        ],
+        contractAddress: [
+          {
+            required: true,
+            message: "Please enter the contract address",
+            trigger: ["blur", "change"],
+          },
+        ],
+        chainId: [
+          {
+            required: true,
+            message: "Please select the chain",
+            trigger: ["blur", "change"],
+          },
+        ],
+        price: [
+          { required: true, message: "Please enter value", trigger: ["blur", "change"] },
+        ],
+        seriesName: [
+          {
+            required: true,
+            message: "Please enter the name",
+            trigger: ["blur", "change"],
+          },
+        ],
+        seriesType: [
+          {
+            required: true,
+            message: "Please choose the type",
+            trigger: ["blur", "change"],
+          },
+        ],
+        seriesImg: [
+          {
+            required: true,
+            message: "Please select NFT pictures",
+            trigger: ["blur", "change"],
+          },
+        ],
         reclaimRate: [
-          { required: true, message: "请输入回收比例", trigger: ["blur", "change"] },
+          {
+            required: true,
+            message: "Please enter the recycling ratio",
+            trigger: ["blur", "change"],
+          },
           { validator: validateRate, trigger: ["blur", "change"] },
         ],
       },
@@ -309,11 +520,15 @@ export default {
       let nftContract = new web3.eth.Contract(is1155 ? nft1155Abi : nft721Abi, token);
       const nftHelpAddress = contractInfo.nftHelpAddress;
       // 授权判断
-      let isApproved = await nftContract.methods.isApprovedForAll(walletAddress, nftHelpAddress).call();
+      let isApproved = await nftContract.methods
+        .isApprovedForAll(walletAddress, nftHelpAddress)
+        .call();
       console.log(isApproved, "isApproved===");
       if (!isApproved) {
         //授权
-        await nftContract.methods.setApprovalForAll(nftHelpAddress, true).send({ from: walletAddress });
+        await nftContract.methods
+          .setApprovalForAll(nftHelpAddress, true)
+          .send({ from: walletAddress });
       } else {
         this.$message.success("isApproved");
       }
@@ -351,25 +566,31 @@ export default {
       };
 
       this.fileImg = [{ url: row.seriesImg }];
-      this.ruleForm.reclaimRate = new bigNumber(this.ruleForm.reclaimRate).multipliedBy(100).toString();
+      this.ruleForm.reclaimRate = new bigNumber(this.ruleForm.reclaimRate)
+        .multipliedBy(100)
+        .toString();
       this.hideUpload = true;
       this.operatingType = 2;
       this.showDialog = true;
     },
     // 删除
     handleDel(row) {
-      this.$confirm(`确定要删除系列『${row.seriesName || row.id}』吗?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "info",
-      })
+      this.$confirm(
+        `Are you sure to delete the series "${row.seriesname || row.id}"?`,
+        "hint",
+        {
+          confirmButtonText: "Sure",
+          cancelButtonText: "Cancel",
+          type: "info",
+        }
+      )
         .then(async () => {
           let res = await this.$http.nftPlatformDel({
             id: row.id,
           });
           if (res) {
             this.fetchNftPlatformList(true);
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {
@@ -402,13 +623,13 @@ export default {
         this.ruleForm.seriesImg = res.data;
         return;
       }
-      this.$message.error("上传失败");
+      this.$message.error("upload failed");
     },
     handleBefore(file) {
       const _this = this;
       const is1M = file.size / 1024 / 1024 < 2; // 限制小于2M
       if (!is1M) {
-        _this.$message.error("文件过大，文件大小小于2M");
+        _this.$message.error("The file is too large, and the file size is less than 2M");
       }
       return is1M;
     },
@@ -420,7 +641,7 @@ export default {
       this.fileImg = [];
     },
     handExceed(fiel) {
-      this.$message.error("文件只能上传一个");
+      this.$message.error("File can only upload one");
     },
     /**
      * @description 查询Nft系列
@@ -428,7 +649,7 @@ export default {
     fetchNftSeries() {
       const { chainId, contractAddress } = this.ruleForm;
       if (!chainId) {
-        this.$message.warning("请选择网络");
+        this.$message.warning("Please select the network");
         return;
       }
 
@@ -454,10 +675,14 @@ export default {
             this.ruleForm.keywords = nftData.collection.slug; // 关键字
             return;
           }
-          this.$message.error("查询失败，请检查合约地址是否正确");
+          this.$message.error(
+            "Inquiry fails, please check whether the contract address is correct"
+          );
         })
         .catch((error) => {
-          this.$message.error("查询失败，请检查合约地址是否正确");
+          this.$message.error(
+            "Inquiry fails, please check whether the contract address is correct"
+          );
           console.log(error);
         });
     },
@@ -468,7 +693,7 @@ export default {
           let ruleForm = { ...this.ruleForm };
           if (this.operatingType == 1) {
             if (this.fileImg.length == 0) {
-              this.$message.error("请上传图片！");
+              this.$message.error("Please upload the picture!");
               return;
             }
             ruleForm.seriesImg = this.fileImg[0].url;
@@ -476,7 +701,9 @@ export default {
           ruleForm.reclaimRate = new bigNumber(ruleForm.reclaimRate).dividedBy(100);
           let res = null;
           if (!ruleForm.id) {
-            ruleForm.seriesType == "COIN" ? (ruleForm.coin = "ETH") : (ruleForm.coin = "USDT");
+            ruleForm.seriesType == "COIN"
+              ? (ruleForm.coin = "ETH")
+              : (ruleForm.coin = "USDT");
             res = await this.$http.nftPlatformAdd({ ...ruleForm });
           } else {
             res = await this.$http.nftPlatformUpdate({ ...ruleForm });
@@ -486,7 +713,7 @@ export default {
             this.handleClose();
             this.fetchNftPlatformList();
             this.$refs["ruleForm"].resetFields();
-            this.$message.success("操作成功！");
+            this.$message.success("Successful operation!");
             this.fileImg = [];
             this.hideUpload = false;
           }

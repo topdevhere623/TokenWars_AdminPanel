@@ -523,7 +523,7 @@ export function downloddExcel(code, data) {
   } else {
     this.$message({
       showClose: true,
-      message: '导出数据为空',
+      message: 'Export data as empty',
       type: 'warning',
     });
     this.loading = false;
@@ -583,7 +583,7 @@ export function downLoad(res) {
   } else {
     this.$message({
       showClose: true,
-      message: '导出数据为空',
+      message: 'Export data as empty',
       type: 'warning',
     });
   }

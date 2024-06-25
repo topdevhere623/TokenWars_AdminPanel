@@ -2,7 +2,8 @@
   <div class="page-wrapper">
     <el-table :data="tableData" style="width: 100%" class="public-table" border>
       <el-table-column prop="id" label="id" align="center"></el-table-column>
-      <el-table-column prop="name" label="活动类型" align="center"> </el-table-column>
+      <el-table-column prop="name" label="type of activity" align="center">
+      </el-table-column>
     </el-table>
   </div>
 </template>

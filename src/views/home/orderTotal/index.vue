@@ -2,7 +2,7 @@
   <el-card>
     <div slot="header" class="header-box">
       <div class="title-box">
-        <h3>订单统计</h3>
+        <h3>Order statistics</h3>
       </div>
       <div class="time-box">
         <el-date-picker
@@ -11,9 +11,9 @@
           :picker-options="pickerOptions"
           @change="getDataList"
           value-format="yyyy-MM-dd HH:mm:ss"
-          range-separator="至"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
+          range-separator="to"
+          start-placeholder="start date"
+          end-placeholder="Ending date"
           align="right"
           style="width: 100%"
         >
@@ -35,7 +35,7 @@ export default {
       pickerOptions: {
         shortcuts: [
           {
-            text: "最近一周",
+            text: "The last week",
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -44,7 +44,7 @@ export default {
             },
           },
           {
-            text: "最近一个月",
+            text: "The last month",
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -53,7 +53,7 @@ export default {
             },
           },
           {
-            text: "最近三个月",
+            text: "The last three months",
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -64,11 +64,11 @@ export default {
         ],
       },
       sortedMap: [
-        { type: "总盈利", key: "totalProfit" },
-        { type: "总佣金", key: "totalRebates" },
-        { type: "总返奖", key: "totalReal" },
-        { type: "总消费", key: "totalBuy" },
-        { type: "总订单", key: "count" },
+        { type: "Total profitability", key: "totalProfit" },
+        { type: "Total commission", key: "totalRebates" },
+        { type: "Total return", key: "totalReal" },
+        { type: "Total consumption", key: "totalBuy" },
+        { type: "General order", key: "count" },
       ],
       dataList: [],
       dateTime: null,
@@ -100,7 +100,11 @@ export default {
       } else {
         var [startDate, endDate] = ["", ""];
       }
-      const res = await this.$http.getHomeOrderChart({ startDate, endDate, userType: this.$store.getters.accountConfig || "" });
+      const res = await this.$http.getHomeOrderChart({
+        startDate,
+        endDate,
+        userType: this.$store.getters.accountConfig || "",
+      });
       if (res) {
         this.dataList = this.sortedMap.map((x) => {
           return { ...x, value: res[x.key] };

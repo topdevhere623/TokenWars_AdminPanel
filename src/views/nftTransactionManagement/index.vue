@@ -1,16 +1,40 @@
 <template>
   <div class="page-wrapper">
     <div class="public-list-inputs">
-      <el-input class="public-input" style="width: 140px" placeholder="输入流水号" v-model="id" clearable />
-      <el-input class="public-input" style="width: 140px" placeholder="输入用户ID" v-model="userId" clearable />
-      <el-select v-model="flowType" class="public-select-box" popper-class="public-select-box" placeholder="全部金流类型" clearable>
-        <el-option :label="item.label" :value="item.value" v-for="item in flowTypeOptions" :key="item.value"> </el-option>
+      <el-input
+        class="public-input"
+        style="width: 140px"
+        placeholder="Enter flowing water number"
+        v-model="id"
+        clearable
+      />
+      <el-input
+        class="public-input"
+        style="width: 140px"
+        placeholder="Enter user ID"
+        v-model="userId"
+        clearable
+      />
+      <el-select
+        v-model="flowType"
+        class="public-select-box"
+        popper-class="public-select-box"
+        placeholder="All gold flow type"
+        clearable
+      >
+        <el-option
+          :label="item.label"
+          :value="item.value"
+          v-for="item in flowTypeOptions"
+          :key="item.value"
+        >
+        </el-option>
       </el-select>
       <!-- <el-select
         v-model="flowSource"
         class="public-select-box"
         popper-class="public-select-box"
-        placeholder="全部系列"
+        placeholder="All series"
         clearable
       >
         <el-option label="平台" value="PLATFORM"> </el-option>
@@ -19,48 +43,141 @@
         <el-option label="余额" value="BALANCE"> </el-option>
         <el-option label="回收" value="RECLAIM"> </el-option>
       </el-select> -->
-      <el-select v-model="flowSource" class="public-select-box" popper-class="public-select-box" placeholder="全部来源" clearable>
-        <el-option :label="item.label" :value="item.value" v-for="item in flowSourceOptions" :key="item.value"> </el-option>
+      <el-select
+        v-model="flowSource"
+        class="public-select-box"
+        popper-class="public-select-box"
+        placeholder="All sources"
+        clearable
+      >
+        <el-option
+          :label="item.label"
+          :value="item.value"
+          v-for="item in flowSourceOptions"
+          :key="item.value"
+        >
+        </el-option>
       </el-select>
-      <el-input class="public-input" style="width: 140px" placeholder="系列名" v-model="seriesName" clearable />
-      <el-input class="public-input" style="width: 100px" placeholder="输入token id" v-model="tokenId" clearable />
+      <el-input
+        class="public-input"
+        style="width: 140px"
+        placeholder="Series name"
+        v-model="seriesName"
+        clearable
+      />
+      <el-input
+        class="public-input"
+        style="width: 100px"
+        placeholder="Enter token id"
+        v-model="tokenId"
+        clearable
+      />
       <div class="public-date-box">
-        <span class="demonstration"> 账变时间 </span>
+        <span class="demonstration"> Account change time </span>
         <el-date-picker
           v-model="changeTime"
           type="datetimerange"
-          range-separator="到"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          range-separator="arrive"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
         >
         </el-date-picker>
       </div>
-      <el-button type="primary" icon="el-icon-search" class="public-search" @click="fetchAssetFlowList()"> 查询 </el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-search"
+        class="public-search"
+        @click="fetchAssetFlowList()"
+      >
+        Inquire
+      </el-button>
     </div>
-    <el-table :data="tableData" style="width: 100%" @sort-change="sortChange" class="public-table" border>
-      <el-table-column sortable="custom" prop="id" label="流水号" align="center" key="1"> </el-table-column>
-      <el-table-column prop="userId" width="120" label="用户ID" align="center" key="3">
+    <el-table
+      :data="tableData"
+      style="width: 100%"
+      @sort-change="sortChange"
+      class="public-table"
+      border
+    >
+      <el-table-column
+        sortable="custom"
+        prop="id"
+        label="serial number"
+        align="center"
+        key="1"
+      >
+      </el-table-column>
+      <el-table-column prop="userId" width="120" label="User ID" align="center" key="3">
         <template slot-scope="scope">
-          <p :style="{ color: scope.row.userType == 'INNER' ? 'red' : '#000' }">{{ scope.row.userId || "--" }}</p>
-          <p :style="{ color: scope.row.userType == 'INNER' ? 'red' : '#000' }">{{ scope.row.userName || "--" }}</p>
+          <p :style="{ color: scope.row.userType == 'INNER' ? 'red' : '#000' }">
+            {{ scope.row.userId || "--" }}
+          </p>
+          <p :style="{ color: scope.row.userType == 'INNER' ? 'red' : '#000' }">
+            {{ scope.row.userName || "--" }}
+          </p>
         </template>
       </el-table-column>
-      <el-table-column sortable="custom" prop="flowType" label="金流类型" align="center" key="4">
+      <el-table-column
+        sortable="custom"
+        prop="flowType"
+        label="Golden flow"
+        align="center"
+        key="4"
+      >
         <template slot-scope="scope">
           {{ getTxtFunc(flowTypeOptions, scope.row.flowType) }}
         </template>
       </el-table-column>
-      <el-table-column sortable="custom" prop="flowSource" label="来源" align="center" key="5">
+      <el-table-column
+        sortable="custom"
+        prop="flowSource"
+        label="source"
+        align="center"
+        key="5"
+      >
         <template slot-scope="scope">
           {{ getTxtFunc(flowSourceOptions, scope.row.flowSource) }}
         </template>
       </el-table-column>
-      <el-table-column sortable="custom" prop="seriesName" label="系列" align="center" key="6"> </el-table-column>
-      <el-table-column sortable="custom" prop="tokenId" label="TOKEN ID" align="center" key="7"> </el-table-column>
-      <el-table-column sortable="custom" prop="orderNumber" label="订单号" align="center" key="8"> </el-table-column>
+      <el-table-column
+        sortable="custom"
+        prop="seriesName"
+        label="series"
+        align="center"
+        key="6"
+      >
+      </el-table-column>
+      <el-table-column
+        sortable="custom"
+        prop="tokenId"
+        label="token ID"
+        align="center"
+        key="7"
+      >
+      </el-table-column>
+      <el-table-column
+        sortable="custom"
+        prop="orderNumber"
+        label="order number"
+        align="center"
+        key="8"
+      >
+      </el-table-column>
       <el-table-column prop="hash" label="hash" align="center" key="9"> </el-table-column>
-      <el-table-column prop="walletAddress" label="钱包地址" align="center" key="12"> </el-table-column>
-      <el-table-column sortable="custom" prop="createTime" label="账变时间" align="center" key="13">
+      <el-table-column
+        prop="walletAddress"
+        label="Wallet address"
+        align="center"
+        key="12"
+      >
+      </el-table-column>
+      <el-table-column
+        sortable="custom"
+        prop="createTime"
+        label="Account change time"
+        align="center"
+        key="13"
+      >
         <template slot-scope="scope">
           {{ timeForStr(scope.row.createTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
@@ -109,16 +226,16 @@ export default {
       tableData: null,
       baseUserPage: null,
       flowTypeOptions: [
-        { label: "存入", value: "DEPOSIT" },
-        { label: "提取", value: "EXTRACT" },
-        { label: "售出", value: "SOLD" },
-        { label: "获得", value: "OBTAIN" },
+        { label: "Deposit", value: "DEPOSIT" },
+        { label: "extract", value: "EXTRACT" },
+        { label: "Sell", value: "SOLD" },
+        { label: "get", value: "OBTAIN" },
       ],
       flowSourceOptions: [
-        { label: "钱包", value: "WALLET" },
-        { label: "库存", value: "INVENTORY" },
-        { label: "一元购", value: "ONE_DOLLAR" },
-        { label: "盲盒", value: "BOX" },
+        { label: "wallet", value: "WALLET" },
+        { label: "in stock", value: "INVENTORY" },
+        { label: "One -dollar purchase", value: "ONE_DOLLAR" },
+        { label: "Blind box", value: "BOX" },
       ],
     };
   },

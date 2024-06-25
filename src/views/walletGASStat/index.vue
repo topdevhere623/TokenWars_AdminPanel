@@ -8,7 +8,7 @@
     <div class="remittance-box">
       <div class="remittance-amount remittance-more">
         <div class="remittance-item">
-          <div class="title">总流水数</div>
+          <div class="title">Total flowing water</div>
           <div class="val">
             {{ statisticsData && statisticsData.totalWalletNum }}
           </div>
@@ -22,31 +22,31 @@
       </div>
     </div>
     <el-table :data="tableData" style="width: 100%" class="public-table" border>
-      <el-table-column prop="id" label="HASH" align="center"> </el-table-column>
-      <el-table-column prop="userName" label="钱包地址" align="center">
+      <el-table-column prop="id" label="hash" align="center"> </el-table-column>
+      <el-table-column prop="userName" label="Wallet address" align="center">
         <template slot-scope="scope">
           <p>{{ scope.row.userId }}</p>
           <p>{{ scope.row.userName }}</p>
         </template>
       </el-table-column>
-      <el-table-column prop="chainName" label="行为" align="center">
+      <el-table-column prop="chainName" label="Behavior" align="center">
       </el-table-column>
-      <el-table-column prop="coin" label="链" align="center"> </el-table-column>
-      <el-table-column prop="assetBalance" label="代币" align="center">
+      <el-table-column prop="coin" label="chain" align="center"> </el-table-column>
+      <el-table-column prop="assetBalance" label="Token" align="center">
       </el-table-column>
-      <el-table-column prop="userIn" label="GAS数量" align="center">
+      <el-table-column prop="userIn" label="GAS quantity" align="center">
       </el-table-column>
-      <el-table-column prop="platformInGas" label="发起时间" align="center">
+      <el-table-column prop="platformInGas" label="the starting time" align="center">
         <template slot-scope="scope">
           {{ timeForStr(scope.row.createTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column prop="collectionSum" label="完成时间" align="center">
+      <el-table-column prop="collectionSum" label="Complete time" align="center">
         <template slot-scope="scope">
           {{ timeForStr(scope.row.createTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column label="查看交易详情" align="center">
+      <el-table-column label="View transaction details" align="center">
         <template slot-scope="scope">
           <chainExplorerSkip :chain="scope.row.chainName" hash="" />
         </template>

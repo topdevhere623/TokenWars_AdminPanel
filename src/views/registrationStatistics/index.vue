@@ -1,63 +1,128 @@
 <template>
   <div class="page-wrapper">
     <div class="public-list-inputs">
-      <el-input class="public-input" style="width: 140px" placeholder="输入用户ID、昵称、邮箱" v-model="obscureField" clearable />
-      <el-input class="public-input" style="width: 140px" placeholder="输入金流ID" v-model="flowId" clearable />
-      <el-input class="public-input" style="width: 140px" placeholder="输入来源" v-model="sourceNum" clearable />
+      <el-input
+        class="public-input"
+        style="width: 140px"
+        placeholder="Enter user ID, nickname, mailbox"
+        v-model="obscureField"
+        clearable
+      />
+      <el-input
+        class="public-input"
+        style="width: 140px"
+        placeholder="Enter gold flow ID"
+        v-model="flowId"
+        clearable
+      />
+      <el-input
+        class="public-input"
+        style="width: 140px"
+        placeholder="Input source"
+        v-model="sourceNum"
+        clearable
+      />
       <div class="public-date-box">
-        <span class="demonstration"> 注册时间 </span>
-        <el-date-picker v-model="regTime" type="datetimerange" range-separator="到" start-placeholder="开始时间" end-placeholder="结束时间">
+        <span class="demonstration"> Registration time </span>
+        <el-date-picker
+          v-model="regTime"
+          type="datetimerange"
+          range-separator="到"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
+        >
         </el-date-picker>
       </div>
-      <el-button type="primary" icon="el-icon-search" class="public-search" @click="fetchOrderManagerList()"> 查询 </el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-search"
+        class="public-search"
+        @click="fetchOrderManagerList()"
+      >
+        Inquire
+      </el-button>
 
-      <el-button type="primary" icon="el-icon-download" class="public-search" @click="dailyStatsExcel()"> 导出EXCEL </el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-download"
+        class="public-search"
+        @click="dailyStatsExcel()"
+      >
+        Export Excel
+      </el-button>
     </div>
     <div class="remittance-box">
       <div class="remittance-amount remittance-more">
         <div class="remittance-item">
-          <div class="title">总账号数</div>
+          <div class="title">Total account number</div>
           <div class="val">
             {{ aggregateQuery && aggregateQuery.totalPeopleNumber }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总送金</div>
+          <div class="title">总 remittance</div>
           <div class="val">
             {{ aggregateQuery && aggregateQuery.totalBouns }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总充值</div>
+          <div class="title">Total recharge</div>
           <div class="val">
             {{ aggregateQuery && aggregateQuery.totalRecharge }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总消费</div>
+          <div class="title">Total consumption</div>
           <div class="val">
             {{ aggregateQuery && aggregateQuery.totalCumption }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">充值率</div>
+          <div class="title">Recharge rate</div>
           <div class="val" v-if="aggregateQuery?.totalPeopleNumber > 0">
-            {{ aggregateQuery && ((aggregateQuery?.totalRechargePeopleNumber / aggregateQuery?.totalPeopleNumber) * 100).toFixed(2) }}%
+            {{
+              aggregateQuery &&
+              (
+                (aggregateQuery?.totalRechargePeopleNumber /
+                  aggregateQuery?.totalPeopleNumber) *
+                100
+              ).toFixed(2)
+            }}%
           </div>
           <div class="val" v-else>0%</div>
         </div>
         <div class="remittance-item">
-          <div class="title">消费率</div>
+          <div class="title">Consumption rate</div>
           <div class="val" v-if="aggregateQuery?.totalPeopleNumber > 0">
-            {{ aggregateQuery && ((aggregateQuery?.totalCumptionPeopleNumber / aggregateQuery?.totalPeopleNumber) * 100).toFixed(2) }}%
+            {{
+              aggregateQuery &&
+              (
+                (aggregateQuery?.totalCumptionPeopleNumber /
+                  aggregateQuery?.totalPeopleNumber) *
+                100
+              ).toFixed(2)
+            }}%
           </div>
           <div class="val" v-else>0%</div>
         </div>
       </div>
     </div>
-    <el-table :data="tableData" style="width: 100%" @sort-change="sortChange" class="public-table" border>
-      <el-table-column prop="userId" width="120"  label="用户ID" align="center" key="1"> </el-table-column>
-      <el-table-column prop="userName" width="120" label="昵称" align="center" key="2">
+    <el-table
+      :data="tableData"
+      style="width: 100%"
+      @sort-change="sortChange"
+      class="public-table"
+      border
+    >
+      <el-table-column prop="userId" width="120" label="User ID" align="center" key="1">
+      </el-table-column>
+      <el-table-column
+        prop="userName"
+        width="120"
+        label="Nick name"
+        align="center"
+        key="2"
+      >
         <template slot-scope="scope">
           <!-- <p :style="{ color: scope.row.userType == 'INNER' ? 'red' : '#000' }">
             {{ scope.row.userId || "--" }}
@@ -67,16 +132,48 @@
           </p>
         </template>
       </el-table-column>
-      <el-table-column prop="sourceNum" width="120" label="来源" align="center" key="3"> </el-table-column>
-      <el-table-column prop="email" width="120" label="邮箱" align="center" key="4"> </el-table-column>
-      <el-table-column prop="upId" width="120" label="上级ID" align="center" key="5"> </el-table-column>
-      <el-table-column prop="inviteCode" width="120" label="邀请码" align="center" key="6"> </el-table-column>
-      <el-table-column prop="traPrice" width="120" label="金额" align="center" key="7"> </el-table-column>
-      <el-table-column prop="flowId" width="120" label="金流ID" align="center" key="8"> </el-table-column>
-      <el-table-column prop="recharge" width="120" label="充值" align="center" key="9"> </el-table-column>
-      <el-table-column prop="consumption" width="120" label="消费" align="center" key="10"> </el-table-column>
-      <el-table-column prop="drawing" width="120" label="提款" align="center" key="11"> </el-table-column>
-      <el-table-column prop="createTime" label="送金时间" align="center" key="12">
+      <el-table-column prop="sourceNum" width="120" label="source" align="center" key="3">
+      </el-table-column>
+      <el-table-column prop="email" width="120" label="Mail" align="center" key="4">
+      </el-table-column>
+      <el-table-column prop="upId" width="120" label="Superior ID" align="center" key="5">
+      </el-table-column>
+      <el-table-column
+        prop="inviteCode"
+        width="120"
+        label="Invitation code"
+        align="center"
+        key="6"
+      >
+      </el-table-column>
+      <el-table-column prop="traPrice" width="120" label="Amount" align="center" key="7">
+      </el-table-column>
+      <el-table-column prop="flowId" width="120" label="Golden ID" align="center" key="8">
+      </el-table-column>
+      <el-table-column prop="recharge" width="120" label="top up" align="center" key="9">
+      </el-table-column>
+      <el-table-column
+        prop="consumption"
+        width="120"
+        label="Consumption"
+        align="center"
+        key="10"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="drawing"
+        width="120"
+        label="Withdraw"
+        align="center"
+        key="11"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="createTime"
+        label="Get the gold time"
+        align="center"
+        key="12"
+      >
         <template slot-scope="scope">
           {{ timeForStr(scope.row.createTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
@@ -173,7 +270,7 @@ export default {
         ...search,
       };
 
-      exportExcel(urlStr, data, "注册送金统计");
+      exportExcel(urlStr, data, "Register to send gold statistics");
     },
     // 加载列表
     async fetchOrderManagerList(isSearch = true) {

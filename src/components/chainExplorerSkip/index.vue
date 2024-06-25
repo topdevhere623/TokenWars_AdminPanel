@@ -1,5 +1,5 @@
 <template>
-  <a :href="addressUrl" target="_blank"><slot>查看结果</slot></a>
+  <a :href="addressUrl" target="_blank"><slot>View Results</slot></a>
 </template>
 
 <script>
@@ -25,10 +25,10 @@ export default {
     };
   },
   mounted() {
-    const { chain } = this
+    const { chain } = this;
     if (chain) {
-      let res = chainUrlList.find(x => x.chainName == chain)
-      const chainUrl = res?.blockExplorerUrls
+      let res = chainUrlList.find((x) => x.chainName == chain);
+      const chainUrl = res?.blockExplorerUrls;
       this.addressUrl = chainUrl + this.address;
     }
   },

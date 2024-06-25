@@ -1,15 +1,29 @@
 <template>
   <el-container>
-    <el-aside :width="`${asideWidth}px`" style="background-color: rgb(238, 241, 246)" class="width-animation nav">
+    <el-aside
+      :width="`${asideWidth}px`"
+      style="background-color: rgb(238, 241, 246)"
+      class="width-animation nav"
+    >
       <div class="logoBox" style="background-color: #304156">
         <div class="logo-box"></div>
         <div class="config-box">
-          <el-select v-model="accountType" @change="changeAccount" placeholder="展示测试账号" clearable>
-            <el-option label="展示测试账号" value=""> </el-option>
-            <el-option label="不展示测试账号" value="NORMAL"> </el-option>
-            <el-option label="只展示测试账号" value="INNER"> </el-option>
+          <el-select
+            v-model="accountType"
+            @change="changeAccount"
+            placeholder="Display test account"
+            clearable
+          >
+            <el-option label="Display test account" value=""> </el-option>
+            <el-option label="Do not display the test account" value="NORMAL">
+            </el-option>
+            <el-option label="Only display the test account" value="INNER"> </el-option>
           </el-select>
-          <el-select v-model="coinConfig" @change="changeConfig" placeholder="结算币种">
+          <el-select
+            v-model="coinConfig"
+            @change="changeConfig"
+            placeholder="Settlement currency"
+          >
             <el-option label="ETH" value="ETH"> </el-option>
             <!-- <el-option label="USDT" value="USDT">
             </el-option> -->
@@ -17,21 +31,39 @@
         </div>
       </div>
       <!-- @select="selectFun" -->
-      <el-menu :default-openeds="defaultList" :default-active="defaultActive" :collapse="isCollapse" class="nav-ul">
+      <el-menu
+        :default-openeds="defaultList"
+        :default-active="defaultActive"
+        :collapse="isCollapse"
+        class="nav-ul"
+      >
         <template v-for="(item, index) in menuList">
-          <el-submenu :index="item.menuName" :key="index" v-if="item.children && item.children.length > 0">
+          <el-submenu
+            :index="item.menuName"
+            :key="index"
+            v-if="item.children && item.children.length > 0"
+          >
             <template slot="title">
               <!-- <i :class="['el-icon-img', menuIcon(index)]"></i> -->
               <span>{{ item.menuName }}</span>
             </template>
             <template v-for="(i, indexs) in item.children">
-              <el-menu-item :index="i.path" v-if="i.path && i.path != 'null'" :key="indexs" @click="goUrl(i.path)">{{
-                i.menuName
-              }}</el-menu-item>
+              <el-menu-item
+                :index="i.path"
+                v-if="i.path && i.path != 'null'"
+                :key="indexs"
+                @click="goUrl(i.path)"
+                >{{ i.menuName }}</el-menu-item
+              >
             </template>
           </el-submenu>
           <template v-else>
-            <el-menu-item :index="item.path" :key="index" v-if="item.path" @click="goUrl(item.path)">
+            <el-menu-item
+              :index="item.path"
+              :key="index"
+              v-if="item.path"
+              @click="goUrl(item.path)"
+            >
               <!-- <i class="el-icon-menu"></i> -->
               <span slot="title">{{ item.menuName }}</span>
             </el-menu-item>
@@ -39,20 +71,20 @@
         </template>
         <!-- <el-menu-item index="report">
           <i class="el-icon-bank-card"></i>
-          <span slot="title">首页</span>
+          <span slot="title">front page</span>
         </el-menu-item>
         <el-submenu index="dataManagement">
           <template slot="title">
             <i class="el-icon-data-line"></i>
-            <span slot="title">数据管理</span>
+            <span slot="title">Data management</span>
           </template>
           <el-menu-item index="userList" class="menu-list">
             <i class="el-icon-user"></i>
-            <span>用户管理</span>
+            <span>User Management</span>
           </el-menu-item>
           <el-menu-item index="invitationRebate" class="menu-list">
             <i class="el-icon-coin"></i>
-            <span>邀请返佣</span>
+            <span>Invite a rebate</span>
           </el-menu-item>
         </el-submenu>
         <el-submenu index="nftManagement">
@@ -254,7 +286,14 @@
       </el-menu>
     </el-aside>
     <el-container class="width-animation" :style="{ marginLeft: `${asideWidth}px` }">
-      <el-header style="text-align: left; display: flex; justify-content: space-between; align-items: center">
+      <el-header
+        style="
+          text-align: left;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
         <div class="header-title">
           <div class="header-title-buttons cursor">
             <span @click="foldFun(false)" v-if="isCollapse">
@@ -270,10 +309,12 @@
         </div>
         <div class="headerR">
           <el-dropdown @command="handleCommand">
-            <span class="el-dropdown-link"> 基本操作<i class="el-icon-arrow-down el-icon--right"></i> </span>
+            <span class="el-dropdown-link">
+              Basic operation<i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
             <el-dropdown-menu slot="dropdown">
               <!-- <el-dropdown-item command="a">修改密码</el-dropdown-item> -->
-              <el-dropdown-item command="b">退出</el-dropdown-item>
+              <el-dropdown-item command="b">Quit</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -309,235 +350,235 @@ export default {
       menuList: [],
       nav: [
         {
-          label: "数据管理",
+          label: "Data management",
           page: "dataManagement",
         },
         {
-          label: "NFT管理",
+          label: "NFT management",
           page: "nftManagement",
         },
         {
-          label: "首页",
+          label: "front page",
           page: "home",
         },
         {
-          label: "用户管理",
+          label: "User Management",
           page: "userList",
         },
         {
-          label: "平台NFT系列",
+          label: "Platform NFT series",
           page: "platformNftSeries",
         },
         {
-          label: "外部NFT系列",
+          label: "External NFT series",
           page: "externalNftSeries",
         },
         {
-          label: "外部代币管理",
+          label: "External tokens management",
           page: "externalTokenManagement",
         },
         {
-          label: "外部NFT管理",
+          label: "External NFT management",
           page: "externalNftManagement",
         },
         {
-          label: "平台NFT管理",
+          label: "Platform NFT management",
           page: "platformNftManagement",
         },
         {
-          label: "用户NFT管理",
+          label: "User NFT management",
           page: "userNftList",
         },
         {
-          label: "一元购管理",
+          label: "One dollar purchase management",
           page: "nftBuyManagement",
         },
         {
-          label: "一元购售票记录",
+          label: "One dollar purchase ticket record",
           page: "nftBuyRecord",
         },
         {
-          label: "战争游戏管理",
+          label: "War Game Management",
           page: "warGameManagement",
         },
         {
-          label: "战争游戏售票管理",
+          label: "War game ticket management",
           page: "warGameBetManagement",
         },
         {
-          label: "banner管理",
+          label: "banner management",
           page: "bannerManagement",
         },
         {
-          label: "公告管理",
+          label: "Announcement Management",
           page: "noticeManagement",
         },
         {
-          label: "市场管理",
+          label: "Market management",
           page: "marketManagement",
         },
         {
-          label: "盲盒管理",
+          label: "Blind Box Management",
           page: "blindBoxManagement",
         },
         {
-          label: "血池管理",
+          label: "Blood pool management",
           page: "bloodPoolManagement",
         },
         {
-          label: "盲盒测试",
+          label: "Blind Box Test",
           page: "blindBoxTest",
         },
         {
-          label: "金流管理",
+          label: "Jinliu Management",
           page: "cashManagement",
         },
         {
-          label: "兑换码管理",
+          label: "Redemption code management",
           page: "redeemCodeManagement",
         },
         {
-          label: "财务数据",
+          label: "financial data",
           page: "finance",
         },
         {
-          label: "充值管理",
+          label: "Recharge management",
           page: "rechargeRecord",
         },
         {
-          label: "提款审核",
+          label: "Withdrawal review",
           page: "withdrawalReview",
         },
         {
-          label: "提款管理",
+          label: "Withdrawal management",
           page: "withdrawalManagement",
         },
         {
-          label: "订单管理",
+          label: "Order management",
           page: "orderManagement",
         },
         {
-          label: "闪兑管理",
+          label: "Flashing Management",
           page: "flashManagement",
         },
         {
-          label: "邀请返佣",
+          label: "inviteARebate",
           page: "invitationRebate",
         },
         {
-          label: "返佣记录",
+          label: "Return record",
           page: "rebateRecord",
         },
         {
-          label: "积分流水",
+          label: "",
           page: "integralTurnover",
         },
         {
-          label: "系统设置",
+          label: "System settings",
           page: "setting",
         },
         {
-          label: "抽奖链管理",
+          label: "Lottery Chain Management",
           page: "lotteryChainManagement",
         },
         {
-          label: "群发邮件",
+          label: "group email",
           page: "email",
         },
         {
-          label: "充值钱包",
+          label: "Recharge bag",
           page: "walletRechargeList",
         },
         {
-          label: "盲盒抽奖钱包",
+          label: "Blind Box Raise Wallet",
           page: "walletUnboxLottery",
         },
         {
-          label: "一元购抽奖钱包",
+          label: "One yuan purchase draw wallet",
           page: "walletOneDollarLottery",
         },
         {
-          label: "提款钱包",
+          label: "Withdrawal wallet",
           page: "walletDrawMoney",
         },
         {
-          label: "GAS钱包",
+          label: "Gas wallet",
           page: "walletGAS",
         },
         {
-          label: "NFT购买钱包",
+          label: "NFT buy wallet",
           page: "walletNFTBuy",
         },
         {
-          label: "归集钱包",
+          label: "Collect wallet",
           page: "walletCollection",
         },
         {
-          label: "代币归集统计",
+          label: "Tokens collection statistics",
           page: "walletCollectCoinStat",
         },
         {
-          label: "NFT归集统计",
+          label: "NFT Collection Statistics",
           page: "walletCollectionNFTStat",
         },
         {
-          label: "NFT购买统计",
+          label: "NFT purchase statistics",
           page: "walletNFTBuyStat",
         },
         {
-          label: "GAS统计",
+          label: "GAS Statistics",
           page: "walletGASStat",
         },
         {
-          label: "NFT 交易管理",
+          label: "NFT transaction management",
           page: "nftTransactionManagement",
         },
         {
-          label: "机器人管理",
+          label: "Robot Management",
           page: "robotManagement",
         },
         {
-          label: "强制审核管理",
+          label: "Compulsory audit management",
           page: "mandatoryAudit",
         },
         {
-          label: "活动列表",
+          label: "Events List",
           page: "activityList",
         },
         {
-          label: "活动管理",
+          label: "Activity management",
           page: "activityManagement",
         },
         {
-          label: "注册送金统计",
+          label: "Register to send gold statistics",
           page: "registrationStatistics",
         },
         {
-          label: "banner管理",
+          label: "banner management",
           page: "bannerManagement",
         },
         {
-          label: "充提链管理",
+          label: "Chain Chain Management",
           page: "chargeChainManagement",
         },
         {
-          label: "充提币管理",
+          label: "Management",
           page: "chargeCoinManagement",
         },
         {
-          label: "法币通道管理",
+          label: "French currency channel management",
           page: "legalCurrencyManagement",
         },
         {
-          label: "用户管理",
+          label: "User Management",
           page: "accountList",
         },
         {
-          label: "权限管理",
+          label: "authority management",
           page: "permissionAssign",
         },
         {
-          label: "角色管理",
+          label: "Role management",
           page: "roleList",
         },
       ],
@@ -603,7 +644,11 @@ export default {
         "noticeManagement",
       ];
 
-      const activityManagement = ["activityManagement", "activityList", "registrationStatistics"];
+      const activityManagement = [
+        "activityManagement",
+        "activityList",
+        "registrationStatistics",
+      ];
 
       const mallManagement = [
         "blindBoxManagement",
@@ -641,35 +686,35 @@ export default {
       const systemManagement = ["accountList", "permissionAssign", "roleList"];
 
       if (path === "/") {
-        this.title = "首页";
+        this.title = "front page";
         this.page = "";
       } else {
         nav.forEach((item) => {
           if (`/${item.page}` === `${path}`) {
             this.defaultActive = item.page;
             if (dataManagement.includes(item.page)) {
-              this.title = "数据管理";
+              this.title = "Data management";
               this.page = item.label;
             } else if (nftManagement.includes(item.page)) {
-              this.title = "NFT管理";
+              this.title = "NFT management";
               this.page = item.label;
             } else if (platformManagement.includes(item.page)) {
-              this.title = "平台管理";
+              this.title = "Platform management";
               this.page = item.label;
             } else if (mallManagement.includes(item.page)) {
-              this.title = "商城管理";
+              this.title = "Mall management";
               this.page = item.label;
             } else if (fundingStatistics.includes(item.page)) {
-              this.title = "资金统计";
+              this.title = "Capital statistics";
               this.page = item.label;
             } else if (activityManagement.includes(item.page)) {
-              this.title = "活动管理";
+              this.title = "Activity management";
               this.page = item.label;
             } else if (walletManagement.includes(item.page)) {
-              this.title = "钱包管理";
+              this.title = "Wallet management";
               this.page = item.label;
             } else if (systemManagement.includes(item.page)) {
-              this.title = "系统管理";
+              this.title = "System Management";
               this.page = item.label;
             } else {
               this.title = item.label;

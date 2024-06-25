@@ -7,33 +7,32 @@
         class="public-search"
         @click="dialogVisible = true"
       >
-        添加钱包
+        Add wallet
       </el-button>
     </div>
     <el-table :data="tableData" style="width: 100%" class="public-table" border>
-      <el-table-column prop="gasWalletAddress" label="钱包地址" align="center">
+      <el-table-column prop="gasWalletAddress" label="Wallet address" align="center">
       </el-table-column>
-      <el-table-column prop="balance" label="余额" align="center">
-      </el-table-column>
-      <el-table-column prop="transferOutTotal" label="激活状态" align="center">
+      <el-table-column prop="balance" label="Balance" align="center"> </el-table-column>
+      <el-table-column prop="transferOutTotal" label="Activation state" align="center">
         <template slot-scope="scope">
-          <p v-if="scope.row.state" style="color: #67c23a">已激活</p>
-          <p v-else style="color: #909399">未激活</p>
+          <p v-if="scope.row.state" style="color: #67c23a">activated</p>
+          <p v-else style="color: #909399">inactivated</p>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center">
+      <el-table-column label="operate" align="center">
         <template slot-scope="scope">
           <span
             class="blueColor publick-button cursor"
             @click="operatingFunc(scope.row, 'activate')"
           >
-            激活
+            activation
           </span>
           <span
             class="blueColor publick-button cursor"
             @click="operatingFunc(scope.row, 'del')"
           >
-            删除
+            delete
           </span>
           <chainExplorerSkip :chain="scope.row.chainType" hash="" />
         </template>
@@ -53,20 +52,15 @@
       class="public-pagination"
     >
     </el-pagination>
-    <el-dialog title="添加钱包" :visible.sync="dialogVisible" width="30%">
-      <el-form
-        ref="ruleForm"
-        :model="ruleForm"
-        label-width="80px"
-        :rules="rules"
-      >
-        <el-form-item label="钱包地址" prop="address">
+    <el-dialog title="Add wallet" :visible.sync="dialogVisible" width="30%">
+      <el-form ref="ruleForm" :model="ruleForm" label-width="80px" :rules="rules">
+        <el-form-item label="Wallet address" prop="address">
           <el-input v-model="ruleForm.address" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveFunc">确 定</el-button>
+        <el-button @click="dialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="saveFunc">Sure</el-button>
       </span>
     </el-dialog>
   </div>
@@ -123,11 +117,11 @@ export default {
     },
     operatingFunc(row, type) {
       this.$confirm(
-        `确定要${type == "del" ? `删除${row.address}钱包吗` : "激活"}吗?`,
-        "提示",
+        `Determine${type == "del" ? `delete${row.address}Wallet?` : "activation"}?`,
+        "hint",
         {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
+          confirmButtonText: "Sure",
+          cancelButtonText: "Cancel",
           type: "warning",
         }
       )
@@ -147,7 +141,7 @@ export default {
           }
           if (res) {
             this.getTableList();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {

@@ -1,10 +1,6 @@
 <template>
   <div id="tags-view-container" class="tags-view-container">
-    <scroll-pane
-      ref="scrollPane"
-      class="tags-view-wrapper"
-      @scroll="handleScroll"
-    >
+    <scroll-pane ref="scrollPane" class="tags-view-wrapper" @scroll="handleScroll">
       <router-link
         v-for="tag in visitedViews"
         ref="tag"
@@ -30,11 +26,9 @@
       class="contextmenu"
     >
       <li @click="refreshSelectedTag(selectedTag)">refresh</li>
-      <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">
-        关闭
-      </li>
-      <li @click="closeOthersTags">关闭其它</li>
-      <li @click="closeAllTags(selectedTag)">关闭所有</li>
+      <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">closure</li>
+      <li @click="closeOthersTags">Close others</li>
+      <li @click="closeAllTags(selectedTag)">Close all</li>
     </ul>
   </div>
 </template>
@@ -154,21 +148,17 @@ export default {
       });
     },
     closeSelectedTag(view) {
-      this.$store
-        .dispatch("tagsView/delView", view)
-        .then(({ visitedViews }) => {
-          if (this.isActive(view)) {
-            this.toLastView(visitedViews, view);
-          }
-        });
+      this.$store.dispatch("tagsView/delView", view).then(({ visitedViews }) => {
+        if (this.isActive(view)) {
+          this.toLastView(visitedViews, view);
+        }
+      });
     },
     closeOthersTags() {
       this.$router.push(this.selectedTag);
-      this.$store
-        .dispatch("tagsView/delOthersViews", this.selectedTag)
-        .then(() => {
-          this.moveToCurrentTag();
-        });
+      this.$store.dispatch("tagsView/delOthersViews", this.selectedTag).then(() => {
+        this.moveToCurrentTag();
+      });
     },
     closeAllTags(view) {
       this.$store.dispatch("tagsView/delAllViews").then(({ visitedViews }) => {

@@ -1,56 +1,132 @@
 <template>
   <div class="page-wrapper">
     <div class="public-list-inputs">
-      <el-input class="public-input" style="width: 140px" placeholder="输入流水号" v-model="Id" clearable />
-      <el-input class="public-input" style="width: 140px" placeholder="输入用户ID、钱包地址" v-model="userId" clearable />
-      <el-input class="public-input" style="width: 140px" placeholder="输入闪兑ID，hash，金流流水号" v-model="keyword" clearable />
-      <el-select v-model="coin" class="public-select-box" popper-class="public-select-box" placeholder="全部币种" clearable>
-        <el-option v-for="(item, index) in coinDrop" :key="index" :label="item.coinName" :value="item.coinName"> </el-option>
+      <el-input
+        class="public-input"
+        style="width: 140px"
+        placeholder="Enter flowing water number"
+        v-model="Id"
+        clearable
+      />
+      <el-input
+        class="public-input"
+        style="width: 140px"
+        placeholder="Enter user ID, wallet address"
+        v-model="userId"
+        clearable
+      />
+      <el-input
+        class="public-input"
+        style="width: 140px"
+        placeholder="Enter the Flashing ID, HASH, Gold Stream Water Number"
+        v-model="keyword"
+        clearable
+      />
+      <el-select
+        v-model="coin"
+        class="public-select-box"
+        popper-class="public-select-box"
+        placeholder="All currencies"
+        clearable
+      >
+        <el-option
+          v-for="(item, index) in coinDrop"
+          :key="index"
+          :label="item.coinName"
+          :value="item.coinName"
+        >
+        </el-option>
       </el-select>
-      <el-select v-model="chainType" class="public-select-box" popper-class="public-select-box" placeholder="全部充值链" clearable>
-        <el-option v-for="(item, index) in chainDrop" :key="index" :label="item.chain" :value="item.chain"> </el-option>
+      <el-select
+        v-model="chainType"
+        class="public-select-box"
+        popper-class="public-select-box"
+        placeholder="All recharge chain"
+        clearable
+      >
+        <el-option
+          v-for="(item, index) in chainDrop"
+          :key="index"
+          :label="item.chain"
+          :value="item.chain"
+        >
+        </el-option>
       </el-select>
       <div class="public-date-box">
-        <span class="demonstration"> 账变时间 </span>
+        <span class="demonstration"> Account change time </span>
         <el-date-picker
           v-model="changeTime"
           type="datetimerange"
-          range-separator="到"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          range-separator="arrive"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
         >
         </el-date-picker>
       </div>
-      <el-button type="primary" icon="el-icon-search" class="public-search" @click="fetchAssetFlowList()"> 查询 </el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-search"
+        class="public-search"
+        @click="fetchAssetFlowList()"
+      >
+        Inquire
+      </el-button>
     </div>
     <div class="remittance-box">
       <div class="remittance-amount remittance-more">
         <div class="remittance-item">
-          <div class="title">总流水数</div>
+          <div class="title">Total flowing water</div>
           <div class="val">{{ aggregateQuery && aggregateQuery.totalNumberOfFlows }}</div>
         </div>
         <div class="remittance-item">
-          <div class="title">总充值数量</div>
-          <div class="val">{{ aggregateQuery && aggregateQuery.totalRechargeQuantity }}</div>
+          <div class="title">Total recharge number</div>
+          <div class="val">
+            {{ aggregateQuery && aggregateQuery.totalRechargeQuantity }}
+          </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总上分</div>
+          <div class="title">Total score</div>
           <div class="val">{{ aggregateQuery && aggregateQuery.totalUpperScore }}</div>
         </div>
       </div>
     </div>
-    <el-table :data="tableData" style="width: 100%" @sort-change="sortChange" class="public-table" border>
-      <el-table-column prop="id" label="流水号" align="center" key="1"> </el-table-column>
-      <el-table-column prop="userId" width="120" label="用户ID" align="center" key="2"> </el-table-column>
-      <el-table-column prop="coin" label="充值币种" align="center" key="3"> </el-table-column>
-      <el-table-column prop="chainType" label="充值链" align="center" key="4"> </el-table-column>
-      <el-table-column prop="amount" label="充值数量" align="center" key="5"> </el-table-column>
-      <el-table-column prop="criditAmount" label="上分数量" align="center" key="6"> </el-table-column>
-      <el-table-column prop="flashId" label="闪兑Id" align="center" key="7"> </el-table-column>
-      <el-table-column prop="hash" label="Hash" align="center" key="8"> </el-table-column>
-      <el-table-column prop="address" label="钱包地址" align="center" key="9"> </el-table-column>
-      <el-table-column prop="afId" label="金流流水号" align="center" key="10"> </el-table-column>
-      <el-table-column prop="createTime" label="账变时间" align="center" key="11">
+    <el-table
+      :data="tableData"
+      style="width: 100%"
+      @sort-change="sortChange"
+      class="public-table"
+      border
+    >
+      <el-table-column prop="id" label="serial number" align="center" key="1">
+      </el-table-column>
+      <el-table-column prop="userId" width="120" label="User ID" align="center" key="2">
+      </el-table-column>
+      <el-table-column prop="coin" label="Recharge currency" align="center" key="3">
+      </el-table-column>
+      <el-table-column prop="chainType" label="Recharge chain" align="center" key="4">
+      </el-table-column>
+      <el-table-column prop="amount" label="Quantity of recharge" align="center" key="5">
+      </el-table-column>
+      <el-table-column prop="criditAmount" label="Quantity" align="center" key="6">
+      </el-table-column>
+      <el-table-column prop="flashId" label="Flash ID" align="center" key="7">
+      </el-table-column>
+      <el-table-column prop="hash" label="hash" align="center" key="8"> </el-table-column>
+      <el-table-column prop="address" label="Wallet address" align="center" key="9">
+      </el-table-column>
+      <el-table-column
+        prop="afId"
+        label="Gold Stream Water Number"
+        align="center"
+        key="10"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="createTime"
+        label="Account change time"
+        align="center"
+        key="11"
+      >
         <template slot-scope="scope">
           {{ timeForStr(scope.row.createTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>

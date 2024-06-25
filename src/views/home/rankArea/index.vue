@@ -2,19 +2,22 @@
   <el-card>
     <div slot="header" class="clearfix">
       <div class="title-box">
-        <h3>用户地区统计</h3>
+        <h3>User area statistics</h3>
       </div>
     </div>
     <div class="report-table-box">
       <el-table :data="dataList" style="width: 100%" height="500" border>
-        <el-table-column prop="country" label="国家" align="center" key="1">
+        <el-table-column prop="country" label="nation" align="center" key="1">
           <template slot-scope="scope">
-            {{ scope.row.country || "其他" }}
+            {{ scope.row.country || "other" }}
           </template>
         </el-table-column>
-        <el-table-column prop="registerNum" label="注册" align="center" key="2"> </el-table-column>
-        <el-table-column prop="rechargeAmount" label="充值" align="center" key="3"> </el-table-column>
-        <el-table-column prop="consumeAmount" label="消费" align="center" key="4"> </el-table-column>
+        <el-table-column prop="registerNum" label="register" align="center" key="2">
+        </el-table-column>
+        <el-table-column prop="rechargeAmount" label="top up" align="center" key="3">
+        </el-table-column>
+        <el-table-column prop="consumeAmount" label="Consumption" align="center" key="4">
+        </el-table-column>
       </el-table>
     </div>
   </el-card>
@@ -33,7 +36,9 @@ export default {
   // 方法
   methods: {
     async getDataList() {
-      const res = await this.$http.getHomeUserRegionStatisticsChart({ userType: this.$store.getters.accountConfig || "" });
+      const res = await this.$http.getHomeUserRegionStatisticsChart({
+        userType: this.$store.getters.accountConfig || "",
+      });
       if (res) {
         this.dataList = res;
       }

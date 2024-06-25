@@ -1,68 +1,186 @@
 <template>
   <div class="page-wrapper">
     <div class="public-list-inputs">
-      <el-input class="public-input" style="width: 220px" placeholder="输入ID、名称" v-model="obscureField" clearable />
+      <el-input
+        class="public-input"
+        style="width: 220px"
+        placeholder="Enter ID, name"
+        v-model="obscureField"
+        clearable
+      />
       <div class="public-date-box">
-        <span class="demonstration"> 添加时间 </span>
-        <el-date-picker v-model="addTime" type="datetimerange" range-separator="到" start-placeholder="开始时间" end-placeholder="结束时间">
+        <span class="demonstration"> add time </span>
+        <el-date-picker
+          v-model="addTime"
+          type="datetimerange"
+          range-separator="arrive"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
+        >
         </el-date-picker>
       </div>
-      <el-button type="primary" icon="el-icon-search" class="public-search" @click="getTableList()"> 查询 </el-button>
-      <el-button type="primary" icon="el-icon-circle-plus-outline" class="public-search" @click="handleAdd()"> 创建代币 </el-button>
-      <el-button type="primary" icon="el-icon-refresh" class="public-search" @click="refreshFunc()"> 刷新 </el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-search"
+        class="public-search"
+        @click="getTableList()"
+      >
+        Inquire
+      </el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-circle-plus-outline"
+        class="public-search"
+        @click="handleAdd()"
+      >
+        Token
+      </el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-refresh"
+        class="public-search"
+        @click="refreshFunc()"
+      >
+        refresh
+      </el-button>
     </div>
     <div class="remittance-box">
       <div class="remittance-amount remittance-more">
         <div class="remittance-item">
-          <div class="title">总代币项</div>
+          <div class="title">Total currency</div>
           <div class="val">{{ aggregateQuery && aggregateQuery.collNumberTotal }}</div>
         </div>
         <div class="remittance-item">
-          <div class="title">总价值</div>
+          <div class="title">total value</div>
           <div class="val">{{ aggregateQuery && aggregateQuery.collNumberTotal }}</div>
         </div>
       </div>
     </div>
-    <el-table :data="tableData" style="width: 100%" @sort-change="sortChange" class="public-table" border>
-      <el-table-column prop="id" sortable="custom" label="代币ID" align="center" key="1"> </el-table-column>
-      <el-table-column prop="coinImage" label="代币图" width="120px" align="center" key="2">
+    <el-table
+      :data="tableData"
+      style="width: 100%"
+      @sort-change="sortChange"
+      class="public-table"
+      border
+    >
+      <el-table-column
+        prop="id"
+        sortable="custom"
+        label="Token ID"
+        align="center"
+        key="1"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="coinImage"
+        label="Token map"
+        width="120px"
+        align="center"
+        key="2"
+      >
         <template slot-scope="scope">
           <div style="width: 100px; height: 100px">
-            <el-image style="height: 100%" :src="scope.row.coinImage" :preview-src-list="[scope.row.coinImage]"> </el-image>
+            <el-image
+              style="height: 100%"
+              :src="scope.row.coinImage"
+              :preview-src-list="[scope.row.coinImage]"
+            >
+            </el-image>
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="seriesName" label="代币名" align="center" key="3"> </el-table-column>
-      <el-table-column prop="contractAddress" label="合约" align="center" key="4"> </el-table-column>
-      <el-table-column prop="chainName" label="所在链" align="center" key="5"> </el-table-column>
-      <el-table-column prop="price" sortable="custom" label="数量" align="center" key="6"> </el-table-column>
-      <el-table-column prop="price" sortable="custom" label="ETH价值" align="center" key="7"> </el-table-column>
-      <el-table-column prop="price" sortable="custom" :label="`${coin}价值`" align="center" key="16">
+      <el-table-column prop="seriesName" label="Token name" align="center" key="3">
+      </el-table-column>
+      <el-table-column prop="contractAddress" label="contract" align="center" key="4">
+      </el-table-column>
+      <el-table-column prop="chainName" label="Chain" align="center" key="5">
+      </el-table-column>
+      <el-table-column
+        prop="price"
+        sortable="custom"
+        label="quantity"
+        align="center"
+        key="6"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="price"
+        sortable="custom"
+        label="ETH value"
+        align="center"
+        key="7"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="price"
+        sortable="custom"
+        :label="`${Coin} Value`"
+        align="center"
+        key="16"
+      >
         <template slot-scope="scope">
           {{ (scope.row.usdtLastPrice * scope.row.price).toFixed(4) }}
         </template>
       </el-table-column>
-      <el-table-column prop="relevancyBoxNumber" sortable="custom" label="关联盲盒" align="center" key="8"> </el-table-column>
-      <el-table-column prop="openNumber" sortable="custom" width="120" label="被开次数" align="center" key="9"> </el-table-column>
-      <el-table-column prop="reclaimRate" sortable="custom" width="120" label="回收比例" align="center" key="10">
+      <el-table-column
+        prop="relevancyBoxNumber"
+        sortable="custom"
+        label="Associated blind box"
+        align="center"
+        key="8"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="openNumber"
+        sortable="custom"
+        width="120"
+        label="Number of times"
+        align="center"
+        key="9"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="reclaimRate"
+        sortable="custom"
+        width="120"
+        label="Recycling ratio"
+        align="center"
+        key="10"
+      >
         <template slot-scope="scope">
           {{ scope.row.reclaimRate * 100 }}
         </template>
       </el-table-column>
-      <el-table-column prop="createTime" sortable="custom" width="140" label="添加时间" align="center" key="13">
+      <el-table-column
+        prop="createTime"
+        sortable="custom"
+        width="140"
+        label="add time"
+        align="center"
+        key="13"
+      >
         <template slot-scope="scope">
           {{ timeForStr(scope.row.createTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column prop="refreshTime" sortable="custom" width="140" label="上次刷新" align="center" key="14">
+      <el-table-column
+        prop="refreshTime"
+        sortable="custom"
+        width="140"
+        label="Refresh last time"
+        align="center"
+        key="14"
+      >
         <template slot-scope="scope">
           {{ timeForStr(scope.row.refreshTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" key="15">
+      <el-table-column label="operate" align="center" key="15">
         <template slot-scope="scope">
-          <span class="blueColor publick-button cursor"> 详情 </span>
-          <span class="blueColor publick-button cursor" @click="handleDel(scope.row)"> 删除 </span>
+          <span class="blueColor publick-button cursor"> Detail </span>
+          <span class="blueColor publick-button cursor" @click="handleDel(scope.row)">
+            delete
+          </span>
         </template>
       </el-table-column>
     </el-table>
@@ -81,29 +199,48 @@
     </el-pagination>
     <el-dialog
       v-if="showDialog"
-      :title="operatingType == 1 ? '创建代币' : '编辑代币'"
+      :title="operatingType == 1 ? 'Token' : 'Tokens'"
       :visible.sync="showDialog"
       width="540px"
       :close-on-click-modal="false"
       :before-close="handleClose"
     >
-      <el-form ref="ruleForm" class="add-form" :rules="rules" :model="ruleForm" label-width="130px">
-        <el-form-item label="名称" prop="seriesName" :rules="rules.blur">
-          <el-input v-model="ruleForm.seriesName" style="width: 300px" placeholder="请输入名称" />
+      <el-form
+        ref="ruleForm"
+        class="add-form"
+        :rules="rules"
+        :model="ruleForm"
+        label-width="130px"
+      >
+        <el-form-item label="name" prop="seriesName" :rules="rules.blur">
+          <el-input
+            v-model="ruleForm.seriesName"
+            style="width: 300px"
+            placeholder="Please enter the name"
+          />
         </el-form-item>
-        <el-form-item label="合约地址" prop="contractAddress" :rules="rules.blur">
-          <el-input :disabled="operatingType != 1" v-model="ruleForm.contractAddress" style="width: 300px" placeholder="请输入合约地址">
+        <el-form-item label="Contract address" prop="contractAddress" :rules="rules.blur">
+          <el-input
+            :disabled="operatingType != 1"
+            v-model="ruleForm.contractAddress"
+            style="width: 300px"
+            placeholder="Please enter the contract address"
+          >
             <template slot="append">
-              <el-button @click="fetchNftSeries()">查询</el-button>
+              <el-button @click="fetchNftSeries()">Inquire</el-button>
             </template>
           </el-input>
         </el-form-item>
-        <el-form-item label="币种" prop="coinName" :rules="rules.select">
-          <el-select :disabled="operatingType != 1" v-model="ruleForm.coinName" style="width: 300px">
-            <el-option label="ETH" value="ETH"></el-option>
+        <el-form-item label="Currency" prop="coinName" :rules="rules.select">
+          <el-select
+            :disabled="operatingType != 1"
+            v-model="ruleForm.coinName"
+            style="width: 300px"
+          >
+            <el-option label="eth" value="ETH"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="图片" prop="coinImage" :rules="rules.select">
+        <el-form-item label="picture" prop="coinImage" :rules="rules.select">
           <el-upload
             :action="uploadUrl"
             :disabled="operatingType != 1"
@@ -123,35 +260,49 @@
             <i class="el-icon-plus" />
           </el-upload>
         </el-form-item>
-        <el-form-item label="所在链" prop="chainId" :rules="rules.select">
-          <el-select :disabled="operatingType != 1" v-model="ruleForm.chainId" style="width: 300px">
-            <el-option v-for="(item, index) in chainList" :key="index" :label="item.chainName" :value="item.chainId">
+        <el-form-item label="Chain" prop="chainId" :rules="rules.select">
+          <el-select
+            :disabled="operatingType != 1"
+            v-model="ruleForm.chainId"
+            style="width: 300px"
+          >
+            <el-option
+              v-for="(item, index) in chainList"
+              :key="index"
+              :label="item.chainName"
+              :value="item.chainId"
+            >
               <span style="float: left">{{ item.chainName }}</span>
               <span style="float: right; color: #8492a6">{{ item.type }}</span>
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="价值" prop="price" :rules="rules.blur">
+        <el-form-item label="value" prop="price" :rules="rules.blur">
           <el-input
             :disabled="ruleForm.seriesType !== 'COIN' && operatingType != 1"
             type="number"
             v-model="ruleForm.price"
             style="width: 300px"
-            placeholder="请输入价值"
+            placeholder="Please enter value"
           >
             <template slot="append">{{ ruleForm.coin }}</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="回收比例" prop="reclaimRate" :rules="rules.blur">
-          <el-input type="number" v-model="ruleForm.reclaimRate" style="width: 300px" placeholder="请输入回收比例">
+        <el-form-item label="Recycling ratio" prop="reclaimRate" :rules="rules.blur">
+          <el-input
+            type="number"
+            v-model="ruleForm.reclaimRate"
+            style="width: 300px"
+            placeholder="Please enter the recycling ratio"
+          >
             <template slot="append">%</template>
           </el-input>
         </el-form-item>
       </el-form>
 
       <span slot="footer" class="dialog-footer">
-        <el-button @click="handleClose()">取 消</el-button>
-        <el-button type="primary" @click="submitForm()">确 定</el-button>
+        <el-button @click="handleClose()">Cancel</el-button>
+        <el-button type="primary" @click="submitForm()">Sure</el-button>
       </span>
     </el-dialog>
   </div>
@@ -203,8 +354,10 @@ export default {
         coin: "ETH", //ETH币种
       },
       rules: {
-        select: [{ required: true, message: "请选择", trigger: ["blur", "change"] }],
-        blur: [{ required: true, message: "请输入", trigger: ["blur", "change"] }],
+        select: [
+          { required: true, message: "please choose", trigger: ["blur", "change"] },
+        ],
+        blur: [{ required: true, message: "please enter", trigger: ["blur", "change"] }],
       },
       chainList: chainList,
     };
@@ -278,7 +431,7 @@ export default {
       const res = await this.$http.externalCoinRefresh();
       if (res) {
         this.getTableList();
-        this.$message.success("操作成功");
+        this.$message.success("Successful operation");
       }
     },
     handleAdd() {
@@ -298,9 +451,9 @@ export default {
     },
     // 删除
     handleDel(row) {
-      this.$confirm(`确定要删除系列『${row.seriesName || row.id}』吗?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(`OK to delete the series『${row.seriesName || row.id}』?`, "hint", {
+        confirmButtonText: "Sure",
+        cancelButtonText: "Cancel",
         type: "info",
       })
         .then(async () => {
@@ -309,7 +462,7 @@ export default {
           });
           if (res) {
             this.getTableList();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {
@@ -333,13 +486,13 @@ export default {
         this.ruleForm.coinImage = res.data;
         return;
       }
-      this.$message.error("上传失败");
+      this.$message.error("upload failed");
     },
     handleBefore(file) {
       const _this = this;
       const is1M = file.size / 1024 / 1024 < 2; // 限制小于2M
       if (!is1M) {
-        _this.$message.error("文件过大，文件大小小于2M");
+        _this.$message.error("The file is too large, and the file size is less than 2M");
       }
       return is1M;
     },
@@ -351,14 +504,14 @@ export default {
       this.fileImg = [];
     },
     handExceed(fiel) {
-      this.$message.error("文件只能上传一个");
+      this.$message.error("File can only upload one");
     },
     // 提交
     submitForm() {
       this.$refs.ruleForm.validate(async (valid) => {
         if (valid) {
           if (this.fileImg.length == 0) {
-            this.$message.error("请上传图片！");
+            this.$message.error("Please upload the picture!");
             return;
           }
 
@@ -368,7 +521,9 @@ export default {
 
           let res = null;
           if (this.operatingType == 1) {
-            ruleForm.chainName = this.chainList.filter((x) => x.chainId == ruleForm.chainId)[0].chainName;
+            ruleForm.chainName = this.chainList.filter(
+              (x) => x.chainId == ruleForm.chainId
+            )[0].chainName;
             ruleForm.coinImage = this.fileImg[0].url;
             ruleForm.reclaimRate = ruleForm.reclaimRate / 100;
             res = await this.$http.externalCoinAdd({ ...ruleForm });
@@ -378,7 +533,7 @@ export default {
           if (res) {
             this.handleClose();
             this.$refs["ruleForm"].resetFields();
-            this.$message.success("操作成功！");
+            this.$message.success("Successful operation!");
             this.getTableList();
             this.fileImg = [];
           }
@@ -394,7 +549,7 @@ export default {
     fetchNftSeries() {
       const { chainId, contractAddress } = this.ruleForm;
       if (!chainId) {
-        this.$message.warning("请选择网络");
+        this.$message.warning("Please select the network");
         return;
       }
 
@@ -408,7 +563,7 @@ export default {
           responseType: "json",
           headers: {
             "X-API-KEY": "3eb9844d094945f288c104c770365ac8",
-            "certificate":sessionStorage.getItem('token'),
+            certificate: sessionStorage.getItem("token"),
           },
         })
         .then((res) => {
@@ -420,10 +575,14 @@ export default {
             this.ruleForm.keywords = nftData.collection.slug; // 关键字
             return;
           }
-          this.$message.error("查询失败，请检查合约地址是否正确");
+          this.$message.error(
+            "Inquiry fails, please check whether the contract address is correct"
+          );
         })
         .catch((error) => {
-          this.$message.error("查询失败，请检查合约地址是否正确");
+          this.$message.error(
+            "Inquiry fails, please check whether the contract address is correct"
+          );
           console.log(error);
         });
     },

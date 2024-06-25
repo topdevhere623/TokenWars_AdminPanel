@@ -4,89 +4,152 @@
       <div class="remittance-box">
         <div class="remittance-amount remittance-more">
           <div class="remittance-item">
-            <div class="title">总参与人数</div>
+            <div class="title">Total number of participants</div>
             <div class="val">{{ aggregateQuery && aggregateQuery.joinPeopleNum }}</div>
           </div>
           <div class="remittance-item">
-            <div class="title">总奖金</div>
+            <div class="title">Total bonus</div>
             <div class="val">{{ aggregateQuery && aggregateQuery.totalBonus }}</div>
           </div>
           <div class="remittance-item">
-            <div class="title">总积分</div>
+            <div class="title">total points</div>
             <div class="val">{{ aggregateQuery && aggregateQuery.totalPoint }}</div>
           </div>
         </div>
       </div>
-      <el-button type="primary" icon="el-icon-circle-plus-outline" class="public-search" @click="handleAdd()"> 添加活动 </el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-circle-plus-outline"
+        class="public-search"
+        @click="handleAdd()"
+      >
+        Add activity
+      </el-button>
     </div>
 
     <el-table :data="tableData" style="width: 100%" class="public-table" border>
-      <el-table-column prop="id" label="活动ID" align="center" key="1"> </el-table-column>
-      <el-table-column prop="name" label="活动名称" align="center" key="2"> </el-table-column>
-      <el-table-column prop="banner" label="横幅图片" width="120px" align="center" key="3">
+      <el-table-column prop="id" label="Active ID" align="center" key="1">
+      </el-table-column>
+      <el-table-column prop="name" label="Event name" align="center" key="2">
+      </el-table-column>
+      <el-table-column
+        prop="banner"
+        label="Banner picture"
+        width="120px"
+        align="center"
+        key="3"
+      >
         <template slot-scope="scope">
           <div style="width: 100px; height: 50px">
-            <el-image style="height: 100%" :src="scope.row.banner" :preview-src-list="[scope.row.banner]"> </el-image>
+            <el-image
+              style="height: 100%"
+              :src="scope.row.banner"
+              :preview-src-list="[scope.row.banner]"
+            >
+            </el-image>
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="seriesName" label="活动类型" align="center" key="4">
+      <el-table-column prop="seriesName" label="type of activity" align="center" key="4">
         <template slot-scope="scope">
           {{ getActivityName(scope.row.activityType) }}
         </template>
       </el-table-column>
-      <el-table-column prop="activityIndex" label="排序" align="center" key="5"> </el-table-column>
-      <el-table-column prop="joinNum" label="参与人数" align="center" key="6"> </el-table-column>
-      <el-table-column label="已领取/总奖金" align="center" key="7">
+      <el-table-column prop="activityIndex" label="Sort" align="center" key="5">
+      </el-table-column>
+      <el-table-column
+        prop="joinNum"
+        label="The number of participants"
+        align="center"
+        key="6"
+      >
+      </el-table-column>
+      <el-table-column label="Have received/Total bonus" align="center" key="7">
         <template slot-scope="scope">
-          <p v-if="scope.row.totalBonus">{{ scope.row.receivedBonus + " / " + scope.row.totalBonus }}</p>
+          <p v-if="scope.row.totalBonus">
+            {{ scope.row.receivedBonus + " / " + scope.row.totalBonus }}
+          </p>
           <p v-else>--</p>
         </template>
       </el-table-column>
-      <el-table-column prop="points" label="总积分" align="center" key="8"> </el-table-column>
-      <el-table-column prop="relevancyBoxNumber" label="奖励记录" align="center" key="9">
+      <el-table-column prop="points" label="total points" align="center" key="8">
+      </el-table-column>
+      <el-table-column
+        prop="relevancyBoxNumber"
+        label="Reward record"
+        align="center"
+        key="9"
+      >
         <template slot-scope="scope">
-          <span class="blueColor publick-button cursor" @click="recordsShow(scope.row)"> 详情 </span>
+          <span class="blueColor publick-button cursor" @click="recordsShow(scope.row)">
+            Detail
+          </span>
         </template>
       </el-table-column>
-      <el-table-column prop="acticityStatus" width="120" label="状态" align="center" key="10">
+      <el-table-column
+        prop="acticityStatus"
+        width="120"
+        label="状态"
+        align="center"
+        key="10"
+      >
         <template slot-scope="scope">
-          <p style="color: #67c23a" v-if="scope.row.acticityStatus == 'IN_PROGRESS'">进行中</p>
-          <p style="color: #e6a23c" v-else-if="scope.row.acticityStatus == 'NOT_STARTED'">未开始</p>
-          <p style="color: #909399" v-else>已结束</p>
+          <p style="color: #67c23a" v-if="scope.row.acticityStatus == 'IN_PROGRESS'">
+            in progress
+          </p>
+          <p style="color: #e6a23c" v-else-if="scope.row.acticityStatus == 'NOT_STARTED'">
+            has not started
+          </p>
+          <p style="color: #909399" v-else>over</p>
         </template>
       </el-table-column>
-      <el-table-column prop="startTime" width="140" label="开始时间" align="center" key="11">
+      <el-table-column
+        prop="startTime"
+        width="140"
+        label="开始时间"
+        align="center"
+        key="11"
+      >
         <template slot-scope="scope">
           {{ timeForStr(scope.row.startTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column prop="endTime" width="140" label="结束时间" align="center" key="12">
+      <el-table-column
+        prop="endTime"
+        width="140"
+        label="结束时间"
+        align="center"
+        key="12"
+      >
         <template slot-scope="scope">
           {{ timeForStr(scope.row.endTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" key="13" width="140">
+      <el-table-column label="operate" align="center" key="13" width="140">
         <template slot-scope="scope">
           <span class="blueColor publick-button cursor" @click="handleEdit(scope.row)">
-            {{ scope.row.acticityStatus == "ENDED" ? "详情" : "编辑" }}
+            {{ scope.row.acticityStatus == "ENDED" ? "Detail" : "edit" }}
           </span>
           <span
             class="blueColor publick-button cursor"
             @click="handleTime(scope.row, 'start')"
             v-if="scope.row.acticityStatus == 'NOT_STARTED'"
           >
-            提前开始
+            Start in advance
           </span>
           <span
             class="blueColor publick-button cursor"
             @click="handleTime(scope.row, 'end')"
             v-if="scope.row.acticityStatus == 'IN_PROGRESS'"
           >
-            提前结束
+            an early closure
           </span>
-          <span class="blueColor publick-button cursor" @click="handleDel(scope.row)" v-if="scope.row.acticityStatus != 'IN_PROGRESS'">
-            删除
+          <span
+            class="blueColor publick-button cursor"
+            @click="handleDel(scope.row)"
+            v-if="scope.row.acticityStatus != 'IN_PROGRESS'"
+          >
+            delete
           </span>
         </template>
       </el-table-column>
@@ -106,7 +169,7 @@
     </el-pagination>
     <el-dialog
       v-if="showDialog"
-      :title="operatingType == 1 ? '添加活动' : '编辑活动'"
+      :title="operatingType == 1 ? 'Add activity' : 'Editing activity'"
       :visible.sync="showDialog"
       width="940px"
       :close-on-click-modal="false"
@@ -114,21 +177,41 @@
       top="5vh"
     >
       <div class="add-form-box">
-        <el-form ref="ruleForm" class="add-form" :rules="rules" :model="ruleForm" label-width="140px">
-          <el-form-item label="活动类型" prop="activityType" :rules="rules.select">
+        <el-form
+          ref="ruleForm"
+          class="add-form"
+          :rules="rules"
+          :model="ruleForm"
+          label-width="140px"
+        >
+          <el-form-item
+            label="type of activity"
+            prop="activityType"
+            :rules="rules.select"
+          >
             <el-select
               :disabled="ruleForm.acticityStatus == 'IN_PROGRESS' && operatingType != 1"
               v-model="ruleForm.activityType"
               style="width: 350px"
             >
-              <el-option v-for="(item, index) in typeOptions" :key="index" :label="item.label" :value="item.value"> </el-option>
+              <el-option
+                v-for="(item, index) in typeOptions"
+                :key="index"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
             </el-select>
           </el-form-item>
 
-          <el-form-item label="活动名称" prop="name" :rules="rules.blur">
-            <el-input v-model="ruleForm.name" style="width: 350px" placeholder="请输入名称" />
+          <el-form-item label="Event name" prop="name" :rules="rules.blur">
+            <el-input
+              v-model="ruleForm.name"
+              style="width: 350px"
+              placeholder="Please enter the name"
+            />
           </el-form-item>
-          <el-form-item label="活动横幅" prop="banner" :rules="rules.select">
+          <el-form-item label="Activity banner" prop="banner" :rules="rules.select">
             <el-upload
               :action="uploadUrl"
               :class="{ hide: hideUpload }"
@@ -147,85 +230,114 @@
               <i class="el-icon-plus" />
             </el-upload>
           </el-form-item>
-          <el-form-item label="排序" prop="activityIndex" :rules="rules.blur">
-            <el-input v-model="ruleForm.activityIndex" style="width: 350px" placeholder="数字越大越靠前" />
+          <el-form-item label="Sort" prop="activityIndex" :rules="rules.blur">
+            <el-input
+              v-model="ruleForm.activityIndex"
+              style="width: 350px"
+              placeholder="The larger the numbers, the higher the higher"
+            />
           </el-form-item>
-          <el-form-item label="一句话介绍" prop="shortWord" :rules="rules.blur">
-            <el-input v-model="ruleForm.shortWord" style="width: 350px" placeholder="请输入名称" />
+          <el-form-item
+            label="one-sentence introduction"
+            prop="shortWord"
+            :rules="rules.blur"
+          >
+            <el-input
+              v-model="ruleForm.shortWord"
+              style="width: 350px"
+              placeholder="Please enter the name"
+            />
           </el-form-item>
           <template v-if="ruleForm.activityType != 'WELCOME_BONUS'">
-            <el-form-item label="积分比率" prop="pointRate" :rules="rules.blur">
-              <el-input type="number" v-model="ruleForm.pointRate" style="width: 350px" placeholder="请输入积分比率">
-                <template slot="append">倍</template>
+            <el-form-item label="Point ratio" prop="pointRate" :rules="rules.blur">
+              <el-input
+                type="number"
+                v-model="ruleForm.pointRate"
+                style="width: 350px"
+                placeholder="Please enter the integral ratio"
+              >
+                <template slot="append">Doubling</template>
               </el-input>
             </el-form-item>
-            <el-form-item label="最大积分" prop="maxPoint" :rules="rules.blur">
-              <el-input v-model="ruleForm.maxPoint" style="width: 350px" placeholder="请输入最大积分" />
+            <el-form-item label="Maximum" prop="maxPoint" :rules="rules.blur">
+              <el-input
+                v-model="ruleForm.maxPoint"
+                style="width: 350px"
+                placeholder="Please enter the maximum points"
+              />
             </el-form-item>
           </template>
           <template v-else>
-            <el-form-item label="最低充值" prop="lowRecharge" :rules="rules.blur">
+            <el-form-item label="Minimum recharge" prop="lowRecharge" :rules="rules.blur">
               <el-input
                 :disabled="ruleForm.acticityStatus == 'IN_PROGRESS' && operatingType != 1"
                 type="number"
                 v-model="ruleForm.lowRecharge"
                 style="width: 350px"
-                placeholder="请输入最低充值"
+                placeholder="Please enter the minimum recharge"
               >
                 <template slot="append">{{ coin }}</template>
               </el-input>
             </el-form-item>
-            <el-form-item label="奖金比率" prop="bonusRate" :rules="rules.blur">
+            <el-form-item label="Bonus ratio" prop="bonusRate" :rules="rules.blur">
               <el-input
                 :disabled="ruleForm.acticityStatus == 'IN_PROGRESS' && operatingType != 1"
                 type="number"
                 v-model="ruleForm.bonusRate"
                 style="width: 350px"
-                placeholder="请输入奖金比率"
+                placeholder="Please enter the bonus ratio"
               >
-                <template slot="append">倍</template>
+                <template slot="append">Doubling</template>
               </el-input>
             </el-form-item>
-            <el-form-item label="最大奖金" prop="maxBonusLimit" :rules="rules.blur">
+            <el-form-item label="Maximum bonus" prop="maxBonusLimit" :rules="rules.blur">
               <el-input
                 :disabled="ruleForm.acticityStatus == 'IN_PROGRESS' && operatingType != 1"
                 type="number"
                 v-model="ruleForm.maxBonusLimit"
                 style="width: 350px"
-                placeholder="请输入最大奖金"
+                placeholder="Please enter the maximum bonus"
               >
                 <template slot="append">{{ coin }}</template>
               </el-input>
             </el-form-item>
-            <el-form-item label="解锁所需流水倍率" prop="unlockFlowRate" :rules="rules.blur">
+            <el-form-item
+              label="Unlock the flow rate required"
+              prop="unlockFlowRate"
+              :rules="rules.blur"
+            >
               <el-input
                 :disabled="ruleForm.acticityStatus == 'IN_PROGRESS' && operatingType != 1"
                 type="number"
                 v-model="ruleForm.unlockFlowRate"
                 style="width: 350px"
-                placeholder="请输入解锁所需流水倍率"
+                placeholder="Please enter the unlocked flowing rate required"
               >
-                <template slot="append">倍</template>
+                <template slot="append">Doubling</template>
               </el-input>
             </el-form-item>
             <div class="flex">
-              <el-form-item label="解锁轮次" prop="unlockNum" :rules="rules.blur">
+              <el-form-item label="Unlocking round" prop="unlockNum" :rules="rules.blur">
                 <el-input
-                  :disabled="ruleForm.acticityStatus == 'IN_PROGRESS' && operatingType != 1"
+                  :disabled="
+                    ruleForm.acticityStatus == 'IN_PROGRESS' && operatingType != 1
+                  "
                   type="number"
                   v-model="ruleForm.unlockNum"
                   style="width: 200px"
-                  placeholder="请输入解锁轮次"
+                  placeholder="Please enter the unlock wheel"
                 >
-                  <template slot="append">次</template>
+                  <template slot="append">Second-rate</template>
                 </el-input>
               </el-form-item>
-              <el-form-item label="解锁比率" v-if="ruleForm.unlockNum > 0">
-                <p style="line-height: 28px">{{ ((1 / ruleForm.unlockNum) * 100).toFixed(2) }}%</p>
+              <el-form-item label="Unlock ratio" v-if="ruleForm.unlockNum > 0">
+                <p style="line-height: 28px">
+                  {{ ((1 / ruleForm.unlockNum) * 100).toFixed(2) }}%
+                </p>
               </el-form-item>
             </div>
           </template>
-          <el-form-item label="起止时间" prop="startTime" :rules="rules.select">
+          <el-form-item label="Start and end time" prop="startTime" :rules="rules.select">
             <div class="flex">
               <el-date-picker
                 style="width: 200px"
@@ -233,104 +345,207 @@
                 v-model="ruleForm.startTime"
                 value-format="yyyy-MM-dd HH:mm:ss"
                 type="datetime"
-                placeholder="选择开始时间"
+                placeholder="Choose start time"
               >
               </el-date-picker>
-              <p>至</p>
+              <p>to</p>
               <el-date-picker
                 :disabled="ruleForm.acticityStatus == 'IN_PROGRESS' && operatingType != 1"
                 style="width: 200px"
                 v-model="ruleForm.endTime"
                 value-format="yyyy-MM-dd HH:mm:ss"
                 type="datetime"
-                placeholder="选择开始时间"
+                placeholder="Choose start time"
               >
               </el-date-picker>
             </div>
           </el-form-item>
-          <el-form-item label="活动描述" prop="activityDesc" :rules="rules.blur">
-            <quillEditor :content="ruleForm.activityDesc" @change="editorDetailFunc"></quillEditor>
+          <el-form-item
+            label="Activity description"
+            prop="activityDesc"
+            :rules="rules.blur"
+          >
+            <quillEditor
+              :content="ruleForm.activityDesc"
+              @change="editorDetailFunc"
+            ></quillEditor>
           </el-form-item>
-          <el-form-item label="条款与条件" prop="conditionRule" :rules="rules.blur">
-            <quillEditor :content="ruleForm.conditionRule" @change="editorRuleFunc"></quillEditor>
+          <el-form-item
+            label="terms and conditions"
+            prop="conditionRule"
+            :rules="rules.blur"
+          >
+            <quillEditor
+              :content="ruleForm.conditionRule"
+              @change="editorRuleFunc"
+            ></quillEditor>
           </el-form-item>
         </el-form>
       </div>
 
       <span slot="footer" class="dialog-footer">
-        <el-button @click="handleClose()">取 消</el-button>
-        <el-button :disabled="ruleForm.acticityStatus == 'ENDED'" type="primary" @click="submitForm()">确 定</el-button>
+        <el-button @click="handleClose()">Cancel</el-button>
+        <el-button
+          :disabled="ruleForm.acticityStatus == 'ENDED'"
+          type="primary"
+          @click="submitForm()"
+          >Sure</el-button
+        >
       </span>
     </el-dialog>
-    <el-dialog v-if="showDetailDialog" title="奖励记录" :visible.sync="showDetailDialog" width="1200px" :close-on-click-modal="false">
+    <el-dialog
+      v-if="showDetailDialog"
+      title="Reward record"
+      :visible.sync="showDetailDialog"
+      width="1200px"
+      :close-on-click-modal="false"
+    >
       <div class="page-wrapper showDetailDialog">
         <template>
           <div class="public-list-inputs">
-            <el-input class="public-input" style="width: 200px" placeholder="输入玩家昵称/ID" v-model="obscureField" clearable />
-            <el-button type="primary" icon="el-icon-search" class="public-search" @click="getAwardsRecords()"> 查询 </el-button>
+            <el-input
+              class="public-input"
+              style="width: 200px"
+              placeholder="Enter the player's nickname/ID"
+              v-model="obscureField"
+              clearable
+            />
+            <el-button
+              type="primary"
+              icon="el-icon-search"
+              class="public-search"
+              @click="getAwardsRecords()"
+            >
+              Inquire
+            </el-button>
           </div>
           <div class="remittance-box" v-if="row.activityType == 'WELCOME_BONUS'">
             <div class="remittance-amount remittance-more">
               <div class="remittance-item">
-                <div class="title">参与人数</div>
+                <div class="title">The number of participants</div>
                 <div class="val">{{ rewardRecordStatic?.joinPeopleNum }}</div>
               </div>
               <div class="remittance-item">
-                <div class="title">总充值</div>
+                <div class="title">Total recharge</div>
                 <div class="val">{{ rewardRecordStatic?.totalRecharge }}</div>
               </div>
               <div class="remittance-item">
-                <div class="title">总奖金</div>
+                <div class="title">Total bonus</div>
                 <div class="val">{{ rewardRecordStatic?.totalBonus }}</div>
               </div>
               <div class="remittance-item">
-                <div class="title">总流水</div>
+                <div class="title">Total flow</div>
                 <div class="val">{{ rewardRecordStatic?.totalFlowNums }}</div>
               </div>
               <div class="remittance-item">
-                <div class="title">总解锁</div>
+                <div class="title">Unlock</div>
                 <div class="val">{{ rewardRecordStatic?.totalUnlocks }}</div>
               </div>
               <div class="remittance-item">
-                <div class="title">总领取</div>
+                <div class="title">Always receive</div>
                 <div class="val">{{ rewardRecordStatic?.totalReceive }}</div>
               </div>
               <div class="remittance-item">
-                <div class="title">总未领</div>
+                <div class="title">Never lead</div>
                 <div class="val">
-                  {{ accurateDecimal(new bigNumber(rewardRecordStatic?.totalUnlocks - rewardRecordStatic?.totalReceive || 0), 4) }}
+                  {{
+                    accurateDecimal(
+                      new bigNumber(
+                        rewardRecordStatic?.totalUnlocks -
+                          rewardRecordStatic?.totalReceive || 0
+                      ),
+                      4
+                    )
+                  }}
                 </div>
               </div>
             </div>
           </div>
         </template>
         <el-table :data="rewardRecordList" style="width: 100%" border>
-          <el-table-column prop="id" label="玩家ID/昵称" align="center" key="0">
+          <el-table-column prop="id" label="Player ID/Nick name" align="center" key="0">
             <template slot-scope="scope">
-              <p :style="{ color: scope.row.userType == 'INNER' ? 'red' : '#000' }">{{ scope.row.userId || "--" }}</p>
-              <p :style="{ color: scope.row.userType == 'INNER' ? 'red' : '#000' }">{{ scope.row.userName || "--" }}</p>
+              <p :style="{ color: scope.row.userType == 'INNER' ? 'red' : '#000' }">
+                {{ scope.row.userId || "--" }}
+              </p>
+              <p :style="{ color: scope.row.userType == 'INNER' ? 'red' : '#000' }">
+                {{ scope.row.userName || "--" }}
+              </p>
             </template>
           </el-table-column>
           <template v-if="row.activityType == 'WELCOME_BONUS'">
-            <el-table-column prop="rechargeAmount" width="120" label="充值金额" align="center" key="1"> </el-table-column>
-            <el-table-column prop="rechargeTime" label="充值时间" align="center" key="2">
+            <el-table-column
+              prop="rechargeAmount"
+              width="120"
+              label="Recharge amount"
+              align="center"
+              key="1"
+            >
+            </el-table-column>
+            <el-table-column
+              prop="rechargeTime"
+              label="Recharge time"
+              align="center"
+              key="2"
+            >
               <template slot-scope="scope">
                 {{ timeForStr(scope.row.rechargeTime, "YYYY-MM-DD HH:mm:ss") }}
               </template>
             </el-table-column>
-            <el-table-column prop="totalRewards" label="总奖金" align="center" key="4"> </el-table-column>
-            <el-table-column prop="flowAmount" label="已打流水" align="center" key="5"> </el-table-column>
-            <el-table-column prop="unlockReward" label="解锁奖金" align="center" key="6"> </el-table-column>
-            <el-table-column prop="receivedReward" label="领取奖金" align="center" key="7"> </el-table-column>
-            <el-table-column prop="walletAddress" label="未领奖金" align="center" key="8">
+            <el-table-column
+              prop="totalRewards"
+              label="Total bonus"
+              align="center"
+              key="4"
+            >
+            </el-table-column>
+            <el-table-column prop="flowAmount" label="Dowded" align="center" key="5">
+            </el-table-column>
+            <el-table-column
+              prop="unlockReward"
+              label="Unlock bonus"
+              align="center"
+              key="6"
+            >
+            </el-table-column>
+            <el-table-column
+              prop="receivedReward"
+              label="Receive bonus"
+              align="center"
+              key="7"
+            >
+            </el-table-column>
+            <el-table-column
+              prop="walletAddress"
+              label="Unblocked bonus"
+              align="center"
+              key="8"
+            >
               <template slot-scope="scope">
-                {{ accurateDecimal(new bigNumber(scope.row.unlockReward - scope.row.receivedReward || 0), 4) }}
+                {{
+                  accurateDecimal(
+                    new bigNumber(scope.row.unlockReward - scope.row.receivedReward || 0),
+                    4
+                  )
+                }}
               </template>
             </el-table-column>
           </template>
           <template v-else>
-            <el-table-column prop="flowAmount" label="流水" align="center" key="9"> </el-table-column>
-            <el-table-column prop="totalPoints" label="总积分" align="center" key="10"> </el-table-column>
+            <el-table-column
+              prop="flowAmount"
+              label="Flowing water"
+              align="center"
+              key="9"
+            >
+            </el-table-column>
+            <el-table-column
+              prop="totalPoints"
+              label="total points"
+              align="center"
+              key="10"
+            >
+            </el-table-column>
           </template>
         </el-table>
         <el-pagination
@@ -348,7 +563,7 @@
         </el-pagination>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="showDetailDialog = false">关闭</el-button>
+        <el-button type="primary" @click="showDetailDialog = false">closure</el-button>
       </span>
     </el-dialog>
   </div>
@@ -369,9 +584,9 @@ export default {
   data() {
     return {
       typeOptions: [
-        { label: "欢迎奖金", value: "WELCOME_BONUS" },
-        { label: "开盒赢积分", value: "OPEN_BOX_WIN_POINTS" },
-        { label: "夺宝赢积分", value: "TREASURES_WIN_POINTS" },
+        { label: "Bonus", value: "WELCOME_BONUS" },
+        { label: "Open the box to win points", value: "OPEN_BOX_WIN_POINTS" },
+        { label: "Treasure Winning points", value: "TREASURES_WIN_POINTS" },
       ],
       showDialog: false,
       showDetailDialog: false,
@@ -408,8 +623,10 @@ export default {
       },
       ruleFormClone: {},
       rules: {
-        select: [{ required: true, message: "请选择", trigger: ["blur", "change"] }],
-        blur: [{ required: true, message: "请输入", trigger: ["blur", "change"] }],
+        select: [
+          { required: true, message: "please choose", trigger: ["blur", "change"] },
+        ],
+        blur: [{ required: true, message: "please enter", trigger: ["blur", "change"] }],
       },
       row: {},
       obscureField: null,
@@ -490,7 +707,10 @@ export default {
         this.rewardBaseUserPage = res;
         this.rewardRecordList = res.records;
         this.showDetailDialog = true;
-        const data = await this.$http.activityManagerDetailHeaderDataTotal({ id: this.row.id, obscureField: this.obscureField });
+        const data = await this.$http.activityManagerDetailHeaderDataTotal({
+          id: this.row.id,
+          obscureField: this.obscureField,
+        });
         if (data) {
           this.rewardRecordStatic = data;
           this.showDetailDialog = true;
@@ -505,11 +725,17 @@ export default {
       this.ruleForm.conditionRule = data;
     },
     handleTime(row, type) {
-      this.$confirm(`确定要让活动『${row.name}』提前${type == "start" ? "开始" : "结束"}吗?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "info",
-      })
+      this.$confirm(
+        `Make sure the event" ${row.name}} "advance ${
+          type == " start " ? " Start " : " End "
+        }?`,
+        "hint",
+        {
+          confirmButtonText: "Sure",
+          cancelButtonText: "Cancel",
+          type: "info",
+        }
+      )
         .then(async () => {
           let res = null;
           if (type == "start") {
@@ -523,7 +749,7 @@ export default {
           }
           if (res) {
             this.getTableList();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {
@@ -531,9 +757,9 @@ export default {
         });
     },
     handleDel(row) {
-      this.$confirm(`确定要删除『${row.name}』吗?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(`Are you going to delete" ${row.name} "?`, {
+        confirmButtonText: "Sure",
+        cancelButtonText: "Cancel",
         type: "info",
       })
         .then(async () => {
@@ -542,7 +768,7 @@ export default {
           });
           if (res) {
             this.getTableList();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {
@@ -564,13 +790,13 @@ export default {
         this.ruleForm.banner = res.data;
         return;
       }
-      this.$message.error("上传失败");
+      this.$message.error("upload failed");
     },
     handleBefore(file) {
       const _this = this;
       const is1M = file.size / 1024 / 1024 < 2; // 限制小于2M
       if (!is1M) {
-        _this.$message.error("文件过大，文件大小小于2M");
+        _this.$message.error("The file is too large, and the file size is less than 2M");
       }
       return is1M;
     },
@@ -582,14 +808,14 @@ export default {
       this.fileImg = [];
     },
     handExceed(fiel) {
-      this.$message.error("文件只能上传一个");
+      this.$message.error("File can only upload one");
     },
     // 提交
     submitForm() {
       this.$refs.ruleForm.validate(async (valid) => {
         if (valid) {
           if (this.fileImg.length == 0) {
-            this.$message.error("请上传图片！");
+            this.$message.error("Please upload the picture!");
             return;
           }
 
@@ -603,13 +829,15 @@ export default {
             res = await this.$http.activityManagerAdd({ ...ruleForm });
           } else {
             ruleForm.startTime = timeForStr(ruleForm.startTime, "YYYY-MM-DD HH:mm:ss");
-            ruleForm.endTime = ruleForm.endTime ? timeForStr(ruleForm.endTime, "YYYY-MM-DD HH:mm:ss") : null;
+            ruleForm.endTime = ruleForm.endTime
+              ? timeForStr(ruleForm.endTime, "YYYY-MM-DD HH:mm:ss")
+              : null;
             res = await this.$http.activityManagerUpdate({ ...ruleForm });
           }
           if (res) {
             this.handleClose();
             this.$refs["ruleForm"].resetFields();
-            this.$message.success("操作成功！");
+            this.$message.success("Successful operation!");
             this.getTableList();
             this.fileImg = [];
             this.ruleForm.activityDesc = null;

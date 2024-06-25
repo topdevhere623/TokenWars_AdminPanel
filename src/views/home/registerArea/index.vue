@@ -2,9 +2,20 @@
   <el-card>
     <div slot="header" class="clearfix">
       <div class="title-box">
-        <h3>注册地区</h3>
-        <el-select v-model="day" :placeholder="$t('public.select')" @change="getDataList" style="width: 135px">
-          <el-option v-for="item in options" :key="`${item.key}-${item.value}`" :label="item.label" :value="item.value"> </el-option>
+        <h3>Registered area</h3>
+        <el-select
+          v-model="day"
+          :placeholder="$t('public.select')"
+          @change="getDataList"
+          style="width: 135px"
+        >
+          <el-option
+            v-for="item in options"
+            :key="`${item.key}-${item.value}`"
+            :label="item.label"
+            :value="item.value"
+          >
+          </el-option>
         </el-select>
       </div>
     </div>
@@ -33,10 +44,13 @@ export default {
   // 方法
   methods: {
     async getDataList() {
-      const res = await this.$http.getHomeRegionChart({ timeLimit: this.day, userType: this.$store.getters.accountConfig || "" });
+      const res = await this.$http.getHomeRegionChart({
+        timeLimit: this.day,
+        userType: this.$store.getters.accountConfig || "",
+      });
       if (res) {
         this.dataList = res.map((x) => {
-          x.type = `${x.country || "其他"}:${x.registerNum}`;
+          x.type = `${x.country || "other"}:${x.registerNum}`;
           return x;
         });
         this.chartFun();
@@ -71,7 +85,7 @@ export default {
               overflow: "hidden",
               textOverflow: "ellipsis",
             },
-            content: "注册地区",
+            content: "Registered area",
           },
         },
         tooltip: {
@@ -80,22 +94,24 @@ export default {
               let data = items[0].data;
               return `
                 <div class="tool-tip">
-                  <p class="tool-tip-title"><i style="background:${items[0].color}"></i>${data.country || "其他"}</p>
+                  <p class="tool-tip-title"><i style="background:${items[0].color}"></i>${
+                data.country || "other"
+              }</p>
                   <ul>
                     <li>
-                      <p class="label">注册：</p>
+                      <p class="label">register:</p>
                       <p class="label">${data.registerNum}</p>
                     </li>
                     <li>
-                      <p class="label">登录：</p>
+                      <p class="label">Log in:</p>
                       <p class="label">${data.loginNum}</p>
                     </li>
                     <li>
-                      <p class="label">充值：</p>
+                      <p class="label">top up:</p>
                       <p class="label">${data.rechargeAmount}</p>
                     </li>
                     <li>
-                      <p class="label">消费：</p>
+                      <p class="label">Consumption:</p>
                       <p class="label">${data.consumeAmount}</p>
                     </li>
                   </ul>

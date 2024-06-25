@@ -2,13 +2,13 @@
   <div class="page-wrapper">
     <div class="public-list-inputs">
       <div class="public-date-box">
-        <span class="demonstration"> 时间 </span>
+        <span class="demonstration"> time </span>
         <el-date-picker
           v-model="changeTime"
           type="daterange"
-          range-separator="到"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
+          range-separator="arrive"
+          start-placeholder="start date"
+          end-placeholder="Ending date"
         >
         </el-date-picker>
       </div>
@@ -18,7 +18,7 @@
         class="public-search"
         @click="userAddressPaymentInformationExcel()"
       >
-        用户地址收款信息导出
+        User address collection information export
       </el-button>
       <el-button
         type="primary"
@@ -26,7 +26,7 @@
         class="public-search"
         @click="userAddressBalanceInformation()"
       >
-        用户地址余额信息导出
+        User address balance information export
       </el-button>
     </div>
   </div>
@@ -75,12 +75,12 @@ export default {
       };
 
       if (data.startDate == null) {
-        alert("起始日期必填！")
+        alert("The beginning date must be filled!");
         return;
       }
 
       const urlStr = config.api + "/finance/userAddressPaymentInformationExcel";
-      exportExcel(urlStr, data, "用户地址收款信息");
+      exportExcel(urlStr, data, "User address collection information");
     },
     async userAddressBalanceInformation() {
       const search = this.searchFun();
@@ -92,7 +92,7 @@ export default {
       };
 
       const urlStr = config.api + "/finance/userAddressBalanceInformation";
-      exportExcel(urlStr, data, "用户地址余额信息");
+      exportExcel(urlStr, data, "User address balance information");
     },
   },
   // 创建后

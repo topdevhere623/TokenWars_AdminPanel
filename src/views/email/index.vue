@@ -2,27 +2,18 @@
   <div class="page-wrapper">
     <div class="table-wrapper">
       <el-tabs type="border-card">
-        <el-tab-pane label="发送邮件">
+        <el-tab-pane label="send email">
           <div class="add-wrapper">
-            <el-form
-              ref="ruleForm"
-              :model="ruleForm"
-              :rules="rules"
-              label-width="80px"
-            >
-              <el-form-item label="邮件标题" prop="title" :rules="rules.blur">
+            <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="80px">
+              <el-form-item label="mail title" prop="title" :rules="rules.blur">
                 <el-input v-model="ruleForm.title"></el-input>
               </el-form-item>
-              <el-form-item
-                label="选择邮箱"
-                prop="emailId"
-                :rules="rules.select"
-              >
+              <el-form-item label="Select mailbox" prop="emailId" :rules="rules.select">
                 <div class="email-box">
                   <el-select
                     v-model="ruleForm.emailId"
                     multiple
-                    placeholder="请选择"
+                    placeholder="please choose"
                     style="width: 75%"
                   >
                     <el-option
@@ -33,21 +24,17 @@
                     >
                     </el-option>
                   </el-select>
-                  <p class="residue-box">剩余额度{{ remainingAmount }}</p>
+                  <p class="residue-box">Remaining quota{{ remainingAmount }}</p>
                 </div>
               </el-form-item>
-              <el-form-item
-                label="收件人"
-                prop="sendUser"
-                :rules="rules.select"
-              >
+              <el-form-item label="recipient" prop="sendUser" :rules="rules.select">
                 <div class="flex">
                   <el-radio-group
                     v-model="ruleForm.sendUser"
                     @change="sendUserTypeChange"
                   >
-                    <el-radio label="all">所有用户</el-radio>
-                    <el-radio label="part"> 自定义 </el-radio>
+                    <el-radio label="all">All users</el-radio>
+                    <el-radio label="part"> customize </el-radio>
                   </el-radio-group>
                   <div v-if="ruleForm.sendUser == 'part'" class="user-select">
                     <template
@@ -56,17 +43,13 @@
                         (ruleForm.subscribe && userList?.length == 0)
                       "
                     >
-                      <el-upload
-                        class="upload-demo"
-                        action="/"
-                        :on-change="handleChange"
-                      >
+                      <el-upload class="upload-demo" action="/" :on-change="handleChange">
                         <el-button size="small" type="primary" plain
-                          >上传用户列表</el-button
+                          >Upload user list</el-button
                         >
                       </el-upload>
                       <el-tooltip
-                        content="xls第一列请填写用户ID"
+                        content="Please fill in the user ID in the first column of XLS"
                         placement="bottom"
                         effect="light"
                       >
@@ -76,7 +59,7 @@
                           plain
                           @click="downloadTemplate"
                           style="margin-left: 5px"
-                          >下载模板</el-button
+                          >Download template</el-button
                         >
                       </el-tooltip>
                     </template>
@@ -86,37 +69,35 @@
                       plain
                       @click="getSendEmailUserListFunc"
                       v-else
-                      >查看用户列表</el-button
+                      >View user list</el-button
                     >
                   </div>
                 </div>
               </el-form-item>
-              <el-form-item label="不含退订" prop="subscribe">
+              <el-form-item label="Without a copy" prop="subscribe">
                 <el-switch
                   v-model="ruleForm.subscribe"
                   @change="subscribeChange"
                 ></el-switch>
               </el-form-item>
-              <el-form-item label="内容" prop="content" :rules="rules.select">
+              <el-form-item label="content" prop="content" :rules="rules.select">
                 <el-upload
                   class="upload-demo"
                   action="/"
                   :on-change="contentHandleChange"
                 >
-                  <el-button size="small" type="primary" plain
-                    >上传文件</el-button
-                  >
+                  <el-button size="small" type="primary" plain>upload files</el-button>
                 </el-upload>
               </el-form-item>
-              <el-form-item label="内容预览">
+              <el-form-item label="Preview">
                 <div class="content-view">
                   <div v-html="ruleForm.content"></div>
                 </div>
               </el-form-item>
-              <el-form-item label="发送">
+              <el-form-item label="send">
                 <el-col :span="6">
                   <el-button type="primary" @click="submitForm()"
-                    >立即发送</el-button
+                    >send immediately</el-button
                   >
                 </el-col>
                 <el-col :span="12">
@@ -126,12 +107,12 @@
                         v-model="ruleForm.sendTimeStr"
                         value-format="yyyy-MM-dd HH:mm:ss"
                         type="datetime"
-                        placeholder="选择日期时间"
+                        placeholder="Selection date time"
                         :picker-options="pickerOptions"
                       >
                       </el-date-picker>
                       <el-button type="primary" @click="submitForm('timing')"
-                        >定时发送</el-button
+                        >Timely sending</el-button
                       >
                     </div>
                   </el-form-item>
@@ -140,20 +121,20 @@
             </el-form>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="邮件历史">
+        <el-tab-pane label="E -mail history">
           <el-table :data="sendEmailList" border height="75vh">
-            <el-table-column prop="id" label="邮件ID" align="center" key="1">
+            <el-table-column prop="id" label="Email ID" align="center" key="1">
             </el-table-column>
             <el-table-column
               prop="title"
-              label="邮件标题"
+              label="mail title"
               align="center"
               show-overflow-tooltip
             >
             </el-table-column>
             <el-table-column
               prop="content"
-              label="邮件内容"
+              label="content of email"
               align="center"
               show-overflow-tooltip
             >
@@ -162,76 +143,69 @@
                   class="blueColor publick-button cursor"
                   @click="emailContentShow(scope.row.content)"
                 >
-                  查看
+                  Check
                 </span>
               </template>
             </el-table-column>
             <el-table-column
               prop="sendUser"
-              label="收件人"
+              label="recipient"
               align="center"
               show-overflow-tooltip
             >
               <template slot-scope="scope">
-                <div v-if="scope.row.sendUser == 'all'">全部用户</div>
-                <div v-else-if="scope.row.sendUser == 'subscribe'">
-                  订阅用户
-                </div>
-                <div v-else>自定义</div>
+                <div v-if="scope.row.sendUser == 'all'">All users</div>
+                <div v-else-if="scope.row.sendUser == 'subscribe'">Subscriber</div>
+                <div v-else>customize</div>
               </template>
             </el-table-column>
             <el-table-column
               prop="sendUserTotal"
-              label="发送人数"
+              label="Number of senders"
               align="center"
             >
             </el-table-column>
-            <el-table-column prop="sendNum" label="已发送" align="center">
+            <el-table-column prop="sendNum" label="Has been sent" align="center">
             </el-table-column>
-            <el-table-column prop="createTime" label="发送时间" align="center">
+            <el-table-column prop="createTime" label="Send time" align="center">
               <template slot-scope="scope">
                 <div>
                   {{ timeForStr(scope.row.sendTime, "YYYY-MM-DD HH:mm:ss") }}
                 </div>
               </template>
             </el-table-column>
-            <el-table-column prop="contractAddress" label="状态" align="center">
+            <el-table-column prop="contractAddress" label="state" align="center">
               <template slot-scope="scope">
-                <div v-if="scope.row.sendType == '0'" style="color: #e6a23c">
-                  等待发送
-                </div>
-                <div
-                  v-else-if="scope.row.sendType == '1'"
-                  style="color: #67c23a"
-                >
-                  已发送
+                <div v-if="scope.row.sendType == '0'" style="color: #e6a23c">Wait</div>
+                <div v-else-if="scope.row.sendType == '1'" style="color: #67c23a">
+                  Has been sent
                 </div>
                 <div v-else="scope.row.sendType == '2'" style="color: #909399">
-                  已取消
+                  Cancelled
                 </div>
               </template>
             </el-table-column>
-            <el-table-column prop="id" label="操作" align="center" width="110">
+            <el-table-column prop="id" label="operate" align="center" width="110">
               <template slot-scope="scope">
                 <span
                   class="blueColor publick-button cursor"
                   @click="getSendMailUserFunc(scope.row)"
                 >
-                  查看用户
+                  View users
                 </span>
                 <span
                   class="blueColor publick-button cursor"
                   @click="operatingFunc(scope.row, 'cancel')"
                   v-if="scope.row.sendType == '0'"
                 >
-                  取消
+                  Cancel
                 </span>
                 <span
                   class="blueColor publick-button cursor"
                   @click="operatingFunc(scope.row, 'del')"
                   v-else
                 >
-                  删除
+                  delete
                 </span>
               </template>
             </el-table-column>
@@ -253,21 +227,19 @@
       </el-tabs>
     </div>
     <el-dialog
-      title="用户列表"
+      title="user list"
       :visible.sync="dialogVisible"
       @close="handleClose"
       width="40%"
     >
       <el-table :data="userList" border>
-        <el-table-column prop="id" label="用户id" align="center">
+        <el-table-column prop="id" label="User ID" align="center"> </el-table-column>
+        <el-table-column prop="userName" label="User's Nickname" align="center">
         </el-table-column>
-        <el-table-column prop="userName" label="用户昵称" align="center">
-        </el-table-column>
-        <el-table-column prop="email" label="邮箱" align="center">
-        </el-table-column>
+        <el-table-column prop="email" label="Mail" align="center"> </el-table-column>
         <el-table-column
           prop="balance"
-          label="余额"
+          label="Balance"
           align="center"
           v-if="showUserList"
         >
@@ -287,17 +259,13 @@
       >
       </el-pagination>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogVisible = false"
-          >确 定</el-button
-        >
+        <el-button type="primary" @click="dialogVisible = false">Sure</el-button>
       </span>
     </el-dialog>
-    <el-dialog title="邮件内容" :visible.sync="dialogVisible2" width="40%">
+    <el-dialog title="content of email" :visible.sync="dialogVisible2" width="40%">
       <div class="content-view" v-html="emailContent"></div>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogVisible2 = false"
-          >确 定</el-button
-        >
+        <el-button type="primary" @click="dialogVisible2 = false">Sure</el-button>
       </span>
     </el-dialog>
   </div>
@@ -339,8 +307,8 @@ export default {
       dialogVisible: false,
       dialogVisible2: false,
       rules: {
-        blur: [{ required: true, message: "请输入", trigger: "blur" }],
-        select: [{ required: true, message: "请选择", trigger: "change" }],
+        blur: [{ required: true, message: "please enter", trigger: "blur" }],
+        select: [{ required: true, message: "please choose", trigger: "change" }],
       },
       sendAmount: 0,
       userTotal: 0,
@@ -380,7 +348,7 @@ export default {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "用户列表.xlsx");
+      link.setAttribute("download", "user list.xlsx");
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -421,7 +389,7 @@ export default {
       if (res) {
         this.userList = res;
         if (this.userList?.length == 0) {
-          this.$message.error("用户不存在,请重新上传");
+          this.$message.error("User does not exist,Please upload");
         } else {
           this.sendAmount = res?.length;
           this.dialogVisible = true;
@@ -462,7 +430,9 @@ export default {
         const worksheet = workbook.Sheets[workbook.SheetNames[0]];
         const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
         if (jsonData?.length == 0) {
-          this.$message.error("上传数据为空，请上传数据格式正确的文件");
+          this.$message.error(
+            "Upload data to empty, please upload files with correct data formats"
+          );
           return;
         }
         this.fileUserList = jsonData.map((arr) => arr[0]);
@@ -478,7 +448,7 @@ export default {
         this.ruleForm.content = e.target.result;
       };
       reader.onerror = (e) => {
-        this.$message.error("文件读取错误:" + event.target.error);
+        this.$message.error("File read error:" + event.target.error);
       };
       reader.readAsText(file.raw);
     },
@@ -486,37 +456,34 @@ export default {
       this.$refs.ruleForm.validate(async (valid) => {
         if (type == "timing") {
           this.$set(this.rules, "sendTimeStr", this.rules.select);
-          const d = await this.$refs.ruleForm.validateField(
-            ["sendTimeStr"],
-            (err) => {
-              if (err) {
-                valid = false;
-              } else {
-                valid = true;
-              }
+          const d = await this.$refs.ruleForm.validateField(["sendTimeStr"], (err) => {
+            if (err) {
+              valid = false;
+            } else {
+              valid = true;
             }
-          );
+          });
         }
         if (valid) {
           if (this.ruleForm.sendUser == "part") {
             if (this.fileUserList?.length == 0) {
-              this.$message.error("请上传用户列表");
+              this.$message.error("Please upload the user list");
               return;
             } else if (this.userList?.length == 0) {
-              this.$message.error("自定义用户数据为空，请重新上传！");
+              this.$message.error("Custom user data is empty, please upload it again!");
               return;
             }
           }
           if (this.sendAmount > this.remainingAmount) {
             const h = this.$createElement;
-            this.$confirm(`邮箱额度不足。是否继续？`, "提示", {
+            this.$confirm(`Insufficient mailboxes.Whether to continue?`, "hint", {
               message: h("div", null, [
-                h("p", null, `邮箱额度不足。是否继续？ `),
-                h("p", null, `邮箱额度：${this.remainingAmount} `),
-                h("p", null, `发送数量：${this.sendAmount}`),
+                h("p", null, `Insufficient mailboxes.Whether to continue? `),
+                h("p", null, `Email quota:${this.remainingAmount} `),
+                h("p", null, `Send quantity:${this.sendAmount}`),
               ]),
-              confirmButtonText: "确定",
-              cancelButtonText: "取消",
+              confirmButtonText: "Sure",
+              cancelButtonText: "Cancel",
               type: "warning",
             }).then(async () => {
               this.saveFunc(type);
@@ -543,7 +510,7 @@ export default {
         ...ruleForm,
       });
       if (res) {
-        this.$message.success("操作成功！");
+        this.$message.success("Successful operation!");
         this.getSendEmailListFunc();
         this.$refs.ruleForm.resetFields();
         this.fileUserList = [];
@@ -551,10 +518,10 @@ export default {
       }
     },
     operatingFunc(row, type) {
-      this.$confirm(`确定要${type == "del" ? "删除" : "取消"}吗?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
+      this.$confirm(`Are you ${type == " del " ? " Delete " : " Cancel "}?`, "Tips", {
+        confirmbuttontext: "OK",
+        Cancelbuttext: "Cancel",
+        Type: "Warning",
       })
         .then(async () => {
           let res = null;
@@ -572,7 +539,7 @@ export default {
           }
           if (res) {
             this.getSendEmailListFunc();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {

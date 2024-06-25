@@ -8,19 +8,19 @@
     <div class="remittance-box">
       <div class="remittance-amount remittance-more">
         <div class="remittance-item">
-          <div class="title">总归集数</div>
+          <div class="title">Total set number</div>
           <div class="val">
             {{ statisticsData && statisticsData.totalWalletNum }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总GAS</div>
+          <div class="title">Total Gas</div>
           <div class="val">
             {{ statisticsData && statisticsData.totalAssetBalance }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总资产数量</div>
+          <div class="title">Total asset number</div>
           <div class="val">
             {{ statisticsData && statisticsData.totalUserIn }}
           </div>
@@ -28,54 +28,48 @@
       </div>
     </div>
     <el-table :data="tableData" style="width: 100%" class="public-table" border>
-      <el-table-column prop="id" label="ID" align="center"> </el-table-column>
+      <el-table-column prop="id" label="id" align="center"> </el-table-column>
       <el-table-column
         prop="walletAddress"
-        label="地址"
+        label="address"
         align="center"
         show-overflow-tooltip
       ></el-table-column>
-      <el-table-column prop="userName" label="所属用户" align="center">
+      <el-table-column prop="userName" label="Subordinate" align="center">
         <template slot-scope="scope">
           <p>{{ scope.row.userId }}</p>
           <p>{{ scope.row.userName }}</p>
         </template>
       </el-table-column>
-      <el-table-column prop="chainName" label="链" align="center">
+      <el-table-column prop="chainName" label="chain" align="center"> </el-table-column>
+      <el-table-column prop="coin" label="Currency" align="center"> </el-table-column>
+      <el-table-column prop="assetBalance" label="Balance" align="center">
       </el-table-column>
-      <el-table-column prop="coin" label="币种" align="center">
+      <el-table-column prop="userIn" label="User transfer" align="center">
       </el-table-column>
-      <el-table-column prop="assetBalance" label="余额" align="center">
-      </el-table-column>
-      <el-table-column prop="userIn" label="用户转入" align="center">
-      </el-table-column>
-      <el-table-column prop="platformInGas" label="平台转入GAS" align="center">
+      <el-table-column prop="platformInGas" label="Platform turn to GAS" align="center">
       </el-table-column>
       <el-table-column
         prop="collectionAmount"
-        label="已归集金额"
+        label="The amount has been collected"
         align="center"
       >
       </el-table-column>
-      <el-table-column prop="collectionSum" label="归集次数" align="center">
+      <el-table-column prop="collectionSum" label="Number of collections" align="center">
       </el-table-column>
-      <el-table-column
-        prop="collectionAmountGas"
-        label="归集GAS"
-        align="center"
-      >
+      <el-table-column prop="collectionAmountGas" label="Gas" align="center">
       </el-table-column>
-      <el-table-column prop="createTime" label="创建时间" align="center">
+      <el-table-column prop="createTime" label="Creation time" align="center">
         <template slot-scope="scope">
           {{ timeForStr(scope.row.createTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column prop="updateTime" label="最后账变时间" align="center">
+      <el-table-column prop="updateTime" label="Last account change time" align="center">
         <template slot-scope="scope">
           {{ timeForStr(scope.row.updateTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column label="资产详情" align="center">
+      <el-table-column label="Asset details" align="center">
         <template slot-scope="scope">
           <chainExplorerSkip :chain="scope.row.chainName" hash="" />
         </template>

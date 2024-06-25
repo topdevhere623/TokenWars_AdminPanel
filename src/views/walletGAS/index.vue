@@ -3,21 +3,18 @@
     <el-table :data="tableData" style="width: 100%" class="public-table" border>
       <el-table-column
         prop="gasWalletAddress"
-        label="地址"
+        label="address"
         align="center"
         show-overflow-tooltip
       ></el-table-column>
-      <el-table-column prop="chainType" label="链" align="center">
+      <el-table-column prop="chainType" label="chain" align="center"> </el-table-column>
+      <el-table-column prop="coin" label="Currency" align="center"> </el-table-column>
+      <el-table-column prop="balance" label="Balance" align="center"> </el-table-column>
+      <el-table-column prop="transferOutTotal" label="Always transfer" align="center">
       </el-table-column>
-      <el-table-column prop="coin" label="币种" align="center">
+      <el-table-column prop="gasTotal" label="Total Gas" align="center">
       </el-table-column>
-      <el-table-column prop="balance" label="余额" align="center">
-      </el-table-column>
-      <el-table-column prop="transferOutTotal" label="总转出" align="center">
-      </el-table-column>
-      <el-table-column prop="gasTotal" label="总GAS" align="center">
-      </el-table-column>
-      <el-table-column label="资产详情" align="center">
+      <el-table-column label="Asset details" align="center">
         <template slot-scope="scope">
           <chainExplorerSkip :chain="scope.row.chainType" hash="" />
         </template>

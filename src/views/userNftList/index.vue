@@ -1,95 +1,195 @@
 <template>
   <div class="page-wrapper">
     <div class="public-list-inputs">
-      <el-input class="public-input" style="width: 220px" placeholder="输入系列名" v-model="seriesName" clearable />
-      <el-input class="public-input" style="width: 220px" placeholder="输入 NFT ID" v-model="tokenId" clearable />
-      <el-input class="public-input" style="width: 220px" placeholder="合约地址" v-model="contractAddress" clearable />
-      <el-input class="public-input" style="width: 220px" placeholder="所属用户" v-model="projectOwner" clearable />
-      <el-select v-model="source" class="public-select-box" popper-class="public-select-box" placeholder="全部来源" clearable>
-        <el-option label="购买" value="BUY"> </el-option>
-        <el-option label="转入" value="TRANSFER"> </el-option>
+      <el-input
+        class="public-input"
+        style="width: 220px"
+        placeholder="Enter the series name"
+        v-model="seriesName"
+        clearable
+      />
+      <el-input
+        class="public-input"
+        style="width: 220px"
+        placeholder="enter NFT ID"
+        v-model="tokenId"
+        clearable
+      />
+      <el-input
+        class="public-input"
+        style="width: 220px"
+        placeholder="Contract address"
+        v-model="contractAddress"
+        clearable
+      />
+      <el-input
+        class="public-input"
+        style="width: 220px"
+        placeholder="Subordinate"
+        v-model="projectOwner"
+        clearable
+      />
+      <el-select
+        v-model="source"
+        class="public-select-box"
+        popper-class="public-select-box"
+        placeholder="All sources"
+        clearable
+      >
+        <el-option label="Buy" value="BUY"> </el-option>
+        <el-option label="Turn in" value="TRANSFER"> </el-option>
       </el-select>
-      <el-select v-model="currentStatus" class="public-select-box" popper-class="public-select-box" placeholder="全部状态" clearable>
-        <el-option label="待命" value="STANDBY"> </el-option>
-        <el-option label="一元购" value="ONE_YUAN_PURCHASE"> </el-option>
+      <el-select
+        v-model="currentStatus"
+        class="public-select-box"
+        popper-class="public-select-box"
+        placeholder="All states"
+        clearable
+      >
+        <el-option label="Stand up" value="STANDBY"> </el-option>
+        <el-option label="One -dollar purchase" value="ONE_YUAN_PURCHASE"> </el-option>
       </el-select>
       <div class="public-date-box">
-        <span class="demonstration"> 添加时间 </span>
+        <span class="demonstration"> add time </span>
         <el-date-picker
           v-model="creationTime"
           type="datetimerange"
-          range-separator="到"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          range-separator="arrive"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
         >
         </el-date-picker>
       </div>
-      <el-button type="primary" icon="el-icon-search" class="public-search" @click="fetchUserNftList()"> 查询 </el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-search"
+        class="public-search"
+        @click="fetchUserNftList()"
+      >
+        Inquire
+      </el-button>
     </div>
     <div class="remittance-box">
       <div class="remittance-amount remittance-more">
         <div class="remittance-item">
-          <div class="title">总藏品数</div>
+          <div class="title">Total collection</div>
           <div class="val">{{ baseUserPage && baseUserPage.total }}</div>
         </div>
       </div>
     </div>
     <el-table :data="tableData" style="width: 100%" class="public-table" border>
-      <el-table-column prop="id" label="订单号" align="center" key="1"> </el-table-column>
-      <el-table-column prop="nftImage" label="NFT图" align="center" key="3">
+      <el-table-column prop="id" label="order number" align="center" key="1">
+      </el-table-column>
+      <el-table-column prop="nftImage" label="NFT diagram" align="center" key="3">
         <template slot-scope="scope">
           <div style="width: 100px; height: 100px">
-            <el-image style="height: 100%" :src="scope.row.nftImage" :preview-src-list="[scope.row.nftImg]"> </el-image>
+            <el-image
+              style="height: 100%"
+              :src="scope.row.nftImage"
+              :preview-src-list="[scope.row.nftImg]"
+            >
+            </el-image>
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="orderId" label="商品" align="center" key="4">
+      <el-table-column prop="orderId" label="merchandise" align="center" key="4">
         <template slot-scope="scope">
           {{ `${scope.row.name} ${scope.row.orderId}` }}
         </template>
       </el-table-column>
-      <el-table-column prop="tickets" label="票数" align="center" key="5"> </el-table-column>
-      <el-table-column label="票号" align="center" key="6">
+      <el-table-column prop="tickets" label="Vote" align="center" key="5">
+      </el-table-column>
+      <el-table-column label="Ticket number" align="center" key="6">
         <template slot-scope="scope">
           {{ `${scope.row.startNumbers} ${scope.row.endNumbers}` }}
         </template>
       </el-table-column>
-      <el-table-column prop="userId" label="挂单用户" align="center" key="7">
+      <el-table-column prop="userId" label="Hanging single user" align="center" key="7">
         <template slot-scope="scope">
-          <p :style="{ color: scope.row.userIsTest ? 'red' : '#000' }">{{ scope.row.userId || "--" }}</p>
-          <p :style="{ color: scope.row.userIsTest ? 'red' : '#000' }">{{ scope.row.userName || "--" }}</p>
+          <p :style="{ color: scope.row.userIsTest ? 'red' : '#000' }">
+            {{ scope.row.userId || "--" }}
+          </p>
+          <p :style="{ color: scope.row.userIsTest ? 'red' : '#000' }">
+            {{ scope.row.userName || "--" }}
+          </p>
         </template>
       </el-table-column>
-      <el-table-column prop="expenditure" label="消费" align="center" key="8"> </el-table-column>
-      <el-table-column prop="winningStatus" label="返奖" align="center" key="9">
+      <el-table-column prop="expenditure" label="Consumption" align="center" key="8">
+      </el-table-column>
+      <el-table-column prop="winningStatus" label="Return prize" align="center" key="9">
         <template slot-scope="scope">
-          <span v-if="scope.row.winningStatus == 'YES'">查看返奖</span>
-          <span v-else>未中奖</span>
+          <span v-if="scope.row.winningStatus == 'YES'">View the award</span>
+          <span v-else>Undeval</span>
         </template>
       </el-table-column>
-      <el-table-column prop="paymentChannel" label="消费渠道" align="center" key="10"> </el-table-column>
-      <el-table-column prop="walletAddress" label="钱包地址" align="center" key="11"> </el-table-column>
-      <el-table-column prop="txid" label="Hash" align="center" key="13"> </el-table-column>
-      <el-table-column prop="expenditureSerialId" label="消费流水号" align="center" key="14"> </el-table-column>
-      <el-table-column prop="refundSerialId" label="退款流水号" align="center" key="15"> </el-table-column>
-      <el-table-column prop="status" label="状态" align="center" key="17" fixed="right">
+      <el-table-column
+        prop="paymentChannel"
+        label="Consumer channel"
+        align="center"
+        key="10"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="walletAddress"
+        label="Wallet address"
+        align="center"
+        key="11"
+      >
+      </el-table-column>
+      <el-table-column prop="txid" label="hash" align="center" key="13">
+      </el-table-column>
+      <el-table-column
+        prop="expenditureSerialId"
+        label="Consumer flow number"
+        align="center"
+        key="14"
+      >
+      </el-table-column>
+      <el-table-column prop="refundSerialId" label="Return" align="center" key="15">
+      </el-table-column>
+      <el-table-column prop="status" label="state" align="center" key="17" fixed="right">
         <template slot-scope="scope">
-          <span style="color: #05a8f0" v-if="scope.row.status == 'TO_BE_AWARDED'">待开奖</span>
-          <span style="color: #31ce0b" v-if="scope.row.status == 'REFUNDED'">已退款</span>
-          <span style="color: #bbbbbb" v-if="scope.row.status == 'AWARDED'">已开奖</span>
+          <span style="color: #05a8f0" v-if="scope.row.status == 'TO_BE_AWARDED'"
+            >To be awarded</span
+          >
+          <span style="color: #31ce0b" v-if="scope.row.status == 'REFUNDED'"
+            >refunded</span
+          >
+          <span style="color: #bbbbbb" v-if="scope.row.status == 'AWARDED'">Winning</span>
         </template>
       </el-table-column>
-      <el-table-column prop="paymentTime" width="140px" label="付款时间" align="center" key="18" fixed="right">
+      <el-table-column
+        prop="paymentTime"
+        width="140px"
+        label="Payment time"
+        align="center"
+        key="18"
+        fixed="right"
+      >
         <template slot-scope="scope">
           {{ timeForStr(scope.row.paymentTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column prop="transactionTime" width="140px" label="交易完成时间" align="center" key="19" fixed="right">
+      <el-table-column
+        prop="transactionTime"
+        width="140px"
+        label="Completion time of transaction"
+        align="center"
+        key="19"
+        fixed="right"
+      >
         <template slot-scope="scope">
           {{ timeForStr(scope.row.transactionTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column prop="confirmationTime" width="140px" label="确认时间" align="center" key="20" fixed="right">
+      <el-table-column
+        prop="confirmationTime"
+        width="140px"
+        label="confirm the time"
+        align="center"
+        key="20"
+        fixed="right"
+      >
         <template slot-scope="scope">
           {{ timeForStr(scope.row.confirmationTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
@@ -190,11 +290,17 @@ export default {
     },
     // 上架和下架
     operatingNft(row) {
-      this.$confirm(`确定要${row.upAndDown == "down" ? "上架" : "下架"}一元购活动『${row.seriesName || row.id}』吗?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "info",
-      })
+      this.$confirm(
+        `Determine${
+          row.upAndDown == "down" ? "Put on the shelves" : "Get off the shelves"
+        }One -dollar purchase event『${row.seriesName || row.id}』?`,
+        "hint",
+        {
+          confirmButtonText: "Sure",
+          cancelButtonText: "Cancel",
+          type: "info",
+        }
+      )
         .then(async () => {
           let res = await this.$http.updateOneNftOrders({
             id: row.id,
@@ -202,7 +308,7 @@ export default {
           });
           if (res) {
             this.fetchUserNftList();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {

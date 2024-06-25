@@ -13,7 +13,7 @@ export const options = [
   // },
   {
     value: "TWENTYFOURHOUR",
-    label: "24小时",
+    label: "24 hours",
     key: "24hours",
   },
   {

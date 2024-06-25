@@ -1,146 +1,322 @@
 <template>
   <div class="page-wrapper">
     <div class="public-list-inputs">
-      <el-input class="public-input" style="width: 140px" placeholder="输入系列名" v-model="seriesName" clearable />
-      <el-input class="public-input" style="width: 140px" placeholder="输入NFT ID" v-model="Id" clearable />
-      <el-input class="public-input" style="width: 140px" placeholder="输入token ID" v-model="tokenId" clearable />
-      <el-input class="public-input" style="width: 140px" placeholder="输入项目方" v-model="projectParty" clearable />
-      <el-select v-model="chainName" class="public-select-box" placeholder="所在链" clearable>
-        <el-option v-for="(item, index) in chainList" :key="index" :label="item.chainName" :value="item.chainName" />
+      <el-input
+        class="public-input"
+        style="width: 140px"
+        placeholder="Enter the series name"
+        v-model="seriesName"
+        clearable
+      />
+      <el-input
+        class="public-input"
+        style="width: 140px"
+        placeholder="Enter NFT ID"
+        v-model="Id"
+        clearable
+      />
+      <el-input
+        class="public-input"
+        style="width: 140px"
+        placeholder="Enter token ID"
+        v-model="tokenId"
+        clearable
+      />
+      <el-input
+        class="public-input"
+        style="width: 140px"
+        placeholder="Input project party"
+        v-model="projectParty"
+        clearable
+      />
+      <el-select
+        v-model="chainName"
+        class="public-select-box"
+        placeholder="Chain"
+        clearable
+      >
+        <el-option
+          v-for="(item, index) in chainList"
+          :key="index"
+          :label="item.chainName"
+          :value="item.chainName"
+        />
       </el-select>
       <div class="public-date-box">
         <span class="demonstration"> 价格区间 </span>
         <el-input
           type="number"
           style="width: 120px; border: 1px solid #dcdfe6; border-radius: 4px"
-          placeholder="最低价"
+          placeholder="Minimum price"
           v-model="startPrice"
           clearable
         />
         <el-input
           type="number"
           style="width: 120px; border: 1px solid #dcdfe6; border-radius: 4px"
-          placeholder="最高价"
+          placeholder="Highest price"
           v-model="endPrice"
           clearable
         />
       </div>
-      <el-select v-model="nftStatus" class="public-select-box" popper-class="public-select-box" placeholder="全部状态" clearable>
-        <el-option label="已入池" value="IN_POOL"> </el-option>
-        <el-option label="未入池" value="NO_POOL"> </el-option>
-        <el-option label="待确认" value="WAIT"> </el-option>
-        <el-option label="被领取" value="BE_CLAIMED"> </el-option>
-        <el-option label="已提走" value="MENTIONED"> </el-option>
-        <el-option label="不可用" value="NO_AVAILABLE"> </el-option>
+      <el-select
+        v-model="nftStatus"
+        class="public-select-box"
+        popper-class="public-select-box"
+        placeholder="All states"
+        clearable
+      >
+        <el-option label="Have entered the pool" value="IN_POOL"> </el-option>
+        <el-option label="Not entering the pool" value="NO_POOL"> </el-option>
+        <el-option label="to be confirmed" value="WAIT"> </el-option>
+        <el-option label="Be obtained" value="BE_CLAIMED"> </el-option>
+        <el-option label="Have taken away" value="MENTIONED"> </el-option>
+        <el-option label="unavailable" value="NO_AVAILABLE"> </el-option>
       </el-select>
-      <el-select v-model="enabledStatus" class="public-select-box" popper-class="public-select-box" placeholder="全部冻结状态" clearable>
-        <el-option label="冻结" value="DISABLE"> </el-option>
-        <el-option label="正常" value="NORMAL"> </el-option>
+      <el-select
+        v-model="enabledStatus"
+        class="public-select-box"
+        popper-class="public-select-box"
+        placeholder="All frozen state"
+        clearable
+      >
+        <el-option label="freeze" value="DISABLE"> </el-option>
+        <el-option label="normal" value="NORMAL"> </el-option>
       </el-select>
       <div class="public-date-box">
-        <span class="demonstration"> 上次出奖时间 </span>
+        <span class="demonstration"> Last time </span>
         <el-date-picker
           v-model="creationTime"
           type="datetimerange"
-          range-separator="到"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          range-separator="arrive"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
         >
         </el-date-picker>
       </div>
-      <el-button type="primary" icon="el-icon-search" class="public-search" @click="fetchNftExternalManagerList()"> 查询 </el-button>
-      <el-button type="primary" icon="el-icon-refresh" class="public-search" @click="nftExternalFlushed()"> 刷新 </el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-search"
+        class="public-search"
+        @click="fetchNftExternalManagerList()"
+      >
+        Inquire
+      </el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-refresh"
+        class="public-search"
+        @click="nftExternalFlushed()"
+      >
+        refresh
+      </el-button>
     </div>
     <div class="remittance-box">
       <div class="remittance-amount remittance-more">
         <div class="remittance-item">
-          <div class="title">藏品数量</div>
+          <div class="title">Number of collections</div>
           <div class="val">
             {{ aggregateQuery && aggregateQuery.collNumberTotal }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总被开</div>
+          <div class="title">Always open</div>
           <div class="val">
             {{ aggregateQuery && aggregateQuery.openNumberTotal }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总价值</div>
+          <div class="title">total value</div>
           <div class="val">
             {{ aggregateQuery && aggregateQuery.priceTotal }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总提走</div>
+          <div class="title">Always take away</div>
           <div class="val">
             {{ aggregateQuery && aggregateQuery.outNumberTotal }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总退款</div>
+          <div class="title">Total refund</div>
           <div class="val">
             {{ aggregateQuery && aggregateQuery.refundsTotal }}
           </div>
         </div>
       </div>
     </div>
-    <el-table :data="tableData" style="width: 100%" @sort-change="sortChange" class="public-table" border>
-      <el-table-column prop="id" sortable="custom" label="NFT ID" align="center" key="1"> </el-table-column>
-      <el-table-column prop="tokenId" label="token Id" align="center" key="2"> </el-table-column>
-      <el-table-column prop="nftImg" label="NFT图片" width="120px" align="center" key="3">
+    <el-table
+      :data="tableData"
+      style="width: 100%"
+      @sort-change="sortChange"
+      class="public-table"
+      border
+    >
+      <el-table-column prop="id" sortable="custom" label="nft ID" align="center" key="1">
+      </el-table-column>
+      <el-table-column prop="tokenId" label="token Id" align="center" key="2">
+      </el-table-column>
+      <el-table-column
+        prop="nftImg"
+        label="NFT picture"
+        width="120px"
+        align="center"
+        key="3"
+      >
         <template slot-scope="scope">
           <div style="width: 100px; height: 100px">
-            <el-image style="height: 100%" :src="scope.row.nftImg" :preview-src-list="[scope.row.nftImg]"> </el-image>
+            <el-image
+              style="height: 100%"
+              :src="scope.row.nftImg"
+              :preview-src-list="[scope.row.nftImg]"
+            >
+            </el-image>
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="seriesName" sortable="custom" width="120" label="NFT系列名称" align="center" key="4"> </el-table-column>
-      <el-table-column prop="contractAddress" label="合约" align="center" key="5"> </el-table-column>
-      <el-table-column prop="projectParty" label="项目方" align="center" key="6"> </el-table-column>
-      <el-table-column prop="nftSource" label="来源" align="center" key="7"> </el-table-column>
-      <el-table-column prop="userName" label="所属用户" align="center" key="8"> </el-table-column>
-      <el-table-column prop="chainName" label="所在链" align="center" key="9"> </el-table-column>
-      <el-table-column prop="price" sortable="custom" width="120" :label="`当前价(${'ETH'})`" align="center" key="10"> </el-table-column>
-      <el-table-column prop="price" sortable="custom" :label="`当前价(${coin})`" align="center" key="16" width="100px">
+      <el-table-column
+        prop="seriesName"
+        sortable="custom"
+        width="120"
+        label="NFT series name"
+        align="center"
+        key="4"
+      >
+      </el-table-column>
+      <el-table-column prop="contractAddress" label="contract" align="center" key="5">
+      </el-table-column>
+      <el-table-column prop="projectParty" label="Project party" align="center" key="6">
+      </el-table-column>
+      <el-table-column prop="nftSource" label="source" align="center" key="7">
+      </el-table-column>
+      <el-table-column prop="userName" label="Subordinate" align="center" key="8">
+      </el-table-column>
+      <el-table-column prop="chainName" label="Chain" align="center" key="9">
+      </el-table-column>
+      <el-table-column
+        prop="price"
+        sortable="custom"
+        width="120"
+        :label="`Current price ($ {'eth'})`"
+        align="center"
+        key="10"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="price"
+        sortable="custom"
+        :label="`The current price ($ {coin})`"
+        align="center"
+        key="16"
+        width="100px"
+      >
         <template slot-scope="scope">
           {{ (scope.row.usdtLastPrice * scope.row.price).toFixed(4) }}
         </template>
       </el-table-column>
-      <el-table-column prop="relevancyBoxNumber" sortable="custom" label="关联盲盒" align="center" key="11"> </el-table-column>
-      <el-table-column prop="openNumber" sortable="custom" label="被开次数" align="center" key="12"> </el-table-column>
-      <el-table-column prop="outNumber" sortable="custom" label="提走次数" align="center" key="13"> </el-table-column>
-      <el-table-column prop="refunds" sortable="custom" label="总退款" align="center" key="14"> </el-table-column>
-      <el-table-column prop="nftStatus" label="当前状态" align="center" key="15">
+      <el-table-column
+        prop="relevancyBoxNumber"
+        sortable="custom"
+        label="Associated blind box"
+        align="center"
+        key="11"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="openNumber"
+        sortable="custom"
+        label="Number of times"
+        align="center"
+        key="12"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="outNumber"
+        sortable="custom"
+        label="Take the number of times"
+        align="center"
+        key="13"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="refunds"
+        sortable="custom"
+        label="Total refund"
+        align="center"
+        key="14"
+      >
+      </el-table-column>
+      <el-table-column prop="nftStatus" label="Current state" align="center" key="15">
         <template slot-scope="scope">
-          <span style="color: #05a8f0" v-if="scope.row.nftStatus == 'IN_POOL'">已入池</span>
-          <span style="color: #ec5706" v-if="scope.row.nftStatus == 'NO_POOL'">未入池</span>
-          <span style="color: #000" v-if="scope.row.nftStatus == 'WAIT'">待确认</span>
-          <span style="color: #31ce0b" v-if="scope.row.nftStatus == 'BE_CLAIMED'">被领取</span>
-          <span style="color: #bbbbbb" v-if="scope.row.nftStatus == 'MENTIONED'">已提出</span>
-          <span style="color: #bbbbbb" v-if="scope.row.nftStatus == 'NO_AVAILABLE'">不可用</span>
+          <span style="color: #05a8f0" v-if="scope.row.nftStatus == 'IN_POOL'"
+            >Have entered the pool</span
+          >
+          <span style="color: #ec5706" v-if="scope.row.nftStatus == 'NO_POOL'"
+            >Not entering the pool</span
+          >
+          <span style="color: #000" v-if="scope.row.nftStatus == 'WAIT'"
+            >to be confirmed</span
+          >
+          <span style="color: #31ce0b" v-if="scope.row.nftStatus == 'BE_CLAIMED'"
+            >Be obtained</span
+          >
+          <span style="color: #bbbbbb" v-if="scope.row.nftStatus == 'MENTIONED'"
+            >Proposed</span
+          >
+          <span style="color: #bbbbbb" v-if="scope.row.nftStatus == 'NO_AVAILABLE'"
+            >unavailable</span
+          >
         </template>
       </el-table-column>
-      <el-table-column prop="refreshTime" sortable="custom" width="140" label="上次刷新" align="center" key="16">
+      <el-table-column
+        prop="refreshTime"
+        sortable="custom"
+        width="140"
+        label="Refresh last time"
+        align="center"
+        key="16"
+      >
         <template slot-scope="scope">
           {{ timeForStr(scope.row.refreshTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column prop="prizeTime" sortable="custom" width="140" label="上次出奖" align="center" key="17">
+      <el-table-column
+        prop="prizeTime"
+        sortable="custom"
+        width="140"
+        label="Last time"
+        align="center"
+        key="17"
+      >
         <template slot-scope="scope">
           {{ timeForStr(scope.row.prizeTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column prop="enabledStatus" sortable="custom" label="能否入池" align="center" key="18">
+      <el-table-column
+        prop="enabledStatus"
+        sortable="custom"
+        label="Can you enter the pool"
+        align="center"
+        key="18"
+      >
         <template slot-scope="scope">
-          <span style="color: #ec5706" v-if="scope.row.enabledStatus == 'DISABLE'">冻结</span>
-          <span style="color: #21ae04" v-else>正常</span>
+          <span style="color: #ec5706" v-if="scope.row.enabledStatus == 'DISABLE'"
+            >freeze</span
+          >
+          <span style="color: #21ae04" v-else>normal</span>
         </template>
       </el-table-column>
-      <el-table-column prop="id" label="操作" align="center" width="110" key="19" fixed="right">
+      <el-table-column
+        prop="id"
+        label="operate"
+        align="center"
+        width="110"
+        key="19"
+        fixed="right"
+      >
         <template slot-scope="scope">
           <span class="blueColor publick-button cursor" @click="operatingNft(scope.row)">
-            {{ scope.row.enabledStatus == "DISABLE" ? "解禁" : "冻结" }}
+            {{ scope.row.enabledStatus == "DISABLE" ? "Ban" : "freeze" }}
           </span>
         </template>
       </el-table-column>
@@ -274,16 +450,22 @@ export default {
       const res = await this.$http.nftExternalFlushed();
       if (res) {
         this.fetchNftExternalManagerList();
-        this.$message.success("操作成功");
+        this.$message.success("Successful operation");
       }
     },
     // 冻结/解禁
     operatingNft(row) {
-      this.$confirm(`确定要${row.enabledStatus == "DISABLE" ? "解禁" : "冻结"}NFT系列『${row.seriesName || row.id}』吗?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "info",
-      })
+      this.$confirm(
+        `Determine${row.enabledStatus == "DISABLE" ? "Ban" : "freeze"}NFT series『${
+          row.seriesName || row.id
+        }?`,
+        "hint",
+        {
+          confirmButtonText: "Sure",
+          cancelButtonText: "Cancel",
+          type: "info",
+        }
+      )
         .then(async () => {
           let res = null;
           if (row.enabledStatus == "DISABLE") {
@@ -299,7 +481,7 @@ export default {
           }
           if (res) {
             this.fetchNftExternalManagerList();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {

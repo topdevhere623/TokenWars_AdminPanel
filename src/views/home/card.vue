@@ -5,18 +5,24 @@
       <template v-if="i.key != 'pendingWithdrawalCount'">
         <p class="num">{{ i.count }}</p>
         <div class="flex">
-          <p :class="['increase', { decrease: !i.increaseOrDecrease }]"><span class="sub-title">昨日：</span>{{ i.yesterdayCount }}</p>
-          <p :class="['increase', { decrease: !i.increaseOrDecrease }]"><span class="sub-title">本周：</span>{{ i.thisWeekCount }}</p>
+          <p :class="['increase', { decrease: !i.increaseOrDecrease }]">
+            <span class="sub-title">yesterday:</span>{{ i.yesterdayCount }}
+          </p>
+          <p :class="['increase', { decrease: !i.increaseOrDecrease }]">
+            <span class="sub-title">This week:</span>{{ i.thisWeekCount }}
+          </p>
         </div>
         <p :class="['increase', { decrease: !i.increaseOrDecrease }]">
-          <span class="sub-title">同比上周：</span>{{ i.percentage }}%
+          <span class="sub-title">Year -on -week:</span>{{ i.percentage }}%
           <i class="el-icon-top" v-if="i.increaseOrDecrease"></i>
           <i class="el-icon-bottom" v-else></i>
         </p>
       </template>
       <template v-else>
         <p class="num">{{ i.count }}</p>
-        <el-link type="primary" href="/withdrawalReview" v-if="i.count > 0" class="link">前往</el-link>
+        <el-link type="primary" href="/withdrawalReview" v-if="i.count > 0" class="link"
+          >Go</el-link
+        >
       </template>
     </el-card>
   </div>
@@ -30,16 +36,19 @@ export default {
   data() {
     return {
       sortedMap: [
-        { key: "registerPeople", title: "注册人数" },
-        { key: "loginPeople", title: "登录人数" },
-        { key: "rechargePeople", title: "充值人数" },
-        { key: "consumptionPeople", title: "消费人数" },
-        { key: "rechargeAmount", title: "充值金额" },
-        { key: "orderCount", title: "订单数" },
-        { key: "orderAmount", title: "订单金额" },
-        { key: "rebateAmount", title: "返奖金额" },
-        { key: "withdrawalAmount", title: "提款金额" },
-        { key: "pendingWithdrawalCount", title: "待处理提款申请" },
+        { key: "registerPeople", title: "Number of registers" },
+        { key: "loginPeople", title: "Number of login" },
+        { key: "rechargePeople", title: "Number of recharge" },
+        { key: "consumptionPeople", title: "Number of consumers" },
+        { key: "rechargeAmount", title: "Recharge amount" },
+        { key: "orderCount", title: "number of order" },
+        { key: "orderAmount", title: "order amount" },
+        { key: "rebateAmount", title: "Reward amount" },
+        { key: "withdrawalAmount", title: "Withdrawal amount" },
+        {
+          key: "pendingWithdrawalCount",
+          title: "To be processed with withdrawal application",
+        },
       ],
       dataList: {},
     };
@@ -47,7 +56,9 @@ export default {
   // 方法
   methods: {
     async getDataFunc() {
-      const res = await this.$http.getHomeTodaysData({ userType: this.$store.getters.accountConfig || "" });
+      const res = await this.$http.getHomeTodaysData({
+        userType: this.$store.getters.accountConfig || "",
+      });
       if (res) {
         this.dataList = this.sortedMap.map((x) => {
           if (x.key != "pendingWithdrawalCount") {

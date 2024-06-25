@@ -4,13 +4,13 @@
       <div class="remittance-box">
         <div class="remittance-amount remittance-more">
           <div class="remittance-item">
-            <div class="title">机器人数量</div>
+            <div class="title">Number of robots</div>
             <div class="val">
               {{ statisticsData && statisticsData.botNumber }}
             </div>
           </div>
           <div class="remittance-item">
-            <div class="title">机器人余额</div>
+            <div class="title">Robot balance</div>
             <div class="val">
               {{ statisticsData && statisticsData.botBalance }}
             </div>
@@ -18,36 +18,88 @@
         </div>
       </div>
       <div>
-        <el-button type="primary" icon="el-icon-plus" class="public-search" @click="dialogVisiblePoint = true"> 批量上下分 </el-button>
-        <el-button type="primary" icon="el-icon-edit" class="public-search" @click="dialogVisiblePwd = true"> 批量修改密码 </el-button>
+        <el-button
+          type="primary"
+          icon="el-icon-plus"
+          class="public-search"
+          @click="dialogVisiblePoint = true"
+        >
+          Batch
+        </el-button>
+        <el-button
+          type="primary"
+          icon="el-icon-edit"
+          class="public-search"
+          @click="dialogVisiblePwd = true"
+        >
+          Batch modification password
+        </el-button>
       </div>
     </div>
     <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
-      <el-tab-pane label="盲盒" name="box">
+      <el-tab-pane label="Blind box" name="box">
         <el-table :data="tableData" style="width: 100%" class="public-table" border>
-          <el-table-column prop="boxId" label="盲盒ID" align="center"> </el-table-column>
-          <el-table-column prop="boxName" label="盲盒名称" align="center"> </el-table-column>
-          <el-table-column prop="price" label="单抽价格" align="center"> </el-table-column>
-          <el-table-column prop="boxOpenNumber" label="机器人开盒数" align="center"> </el-table-column>
-          <el-table-column prop="boxOpenExpenditure" label="机器人开盒支出" align="center"> </el-table-column>
-          <el-table-column prop="boxLotteryPrice" label="机器人中奖价值" align="center"> </el-table-column>
-          <el-table-column prop="intervalTime" label="间隔时间" align="center"> </el-table-column>
-          <el-table-column prop="oneOrder" label="单抽几率" align="center"> </el-table-column>
-          <el-table-column prop="fiveOrder" label="五连几率" align="center"> </el-table-column>
-          <el-table-column prop="tenOrder" label="十连几率" align="center"> </el-table-column>
-          <el-table-column prop="gasWalletAddress" label="状态" align="center">
+          <el-table-column prop="boxId" label="Blind box ID" align="center">
+          </el-table-column>
+          <el-table-column prop="boxName" label="Blind Box Name" align="center">
+          </el-table-column>
+          <el-table-column prop="price" label="Single draw price" align="center">
+          </el-table-column>
+          <el-table-column
+            prop="boxOpenNumber"
+            label="Robot open box number"
+            align="center"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="boxOpenExpenditure"
+            label="Robot open box expenditure"
+            align="center"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="boxLotteryPrice"
+            label="Robot winning value"
+            align="center"
+          >
+          </el-table-column>
+          <el-table-column prop="intervalTime" label="Intervals" align="center">
+          </el-table-column>
+          <el-table-column prop="oneOrder" label="Percussion" align="center">
+          </el-table-column>
+          <el-table-column
+            prop="fiveOrder"
+            label="Five -consecutive chance"
+            align="center"
+          >
+          </el-table-column>
+          <el-table-column prop="tenOrder" label="Risk" align="center"> </el-table-column>
+          <el-table-column prop="gasWalletAddress" label="state" align="center">
             <template slot-scope="scope">
-              <p v-if="scope.row.botStatus == 'TRUE'" style="color: #67c23a">进行中</p>
-              <p v-else style="color: #f56c6c">已停止</p>
+              <p v-if="scope.row.botStatus == 'TRUE'" style="color: #67c23a">
+                in progress
+              </p>
+              <p v-else style="color: #f56c6c">stopped</p>
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="center">
+          <el-table-column label="operate" align="center">
             <template slot-scope="scope">
-              <span class="blueColor publick-button cursor" @click="operatingFunc(scope.row, 'close')" v-if="scope.row.botStatus == 'TRUE'">
-                关闭
+              <span
+                class="blueColor publick-button cursor"
+                @click="operatingFunc(scope.row, 'close')"
+                v-if="scope.row.botStatus == 'TRUE'"
+              >
+                closure
               </span>
-              <span class="blueColor publick-button cursor" @click="operatingFunc(scope.row, 'open')" v-else>开启 </span>
-              <span class="blueColor publick-button cursor" @click="setFun(scope.row)">配置</span>
+              <span
+                class="blueColor publick-button cursor"
+                @click="operatingFunc(scope.row, 'open')"
+                v-else
+                >Open
+              </span>
+              <span class="blueColor publick-button cursor" @click="setFun(scope.row)"
+                >Configuration</span
+              >
             </template>
           </el-table-column>
         </el-table>
@@ -65,46 +117,94 @@
         >
         </el-pagination>
       </el-tab-pane>
-      <el-tab-pane label="货币战争" name="war">
+      <el-tab-pane label="Currency war" name="war">
         <el-table :data="watTableData" style="width: 100%" class="public-table" border>
-          <el-table-column prop="gameName" label="游戏名" align="center"> </el-table-column>
-          <el-table-column prop="botJoinNum" label="机器人参与局数" align="center"> </el-table-column>
-          <el-table-column prop="botBuyTotal" label="机器人支出" align="center"> </el-table-column>
-          <el-table-column prop="botIncomeTotal" label="机器人收入" align="center"> </el-table-column>
-          <el-table-column prop="botBigBounds" label="机器人贡献大奖" align="center"> </el-table-column>
-          <el-table-column prop="joinRate" label="无人局参与几率" align="center">
+          <el-table-column prop="gameName" label="Game name" align="center">
+          </el-table-column>
+          <el-table-column
+            prop="botJoinNum"
+            label="Number of robot participation"
+            align="center"
+          >
+          </el-table-column>
+          <el-table-column prop="botBuyTotal" label="Robotic expenditure" align="center">
+          </el-table-column>
+          <el-table-column prop="botIncomeTotal" label="Robotic income" align="center">
+          </el-table-column>
+          <el-table-column
+            prop="botBigBounds"
+            label="Robot contribution award"
+            align="center"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="joinRate"
+            label="Unmanned bureau participation rate"
+            align="center"
+          >
             <template slot-scope="scope"> {{ scope.row.joinRate }}% </template>
           </el-table-column>
-          <el-table-column prop="minNum" label="最小参与人数" align="center"> </el-table-column>
-          <el-table-column prop="maxNum" label="最大参与人数" align="center"> </el-table-column>
-          <el-table-column prop="maxBuyTotal" label="无人最大总注" align="center"> </el-table-column>
-          <el-table-column prop="peopleMaxBuyTotal" label="有人最大总注" align="center"> </el-table-column>
-          <el-table-column prop="maxBuyTotalDiff" label="总注偏移" align="center">
+          <el-table-column
+            prop="minNum"
+            label="Minimum number of participants"
+            align="center"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="maxNum"
+            label="The maximum number of participants"
+            align="center"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="maxBuyTotal"
+            label="Unmanned biggest note"
+            align="center"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="peopleMaxBuyTotal"
+            label="Someone's biggest note"
+            align="center"
+          >
+          </el-table-column>
+          <el-table-column prop="maxBuyTotalDiff" label="Overturn" align="center">
             <template slot-scope="scope"> {{ scope.row.maxBuyTotalDiff }}% </template>
           </el-table-column>
-          <el-table-column prop="intervalTime" label="下注间隔" align="center">
+          <el-table-column prop="intervalTime" label="Below" align="center">
             <template slot-scope="scope"> {{ scope.row.intervalTime }}s </template>
           </el-table-column>
-          <el-table-column prop="joinTime" label="入场时机" align="center">
-            <template slot-scope="scope"> {{ `${scope.row.joinTime}(+-${scope.row.joinTimeDiff}s)` }} </template>
-          </el-table-column>
-          <el-table-column prop="botStatus" label="状态" align="center">
+          <el-table-column prop="joinTime" label="Admission time" align="center">
             <template slot-scope="scope">
-              <p v-if="scope.row.botStatus == 'TRUE'" style="color: #67c23a">进行中</p>
-              <p v-else style="color: #f56c6c">已停止</p>
+              {{ `${scope.row.joinTime}(+-${scope.row.joinTimeDiff}s)` }}
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="center">
+          <el-table-column prop="botStatus" label="state" align="center">
+            <template slot-scope="scope">
+              <p v-if="scope.row.botStatus == 'TRUE'" style="color: #67c23a">
+                in progress
+              </p>
+              <p v-else style="color: #f56c6c">stopped</p>
+            </template>
+          </el-table-column>
+          <el-table-column label="operate" align="center">
             <template slot-scope="scope">
               <span
                 class="blueColor publick-button cursor"
                 @click="warOperatingFunc(scope.row, 'close')"
                 v-if="scope.row.botStatus == 'TRUE'"
               >
-                关闭
+                closure
               </span>
-              <span class="blueColor publick-button cursor" @click="warOperatingFunc(scope.row, 'open')" v-else>开启 </span>
-              <span class="blueColor publick-button cursor" @click="warSetFun(scope.row)">配置</span>
+              <span
+                class="blueColor publick-button cursor"
+                @click="warOperatingFunc(scope.row, 'open')"
+                v-else
+                >Open
+              </span>
+              <span class="blueColor publick-button cursor" @click="warSetFun(scope.row)"
+                >Configuration</span
+              >
             </template>
           </el-table-column>
         </el-table>
@@ -112,128 +212,228 @@
     </el-tabs>
 
     <!-- 盲合 -->
-    <el-dialog title="机器人配置" :close-on-click-modal="false" :visible.sync="dialogVisible" width="30%">
+    <el-dialog
+      title="Robot configuration"
+      :close-on-click-modal="false"
+      :visible.sync="dialogVisible"
+      width="30%"
+    >
       <el-form ref="ruleForm" :model="ruleForm" label-width="120px" :rules="rules">
-        <el-form-item label="盲盒名称">
+        <el-form-item label="Blind Box Name">
           <p class="infor">{{ ruleForm.boxName }}</p>
         </el-form-item>
-        <el-form-item label="单抽价格">
+        <el-form-item label="Single draw price">
           <p class="infor">{{ ruleForm.price }}</p>
         </el-form-item>
-        <el-form-item label="机器人开盒数">
+        <el-form-item label="Robot open box number">
           <p class="infor">{{ ruleForm.boxOpenNumber }}</p>
         </el-form-item>
-        <el-form-item label="机器人开盒支出">
+        <el-form-item label="Robot open box expenditure">
           <p class="infor">{{ ruleForm.boxOpenExpenditure }}</p>
         </el-form-item>
-        <el-form-item label="机器人中奖价值">
+        <el-form-item label="Robot winning value">
           <p class="infor">{{ ruleForm.boxLotteryPrice }}</p>
         </el-form-item>
-        <el-form-item label="间隔时间" prop="intervalTime" :rules="rules.blur">
-          <el-input v-model.number="ruleForm.intervalTime" type="number" autocomplete="off">
+        <el-form-item label="Intervals" prop="intervalTime" :rules="rules.blur">
+          <el-input
+            v-model.number="ruleForm.intervalTime"
+            type="number"
+            autocomplete="off"
+          >
             <template slot="append">秒</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="单抽几率" prop="oneOrder" :rules="rules.blur">
-          <el-input v-model.number="ruleForm.oneOrder" type="number" autocomplete="off"><template slot="append">%</template></el-input>
-        </el-form-item>
-        <el-form-item label="五连几率" prop="fiveOrder" :rules="rules.blur">
-          <el-input v-model.number="ruleForm.fiveOrder" type="number" autocomplete="off"><template slot="append">%</template></el-input>
-        </el-form-item>
-        <el-form-item label="十连几率" prop="tenOrder" :rules="rules.blur">
-          <el-input v-model.number="ruleForm.tenOrder" type="number" autocomplete="off"><template slot="append">%</template></el-input>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveFunc">确 定</el-button>
-      </span>
-    </el-dialog>
-    <!-- 战争 -->
-    <el-dialog title="机器人配置" :close-on-click-modal="false" :visible.sync="warDialogVisible" width="30%">
-      <el-form ref="warRuleForm" :model="warRuleForm" label-width="120px" :rules="rules">
-        <el-form-item label="游戏名">
-          <p class="infor">{{ warRuleForm.gameName }}</p>
-        </el-form-item>
-        <el-form-item label="机器人参与局数">
-          <p class="infor">{{ warRuleForm.botJoinNum }}</p>
-        </el-form-item>
-        <el-form-item label="机器支出">
-          <p class="infor">{{ warRuleForm.botBuyTotal }}</p>
-        </el-form-item>
-        <el-form-item label="机器收入">
-          <p class="infor">{{ warRuleForm.botIncomeTotal }}</p>
-        </el-form-item>
-        <el-form-item label="机器人贡献大奖">
-          <p class="infor">{{ warRuleForm.botBigBounds }}</p>
-        </el-form-item>
-        <el-form-item label="参与几率" prop="joinRate" :rules="rules.blur">
-          <el-input v-model.number="warRuleForm.joinRate" type="number" autocomplete="off">
-            <template slot="append">%</template>
-          </el-input>
-        </el-form-item>
-        <el-form-item label="最小参与人数" prop="minNum" :rules="rules.blur">
-          <el-input v-model.number="warRuleForm.minNum" type="number" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="最大参与人数" prop="maxNum" :rules="rules.blur">
-          <el-input v-model.number="warRuleForm.maxNum" type="number" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="无人最大总下注" prop="maxBuyTotal" :rules="rules.blur">
-          <el-input v-model.number="warRuleForm.maxBuyTotal" type="number" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="有人最大总下注" prop="peopleMaxBuyTotal" :rules="rules.blur">
-          <el-input v-model.number="warRuleForm.peopleMaxBuyTotal" type="number" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="总下注偏移" prop="maxBuyTotalDiff" :rules="rules.blur">
-          <el-input v-model.number="warRuleForm.maxBuyTotalDiff" type="number" autocomplete="off"
+        <el-form-item label="Percussion" prop="oneOrder" :rules="rules.blur">
+          <el-input v-model.number="ruleForm.oneOrder" type="number" autocomplete="off"
             ><template slot="append">%</template></el-input
           >
         </el-form-item>
-        <el-form-item label="下注间隔" prop="intervalTime" :rules="rules.blur">
-          <el-input v-model.number="warRuleForm.intervalTime" type="number" autocomplete="off"
+        <el-form-item
+          label="Five -consecutive chance"
+          prop="fiveOrder"
+          :rules="rules.blur"
+        >
+          <el-input v-model.number="ruleForm.fiveOrder" type="number" autocomplete="off"
+            ><template slot="append">%</template></el-input
+          >
+        </el-form-item>
+        <el-form-item label="Risk" prop="tenOrder" :rules="rules.blur">
+          <el-input v-model.number="ruleForm.tenOrder" type="number" autocomplete="off"
+            ><template slot="append">%</template></el-input
+          >
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="saveFunc">Sure</el-button>
+      </span>
+    </el-dialog>
+    <!-- 战争 -->
+    <el-dialog
+      title="Robot configuration"
+      :close-on-click-modal="false"
+      :visible.sync="warDialogVisible"
+      width="30%"
+    >
+      <el-form ref="warRuleForm" :model="warRuleForm" label-width="120px" :rules="rules">
+        <el-form-item label="Game name">
+          <p class="infor">{{ warRuleForm.gameName }}</p>
+        </el-form-item>
+        <el-form-item label="Number of robot participation">
+          <p class="infor">{{ warRuleForm.botJoinNum }}</p>
+        </el-form-item>
+        <el-form-item label="Machine expenditure">
+          <p class="infor">{{ warRuleForm.botBuyTotal }}</p>
+        </el-form-item>
+        <el-form-item label="Machine income">
+          <p class="infor">{{ warRuleForm.botIncomeTotal }}</p>
+        </el-form-item>
+        <el-form-item label="Robot contribution award">
+          <p class="infor">{{ warRuleForm.botBigBounds }}</p>
+        </el-form-item>
+        <el-form-item label="Probability" prop="joinRate" :rules="rules.blur">
+          <el-input
+            v-model.number="warRuleForm.joinRate"
+            type="number"
+            autocomplete="off"
+          >
+            <template slot="append">%</template>
+          </el-input>
+        </el-form-item>
+        <el-form-item
+          label="Minimum number of participants"
+          prop="minNum"
+          :rules="rules.blur"
+        >
+          <el-input
+            v-model.number="warRuleForm.minNum"
+            type="number"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item
+          label="The maximum number of participants"
+          prop="maxNum"
+          :rules="rules.blur"
+        >
+          <el-input
+            v-model.number="warRuleForm.maxNum"
+            type="number"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item
+          label="No one's biggest betting"
+          prop="maxBuyTotal"
+          :rules="rules.blur"
+        >
+          <el-input
+            v-model.number="warRuleForm.maxBuyTotal"
+            type="number"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item
+          label="Someone's biggest bet"
+          prop="peopleMaxBuyTotal"
+          :rules="rules.blur"
+        >
+          <el-input
+            v-model.number="warRuleForm.peopleMaxBuyTotal"
+            type="number"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="Total betting" prop="maxBuyTotalDiff" :rules="rules.blur">
+          <el-input
+            v-model.number="warRuleForm.maxBuyTotalDiff"
+            type="number"
+            autocomplete="off"
+            ><template slot="append">%</template></el-input
+          >
+        </el-form-item>
+        <el-form-item label="Below" prop="intervalTime" :rules="rules.blur">
+          <el-input
+            v-model.number="warRuleForm.intervalTime"
+            type="number"
+            autocomplete="off"
             ><template slot="append">s</template></el-input
           >
         </el-form-item>
-        <el-form-item label="入场时机" prop="joinTime" :rules="rules.blur">
-          <el-input v-model.number="warRuleForm.joinTime" type="number" autocomplete="off"></el-input>
+        <el-form-item label="Admission time" prop="joinTime" :rules="rules.blur">
+          <el-input
+            v-model.number="warRuleForm.joinTime"
+            type="number"
+            autocomplete="off"
+          ></el-input>
         </el-form-item>
-        <el-form-item label="入场时机偏移" prop="joinTimeDiff" :rules="rules.blur">
-          <el-input v-model.number="warRuleForm.joinTimeDiff" type="number" autocomplete="off"
+        <el-form-item label="Time to enter" prop="joinTimeDiff" :rules="rules.blur">
+          <el-input
+            v-model.number="warRuleForm.joinTimeDiff"
+            type="number"
+            autocomplete="off"
             ><template slot="append">s</template></el-input
           >
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="warDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="warSaveFunc">确 定</el-button>
+        <el-button @click="warDialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="warSaveFunc">Sure</el-button>
       </span>
     </el-dialog>
-    <el-dialog title="批量上下分" :close-on-click-modal="false" :visible.sync="dialogVisiblePoint" width="400px">
-      <el-form ref="ruleFormPoint" :model="ruleFormPoint" label-width="50px" :rules="rules">
-        <el-form-item label="币种" prop="coin" :rules="rules.blur">
-          <el-select v-model="ruleFormPoint.coin" placeholder="请选择币种" style="width: 300px">
-            <el-option label="USDT" value="USDT"> </el-option>
-            <el-option label="ETH" value="ETH"> </el-option>
+    <el-dialog
+      title="Batch"
+      :close-on-click-modal="false"
+      :visible.sync="dialogVisiblePoint"
+      width="400px"
+    >
+      <el-form
+        ref="ruleFormPoint"
+        :model="ruleFormPoint"
+        label-width="50px"
+        :rules="rules"
+      >
+        <el-form-item label="Currency" prop="coin" :rules="rules.blur">
+          <el-select
+            v-model="ruleFormPoint.coin"
+            placeholder="Please select currency"
+            style="width: 300px"
+          >
+            <el-option label="usdt" value="USDT"> </el-option>
+            <el-option label="eth" value="ETH"> </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="上分" prop="amount" :rules="rules.blur">
-          <el-input v-model="ruleFormPoint.amount" type="number" autocomplete="off" style="width: 300px"></el-input>
+        <el-form-item label="Score" prop="amount" :rules="rules.blur">
+          <el-input
+            v-model="ruleFormPoint.amount"
+            type="number"
+            autocomplete="off"
+            style="width: 300px"
+          ></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisiblePoint = false">取 消</el-button>
-        <el-button type="primary" @click="savePointerFunc">确 定</el-button>
+        <el-button @click="dialogVisiblePoint = false">Cancel</el-button>
+        <el-button type="primary" @click="savePointerFunc">Sure</el-button>
       </span>
     </el-dialog>
-    <el-dialog title="批量修改密码" :close-on-click-modal="false" :visible.sync="dialogVisiblePwd" width="30%">
+    <el-dialog
+      title="Batch modification password"
+      :close-on-click-modal="false"
+      :visible.sync="dialogVisiblePwd"
+      width="30%"
+    >
       <el-form ref="ruleFormPwd" :model="ruleFormPwd" label-width="120px" :rules="rules">
-        <el-form-item label="新密码" prop="password" :rules="rules.blur">
-          <el-input v-model="ruleFormPwd.password" placeholder="请输入新密码"></el-input>
+        <el-form-item label="New Password" prop="password" :rules="rules.blur">
+          <el-input
+            v-model="ruleFormPwd.password"
+            placeholder="Please enter a new password"
+          ></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisiblePwd = false">取 消</el-button>
-        <el-button type="primary" @click="savePwdFunc">确 定</el-button>
+        <el-button @click="dialogVisiblePwd = false">Cancel</el-button>
+        <el-button type="primary" @click="savePwdFunc">Sure</el-button>
       </span>
     </el-dialog>
   </div>
@@ -266,7 +466,7 @@ export default {
         password: "",
       },
       rules: {
-        blur: [{ required: true, message: "请输入", trigger: "blur" }],
+        blur: [{ required: true, message: "please enter", trigger: "blur" }],
       },
       statisticsData: null,
       activeName: "box",
@@ -310,9 +510,9 @@ export default {
       this.dialogVisible = true;
     },
     operatingFunc(row, type) {
-      this.$confirm(`确定要${type == "open" ? `开启` : "关闭"}吗?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(`Determine${type == "open" ? `Open` : "closure"}?`, "hint", {
+        confirmButtonText: "Sure",
+        cancelButtonText: "Cancel",
         type: "warning",
       })
         .then(async () => {
@@ -330,7 +530,7 @@ export default {
           }
           if (res) {
             this.getTableList();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {
@@ -376,18 +576,22 @@ export default {
       this.warDialogVisible = true;
     },
     warOperatingFunc(row, type) {
-      this.$confirm(`确定要${type == "open" ? `开启` : "关闭"}吗?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
+      this.$confirm(
+        `Are you sure you want $ {type == "Open"? "Open":" Turn off "}?`,
+        "hint",
+        {
+          confirmButtonText: "Sure",
+          cancelButtonText: "Cancel",
+          type: "warning",
+        }
+      )
         .then(async () => {
           let res = await this.$http.tokenWarConfig({
             botStatus: type == "open" ? "TRUE" : "FALSE",
           });
           if (res) {
             this.getWarTableList();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {

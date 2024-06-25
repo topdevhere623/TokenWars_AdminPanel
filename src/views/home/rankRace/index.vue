@@ -2,21 +2,27 @@
   <el-card>
     <div slot="header" class="clearfix">
       <div class="title-box">
-        <h3>竞赛排行榜</h3>
+        <h3>Ranking</h3>
         <el-select v-model="type" @change="getDataList" style="width: 135px">
-          <el-option :label="item.label" :value="item.value" v-for="item in selectOptions"></el-option>
+          <el-option
+            :label="item.label"
+            :value="item.value"
+            v-for="item in selectOptions"
+          ></el-option>
         </el-select>
       </div>
     </div>
     <div class="report-table-box">
       <el-table :data="dataList" style="width: 100%" height="500" border>
-        <el-table-column prop="qualityType" label="排名" align="center" key="1">
+        <el-table-column prop="qualityType" label="Rank" align="center" key="1">
           <template slot-scope="scope">
             {{ scope.$index + 1 }}
           </template>
         </el-table-column>
-        <el-table-column prop="seriesName" label="系列名" align="center" key="2"> </el-table-column>
-        <el-table-column prop="floorPrice" label="地板价" align="center" key="3"> </el-table-column>
+        <el-table-column prop="seriesName" label="Series name" align="center" key="2">
+        </el-table-column>
+        <el-table-column prop="floorPrice" label="Floor price" align="center" key="3">
+        </el-table-column>
         <el-table-column prop="price" :label="labelTxt" align="center" key="4">
           <template slot-scope="scope">
             {{ scope.row[type] }}
@@ -36,9 +42,9 @@ export default {
     return {
       type: "numberOfTicketsSold",
       selectOptions: [
-        { label: "售出票数", value: "numberOfTicketsSold" },
-        { label: "创建数", value: "createdNum" },
-        { label: "完成数", value: "finishedNum" },
+        { label: "Number of tickets", value: "numberOfTicketsSold" },
+        { label: "Creation number", value: "createdNum" },
+        { label: "Complete number", value: "finishedNum" },
       ],
       dataList: [],
     };

@@ -4,30 +4,58 @@
       <div class="remittance-box"></div>
       <div class="handler-box">
         <p class="switch-box">
-          自动切换<el-switch v-model="isBreak" active-color="#13ce66" inactive-color="#ff4949" @change="isBreakChange"></el-switch>
-          {{ isBreak ? "开" : "关" }}
+          Automatic switch<el-switch
+            v-model="isBreak"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+            @change="isBreakChange"
+          ></el-switch>
+          {{ isBreak ? "open" : "close" }}
         </p>
-        <el-button type="primary" icon="el-icon-refresh" @click="getTableList"> 刷新 </el-button>
+        <el-button type="primary" icon="el-icon-refresh" @click="getTableList">
+          refresh
+        </el-button>
       </div>
     </div>
     <el-table :data="tableData" style="width: 100%" class="public-table" border>
-      <el-table-column prop="chainId" label="链ID" align="center"> </el-table-column>
-      <el-table-column prop="chainName" label="链名称" align="center"> </el-table-column>
-      <el-table-column prop="gasToken" label="GAS代币" align="center"> </el-table-column>
-      <el-table-column prop="estimatedGas" label="预估gas" align="center"> </el-table-column>
-      <el-table-column prop="estimatedGasPrice" label="预估gas u价" align="center"> </el-table-column>
-      <el-table-column prop="congestionPercentage" label="拥堵百分比" align="center"> </el-table-column>
-      <el-table-column prop="responseTime" label="响应时间" align="center"> </el-table-column>
-      <el-table-column prop="status" label="状态" align="center">
+      <el-table-column prop="chainId" label="Chain ID" align="center"> </el-table-column>
+      <el-table-column prop="chainName" label="Chain name" align="center">
+      </el-table-column>
+      <el-table-column prop="gasToken" label="GAS token" align="center">
+      </el-table-column>
+      <el-table-column prop="estimatedGas" label="Estimated GAS" align="center">
+      </el-table-column>
+      <el-table-column prop="estimatedGasPrice" label="Estimated GAS u价" align="center">
+      </el-table-column>
+      <el-table-column
+        prop="congestionPercentage"
+        label="Congestion percentage"
+        align="center"
+      >
+      </el-table-column>
+      <el-table-column prop="responseTime" label="Response time" align="center">
+      </el-table-column>
+      <el-table-column prop="status" label="state" align="center">
         <template slot-scope="scope">
-          <p v-if="scope.row.status == 'ACTIVATE'" style="color: #67c23a">使用中</p>
-          <p v-else style="color: #d0d0d0">挂起</p>
+          <p v-if="scope.row.status == 'ACTIVATE'" style="color: #67c23a">Using</p>
+          <p v-else style="color: #d0d0d0">Hang up</p>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center">
+      <el-table-column label="operate" align="center">
         <template slot-scope="scope">
-          <span style="color: #d0d0d0" class="publick-button" v-if="scope.row.status == 'ACTIVATE'"> 切换此链 </span>
-          <span class="blueColor publick-button cursor" @click="operatingFunc(scope.row)" v-else>切换此链 </span>
+          <span
+            style="color: #d0d0d0"
+            class="publick-button"
+            v-if="scope.row.status == 'ACTIVATE'"
+          >
+            Switch this chain
+          </span>
+          <span
+            class="blueColor publick-button cursor"
+            @click="operatingFunc(scope.row)"
+            v-else
+            >Switch this chain
+          </span>
         </template>
       </el-table-column>
     </el-table>
@@ -73,9 +101,9 @@ export default {
       }
     },
     operatingFunc(row) {
-      this.$confirm(`确定要切换到${row.chainName}链吗?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(`Are you sure to switch to ${row.chainname} chain?`, "hint", {
+        confirmButtonText: "Sure",
+        cancelButtonText: "Cancel",
         type: "warning",
       })
         .then(async () => {
@@ -84,7 +112,7 @@ export default {
           });
           if (res) {
             this.getTableList();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {

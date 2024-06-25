@@ -28,294 +28,294 @@ export const routes = [
         name: "home",
       },
       {
-        /** 用户列表 */
+        /** user list */
         path: "/userList",
         component: UserList,
         name: "userList",
       },
       {
-        /** 平台NFT系列 */
+        /** Platform NFT series */
         path: "/platformNftSeries",
         component: () => import("@/views/platformNftSeries/index"),
         name: "platformNftSeries",
       },
       {
-        /** 外部NFT系列 */
+        /** External NFT series */
         path: "/externalNftSeries",
         component: () => import("@/views/externalNftSeries/index"),
         name: "externalNftSeries",
       },
       {
-        /** 外部代币管理 */
+        /** External token management */
         path: "/externalTokenManagement",
         component: () => import("@/views/externalTokenManagement/index"),
         name: "externalTokenManagement",
       },
       {
-        /** 外部NFT管理 */
+        /** External NFT management */
         path: "/externalNftManagement",
         component: () => import("@/views/externalNftManagement/index"),
         name: "externalNftManagement",
       },
       {
-        /** 平台NFT管理 */
+        /** Platform NFT management */
         path: "/platformNftManagement",
         component: () => import("@/views/platformNftManagement/index"),
         name: "platformNftManagement",
       },
       {
-        /** 平台NFT管理 */
+        /** Platform NFT management */
         path: "/userNftList",
         component: () => import("@/views/userNftList/index"),
         name: "userNftList",
       },
       {
-        /** 一元购管理 */
+        /** One dollar purchase management */
         path: "/nftBuyManagement",
         component: () => import("@/views/nftBuyManagement/index"),
         name: "nftBuyManagement",
       },
       {
-        /** 一元购收票记录 */
+        /** One dollar purchase ticket record */
         path: "/nftBuyRecord",
         component: () => import("@/views/nftBuyRecord/index"),
         name: "nftBuyRecord",
       },
       {
-        /** 战争游戏管理 */
+        /** War game management */
         path: "/warGameManagement",
         component: () => import("@/views/warGameManagement/index"),
         name: "warGameManagement",
       },
       {
-        /** 战争游戏聚合统计 */
+        /** War game aggregation statistics */
         path: "/warGameBetManagement",
         component: () => import("@/views/warGameBetManagement/index"),
         name: "warGameBetManagement",
       },
       {
-        /** 市场管理 */
+        /** Market management */
         path: "/marketManagement",
         component: () => import("@/views/marketManagement/index"),
         name: "marketManagement",
       },
       {
-        /** 盲盒管理 */
+        /** Blind Box Management */
         path: "/blindBoxManagement",
         component: () => import("@/views/blindBoxManagement/index"),
         name: "blindBoxManagement",
       },
       {
-        /** 血池管理 */
+        /** Blood pool management */
         path: "/bloodPoolManagement",
         component: () => import("@/views/bloodPoolManagement/index"),
         name: "bloodPoolManagement",
       },
       {
-        /** 血池管理 */
+        /** Blood pool management */
         path: "/blindBoxTest",
         component: () => import("@/views/blindBoxTest/index"),
         name: "blindBoxTest",
       },
       {
-        /** 金流管理 */
+        /** Gold flow management */
         path: "/cashManagement",
         component: () => import("@/views/cashManagement/index"),
         name: "cashManagement",
       },
       {
-        /** 兑换码管理 */
+        /** Redemption code management */
         path: "/redeemCodeManagement",
         component: () => import("@/views/redeemCodeManagement/index"),
         name: "redeemCodeManagement",
       },
       {
-        /** 财务数据 */
+        /** financial data */
         path: "/finance",
         component: () => import("@/views/finance/index"),
         name: "Finance",
       },
       {
-        /** 充值管理 */
+        /** Recharge management */
         path: "/rechargeRecord",
         component: () => import("@/views/rechargeRecord/index"),
         name: "rechargeRecord",
       },
       {
-        /** 提现审核 */
+        /** Withdrawal review */
         path: "/withdrawalReview",
         component: () => import("@/views/withdrawalReview/index"),
         name: "withdrawalReview",
       },
       {
-        /** 强制审核管理 */
+        /** Forced audit management */
         path: "/mandatoryAudit",
         component: () => import("@/views/mandatoryAudit/index"),
         name: "mandatoryAudit",
       },
       {
-        /** 活动列表 */
+        /** Events List */
         path: "/activityList",
         component: () => import("@/views/activityList/index"),
         name: "activityList",
       },
       {
-        /** 活动管理 */
+        /** Activity management */
         path: "/activityManagement",
         component: () => import("@/views/activityManagement/index"),
         name: "activityManagement",
       },
       {
-        /** 订单管理 */
+        /** Order management */
         path: "/orderManagement",
         component: () => import("@/views/orderManagement/index"),
         name: "orderManagement",
       },
       {
-        /** 闪兑管理 */
+        /** Flash management */
         path: "/flashManagement",
         component: () => import("@/views/flashManagement/index"),
         name: "flashManagement",
       },
       {
-        /** 邀请返佣 */
+        /** Invite a rebate */
         path: "/invitationRebate",
         component: () => import("@/views/invitationRebate/index"),
         name: "invitationRebate",
       },
       {
-        /** 返佣记录 */
+        /** Rebate */
         path: "/rebateRecord",
         component: () => import("@/views/rebateRecord/index"),
         name: "rebateRecord",
       },
       {
-        /** 积分流水 */
+        /** Concentration */
         path: "/integralTurnover",
         component: () => import("@/views/integralTurnover/index"),
         name: "integralTurnover",
       },
       {
-        /** 系统设置 */
+        /** System settings */
         path: "/setting",
         component: () => import("@/views/setting/index"),
         name: "setting",
       },
       {
-        /** 群发邮件 */
+        /** group email */
         path: "/email",
         component: () => import("@/views/email/index"),
         name: "email",
       },
       {
-        /** 钱包管理-充值钱包 */
+        /** Wallet management-recharge bag */
         path: "/walletRechargeList",
         component: () => import("@/views/walletRechargeList/index.vue"),
         name: "walletRechargeList",
       },
       {
-        /** 钱包管理-盲盒抽奖钱包 */
+        /** Wallet Management-Blind Box Raise Wallet */
         path: "/walletUnboxLottery",
         component: () => import("@/views/walletUnboxLottery/index"),
         name: "walletUnboxLottery",
       },
       {
-        /** 钱包管理-一元购抽奖钱包 */
+        /** Wallet Management-One dollar purchase raffle wallet */
         path: "/walletOneDollarLottery",
         component: () => import("@/views/walletOneDollarLottery/index"),
         name: "walletOneDollarLottery",
       },
       {
-        /** 钱包管理-提款钱包 */
+        /** Wallet Management-ADB wallet */
         path: "/walletDrawMoney",
         component: () => import("@/views/walletDrawMoney/index"),
         name: "walletDrawMoney",
       },
       {
-        /** 钱包管理-GAS钱包 */
+        /** Wallet Management-Gas Wallet */
         path: "/walletGAS",
         component: () => import("@/views/walletGAS/index"),
         name: "walletGAS",
       },
       {
-        /** 钱包管理-NFT购买钱包 */
+        /** Wallet Management-NFT Purchase Wallet */
         path: "/walletNFTBuy",
         component: () => import("@/views/walletNFTBuy/index"),
         name: "walletNFTBuy",
       },
       {
-        /** 钱包管理-归集钱包 */
+        /** Wallet Management-Collection Wallet */
         path: "/walletCollection",
         component: () => import("@/views/walletCollection/index"),
         name: "walletCollection",
       },
       {
-        /** 钱包管理-代币归集统计 */
+        /** Wallet Management-tokens Collection Statistics */
         path: "/walletCollectCoinStat",
         component: () => import("@/views/walletCollectCoinStat/index"),
         name: "walletCollectCoinStat",
       },
       {
-        /** 钱包管理-NFT归集统计 */
+        /** Wallet Management-NFT Collection Statistics */
         path: "/walletCollectionNFTStat",
         component: () => import("@/views/walletCollectionNFTStat/index"),
         name: "walletCollectionNFTStat",
       },
       {
-        /** 钱包管理-NFT购买统计 */
+        /** Wallet Management-NFT purchase statistics */
         path: "/walletNFTBuyStat",
         component: () => import("@/views/walletNFTBuyStat/index"),
         name: "walletNFTBuyStat",
       },
       {
-        /** 钱包管理-GAS统计 */
+        /** Wallet Management-GAS Statistics */
         path: "/walletGASStat",
         component: () => import("@/views/walletGASStat/index"),
         name: "walletGASStat",
       },
       {
-        /** 资金统计-NFT 交易管理 */
+        /** Fund Statistics -NFT transaction management */
         path: "/nftTransactionManagement",
         component: () => import("@/views/nftTransactionManagement/index"),
         name: "nftTransactionManagement",
       },
       {
-        /** 资金统计-NFT 交易管理 */
+        /** Fund Statistics -NFT transaction management */
         path: "/nftTransactionManagement",
         component: () => import("@/views/nftTransactionManagement/index"),
         name: "nftTransactionManagement",
       },
       {
-        /** 平台管理-机器人管理 */
+        /** Platform Management-Robot Management */
         path: "/robotManagement",
         component: () => import("@/views/robotManagement/index"),
         name: "robotManagement",
       },
       {
-        /** 平台管理-抽奖链管理 */
+        /** Platform management-draw chain management */
         path: "/lotteryChainManagement",
         component: () => import("@/views/lotteryChainManagement/index"),
         name: "lotteryChainManagement",
       },
       {
-        /** 平台管理-banner管理 */
+        /** Platform Management-Banner Management */
         path: "/bannerManagement",
         component: () => import("@/views/bannerManagement/index"),
         name: "bannerManagement",
       },
       {
-        /** 平台管理-充提链管理 */
+        /** Platform management-chain chain management */
         path: "/chargeChainManagement",
         component: () => import("@/views/chargeChainManagement/index"),
         name: "chargeChainManagement",
       },
       {
-        /** 平台管理-充提币管理 */
+        /** Platform Management-Management Coin Management */
         path: "/chargeCoinManagement",
         component: () => import("@/views/chargeCoinManagement/index"),
         name: "chargeCoinManagement",
       },
-      //系统管理
+      //系Unified management
       {
         path: "/accountList",
         name: "accountList",
@@ -363,18 +363,18 @@ const createRouter = () =>
 
 const router = createRouter();
 
-// 获取原型对象push函数
+// Get the prototype object push function
 const originalPush = VueRouter.prototype.push;
 
-// 获取原型对象replace函数
+// Get the prototype object replace function
 const originalReplace = VueRouter.prototype.replace;
 
-// 修改原型对象中的push函数
+// Modify the push function in the prototype object
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch((err) => err);
 };
 
-// 修改原型对象中的replace函数
+// Modify the replace function in the prototype object
 VueRouter.prototype.replace = function replace(location) {
   return originalReplace.call(this, location).catch((err) => err);
 };
@@ -390,7 +390,7 @@ router.beforeEach((to, from, next) => {
 
 export function resetRouter() {
   const newRouter = createRouter();
-  router.matcher = newRouter.matcher; // reset router
+  router.matcher = newRouter.matcher; // resetRouter
 }
 
 export default router;

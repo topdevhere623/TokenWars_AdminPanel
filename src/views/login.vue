@@ -5,7 +5,7 @@
         <p class="tip">Web3 OS</p>
         <p class="title">
           <!-- <i class="logo"></i> -->
-          <span>管理系统</span>
+          <span>Management system</span>
         </p>
         <el-form
           :model="ruleForm"
@@ -17,13 +17,18 @@
           style="width: 70%; margin: 0 auto"
         >
           <el-form-item label="" prop="userName" class="inputLogin">
-            <el-input placeholder="请输入您的账号" v-model.trim="ruleForm.userName" autocomplete="off" @keyup.enter.native="handleSubmit">
+            <el-input
+              placeholder="Please enter your account"
+              v-model.trim="ruleForm.userName"
+              autocomplete="off"
+              @keyup.enter.native="handleSubmit"
+            >
             </el-input>
           </el-form-item>
           <el-form-item label="" prop="passWord" class="inputLogin">
             <el-input
               type="password"
-              placeholder="请输入账户密码"
+              placeholder="Please enter the account password"
               v-model.trim="ruleForm.passWord"
               autocomplete="off"
               @keyup.enter.native="handleSubmit"
@@ -35,7 +40,7 @@
               <el-form-item label="" class="inputLogin" prop="code">
                 <el-input
                   type="text"
-                  placeholder="请输入验证码"
+                  placeholder="please enter verification code"
                   v-model.trim="ruleForm.code"
                   autocomplete="off"
                   @keyup.enter.native="handleSubmit"
@@ -48,7 +53,7 @@
               <img :src="codeImg" alt="" v-show="codeImg" @click="refreshCode" />
             </div>
           </div>
-          <p class="loginbtn" @click="handleSubmit">登 录</p>
+          <p class="loginbtn" @click="handleSubmit">Log in</p>
         </el-form>
       </div>
     </div>
@@ -68,27 +73,36 @@ export default {
         code: "",
       },
       rules: {
-        userName: [{ required: true, message: "请输入账号", trigger: "blur" }],
-        passWord: [{ required: true, message: "请输入密码", trigger: "blur" }],
-        code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
+        userName: [{ required: true, message: "Please input Username", trigger: "blur" }],
+        passWord: [
+          { required: true, message: "Please enter the password", trigger: "blur" },
+        ],
+        code: [
+          { required: true, message: "please enter verification code", trigger: "blur" },
+        ],
       },
     };
   },
   created() {
     this.httpPath = config.api;
-    sessionStorage.clear();
-    localStorage.clear();
+    // sessionStorage.clear();
+    // localStorage.clear();
     this.refreshCode();
   },
   methods: {
     handleSubmit() {
       this.$refs["ruleForm"].validate(async (valid) => {
         if (valid) {
+          console.log("^^^^^^^^", valid);
           let res = await this.$http.sysUserLogin({ ...this.ruleForm });
           if (res) {
+            console.log("^^^^^^res^^", res);
+
             // window.location.href = '/'
             this.getUserMenuFunc();
           } else {
+            console.log("^^^^^^else^^", res);
+
             this.refreshCode();
           }
         }
@@ -100,9 +114,12 @@ export default {
     async getUserMenuFunc() {
       let res = await this.$http.getMenuList();
       if (res) {
+        console.log("+++++++++++++++", res);
         let url = "";
         if (!res || res.length == 0) {
-          this.$message.error("该账户没有权限，请联系管理员！");
+          this.$message.error(
+            "There is no permission in this account, please contact the administrator!"
+          );
           return;
         } else if (res[0].children && res[0].children.length > 0) {
           url = res[0].children[0].path;
@@ -116,6 +133,7 @@ export default {
       const res = await this.$http.sysUserGetCode();
 
       if (res) {
+        console.log("&&&&&&&&", res);
         sessionStorage.setItem("verify", res.headers.verify);
         this.codeImg = window.URL.createObjectURL(res.data);
       }

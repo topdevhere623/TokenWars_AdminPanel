@@ -1,23 +1,33 @@
 <template>
   <div class="content mall-add">
     <!-- <el-tabs type="border-card" v-model="active">
-      <el-tab-pane name="en_US" label="英文"> -->
+      <el-tab-pane name="en_US" label="English sentence"> -->
     <el-row>
       <el-col :span="23">
-        <el-form ref="ruleForm" class="add-form" :rules="rules" :model="ruleForm" label-width="130px">
-          <el-form-item label="标题名称" prop="title">
-            <el-input v-model="ruleForm.title" style="width: 300px" placeholder="请输入名称" />
+        <el-form
+          ref="ruleForm"
+          class="add-form"
+          :rules="rules"
+          :model="ruleForm"
+          label-width="130px"
+        >
+          <el-form-item label="Title name" prop="title">
+            <el-input
+              v-model="ruleForm.title"
+              style="width: 300px"
+              placeholder="Please enter the name"
+            />
           </el-form-item>
-          <el-form-item label="发布时间" prop="title">
+          <el-form-item label="release time" prop="title">
             <el-date-picker
               v-model="ruleForm.webTime"
               value-format="yyyy-MM-dd HH:mm:ss"
               type="datetime"
-              placeholder="选择日期时间"
+              placeholder="Selection date time"
             >
             </el-date-picker>
           </el-form-item>
-          <el-form-item label="封面" prop="imgUrl" :rules="rules.select">
+          <el-form-item label="Cover" prop="imgUrl" :rules="rules.select">
             <el-upload
               :action="uploadUrl"
               :class="{ hide: hideUpload }"
@@ -36,17 +46,21 @@
               <i class="el-icon-plus" />
             </el-upload>
           </el-form-item>
-          <el-form-item label="公告内容" prop="contentHtml">
-            <quillEditor class="ql-editor" :content="ruleForm.contentHtml" @change="onEditorChange"></quillEditor>
+          <el-form-item label="Announcement content" prop="contentHtml">
+            <quillEditor
+              class="ql-editor"
+              :content="ruleForm.contentHtml"
+              @change="onEditorChange"
+            ></quillEditor>
           </el-form-item>
 
-          <!-- <el-form-item label="是否强提醒" prop="forcedSwitch">
+          <!-- <el-form-item label="Whether to remind" prop="forcedSwitch">
             <el-radio-group v-model="ruleForm.forcedSwitch" @change="changeForced">
               <el-radio :label="0">否</el-radio>
               <el-radio :label="1">是</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="是否是重要公告" prop="importantSwitch">
+          <el-form-item label="Whether it is an important announcement" prop="importantSwitch">
             <el-radio-group v-model="ruleForm.importantSwitch" @change="changeImportant">
               <el-radio :label="0">否</el-radio>
               <el-radio :label="1">是</el-radio>
@@ -56,24 +70,24 @@
       </el-col>
     </el-row>
     <!-- </el-tab-pane>
-      <el-tab-pane name="zh_CN" label="中文">
+      <el-tab-pane name="zh_CN" label="Chinese">
         <el-row>
           <el-col :span="23">
             <el-form ref="ruleForm2" class="add-form" :model="ruleForm2" label-width="130px">
-              <el-form-item label="标题名称">
-                <el-input v-model="ruleForm2.title" style="width: 300px" placeholder="请输入名称" />
+              <el-form-item label="Title name">
+                <el-input v-model="ruleForm2.title" style="width: 300px" placeholder="Please enter the name" />
               </el-form-item>
 
-              <el-form-item label="公告内容">
+              <el-form-item label="Announcement content">
                 <quillEditor class="ql-editor" :content="ruleForm2.contentHtml" @change="onEditorChange2"></quillEditor>
               </el-form-item>
-              <el-form-item label="是否强提醒">
+              <el-form-item label="Whether to remind">
                 <el-radio-group v-model="ruleForm2.forcedSwitch" @change="changeForced">
                   <el-radio :label="0">否</el-radio>
                   <el-radio :label="1">是</el-radio>
                 </el-radio-group>
               </el-form-item>
-              <el-form-item label="是否是重要公告">
+              <el-form-item label="Whether it is an important announcement">
                 <el-radio-group v-model="ruleForm2.importantSwitch" @change="changeImportant">
                   <el-radio :label="0">否</el-radio>
                   <el-radio :label="1">是</el-radio>
@@ -86,8 +100,8 @@
     </el-tabs> -->
 
     <el-row style="margin-top: 20px">
-      <el-button type="primary" plain @click="resetForm()">取消</el-button>
-      <el-button type="primary" @click.native.prevent="submitCofirm()">保存</el-button>
+      <el-button type="primary" plain @click="resetForm()">Cancel</el-button>
+      <el-button type="primary" @click.native.prevent="submitCofirm()">keep</el-button>
     </el-row>
   </div>
 </template>
@@ -107,11 +121,11 @@ export default {
     var checkIntNumMaxThree = (rule, value, callback) => {
       const reg = /^\d{0,3}$/;
       if (!value) {
-        return callback(new Error("请输入"));
+        return callback(new Error("please enter"));
       } else if (reg.test(value)) {
         callback();
       } else {
-        callback("请输入不超过3位数的整数");
+        callback("Please enter an integer with no more than 3 digits");
       }
     };
     return {
@@ -123,7 +137,7 @@ export default {
         language: "en_US",
         title: "",
         content: "",
-        webTime:"",
+        webTime: "",
         contentHtml: "",
         forcedSwitch: 0,
         importantSwitch: 0,
@@ -139,15 +153,21 @@ export default {
       },
       rules: {
         title: [
-          { required: true, message: "请输入活动名称", trigger: "blur" },
+          { required: true, message: "Please enter the activity name", trigger: "blur" },
           {
             min: 1,
             max: 300,
-            message: "长度在 1 到 30 个字符",
+            message: "The length is 1 to 30 characters",
             trigger: "blur",
           },
         ],
-        contentHtml: [{ required: true, message: "请输入公告内容", trigger: "blur" }],
+        contentHtml: [
+          {
+            required: true,
+            message: "Please enter the announcement content",
+            trigger: "blur",
+          },
+        ],
         forcedSwitch: [{ required: true, trigger: "blur" }],
         importantSwitch: [{ required: true, trigger: "blur" }],
       },
@@ -176,8 +196,11 @@ export default {
       let res = await this.$http.getAnnouncementInfo({ annId: id });
       if (res) {
         this.ruleForm = res;
-        if(this.ruleForm.webTime){
-          this.ruleForm.webTime=timeForStr(this.ruleForm.webTime, "YYYY-MM-DD HH:mm:ss")
+        if (this.ruleForm.webTime) {
+          this.ruleForm.webTime = timeForStr(
+            this.ruleForm.webTime,
+            "YYYY-MM-DD HH:mm:ss"
+          );
         }
         this.fileImg = [{ url: this.ruleForm.imgUrl }];
         // res.forEach((element) => {
@@ -212,13 +235,13 @@ export default {
         this.ruleForm.imgUrl = res.data;
         return;
       }
-      this.$message.error("上传失败");
+      this.$message.error("upload failed");
     },
     handleBefore(file) {
       const _this = this;
       const is1M = file.size / 1024 / 1024 < 2; // 限制小于2M
       if (!is1M) {
-        _this.$message.error("文件过大，文件大小小于2M");
+        _this.$message.error("The file is too large, and the file size is less than 2M");
       }
       return is1M;
     },
@@ -230,7 +253,7 @@ export default {
       this.fileImg = [];
     },
     handExceed(fiel) {
-      this.$message.error("文件只能上传一个");
+      this.$message.error("File can only upload one");
     },
     //保存
     async submitCofirm() {
@@ -245,14 +268,14 @@ export default {
         if (this.id) {
           let res = await this.$http.updateAnnouncement(ruleForm1);
           if (res) {
-            this.$message.success("操作成功！");
+            this.$message.success("Successful operation!");
             this.$emit("close");
             this.$emit("refresh");
           }
         } else {
           let res = await this.$http.saveAnnouncement(ruleForm1);
           if (res) {
-            this.$message.success("操作成功！");
+            this.$message.success("Successful operation!");
             this.$emit("close");
             this.$emit("refresh");
           }

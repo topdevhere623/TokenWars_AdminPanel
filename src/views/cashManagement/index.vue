@@ -4,14 +4,14 @@
       <el-input
         class="public-input"
         style="width: 140px"
-        placeholder="输入流水号"
+        placeholder="Enter flowing water number"
         v-model="Id"
         clearable
       />
       <el-input
         class="public-input"
         style="width: 140px"
-        placeholder="输入用户ID"
+        placeholder="Enter user ID"
         v-model="userId"
         clearable
       />
@@ -19,30 +19,30 @@
         v-model="flowType"
         class="public-select-box"
         popper-class="public-select-box"
-        placeholder="全部金流状态"
+        placeholder="All gold flow state"
         clearable
       >
-        <el-option label="奖励" value="REWARD"> </el-option>
-        <el-option label="扣款" value="DEDUCTIONS"> </el-option>
-        <el-option label="收入" value="REVENUE"> </el-option>
-        <el-option label="消费" value="CONSUME"> </el-option>
-        <el-option label="充值" value="RECHARGE"> </el-option>
-        <el-option label="提现" value="WITHDRAWALS"> </el-option>
-        <el-option label="手续费" value="FEE"> </el-option>
-        <!-- <el-option label="挂单" value="PENDING_ORDERS">
+        <el-option label="award" value="REWARD"> </el-option>
+        <el-option label="Deduction" value="DEDUCTIONS"> </el-option>
+        <el-option label="income" value="REVENUE"> </el-option>
+        <el-option label="Consumption" value="CONSUME"> </el-option>
+        <el-option label="top up" value="RECHARGE"> </el-option>
+        <el-option label="withdraw" value="WITHDRAWALS"> </el-option>
+        <el-option label="Handling fee" value="FEE"> </el-option>
+        <!-- <el-option label="Hang up" value="PENDING_ORDERS">
         </el-option> -->
-        <el-option label="退款" value="REFUND"> </el-option>
-        <el-option label="补偿" value="COMPENSATE"> </el-option>
-        <el-option label="消耗" value="CONSUME_COIN"> </el-option>
-        <el-option label="获得" value="OBTAIN"> </el-option>
-        <el-option label="兑换卡" value="REDEEM_CARD"> </el-option>
-        <el-option label="送金" value="REG_BOUNS"> </el-option>
+        <el-option label="Refund" value="REFUND"> </el-option>
+        <el-option label="compensate" value="COMPENSATE"> </el-option>
+        <el-option label="Consume" value="CONSUME_COIN"> </el-option>
+        <el-option label="get" value="OBTAIN"> </el-option>
+        <el-option label="Exchange card" value="REDEEM_CARD"> </el-option>
+        <el-option label="money transfer" value="REG_BOUNS"> </el-option>
       </el-select>
       <el-select
         v-model="coin"
         class="public-select-box"
         popper-class="public-select-box"
-        placeholder="全部币种"
+        placeholder="All currencies"
         clearable
       >
         <el-option
@@ -57,32 +57,32 @@
         v-model="flowSource"
         class="public-select-box"
         popper-class="public-select-box"
-        placeholder="全部来源"
+        placeholder="All sources"
         clearable
       >
-        <el-option label="平台" value="PLATFORM"> </el-option>
-        <el-option label="钱包" value="WALLET"> </el-option>
-        <el-option label="返佣" value="REBATES"> </el-option>
-        <el-option label="余额" value="BALANCE"> </el-option>
-        <el-option label="回收" value="RECLAIM"> </el-option>
-        <el-option label="挂单" value="PENDING_ORDERS"> </el-option>
-        <el-option label="一元购" value="ONE_DOLLAR"> </el-option>
-        <el-option label="提现" value="WITHDRAWALS"> </el-option>
-        <el-option label="活动" value="ACTIVITY"> </el-option>
-        <el-option label="盲盒" value="BOX"> </el-option>
-        <el-option label="闪兑" value="FLASH_EXCHANGE"> </el-option>
-        <el-option label="货币战争" value="WAR_GAME"> </el-option>
-        <el-option label="兑换卡" value="REDEEM_CARD"> </el-option>
-        <el-option label="礼品卡" value="GIFT_CARD"> </el-option>
+        <el-option label="platform" value="PLATFORM"> </el-option>
+        <el-option label="wallet" value="WALLET"> </el-option>
+        <el-option label="Rebate" value="REBATES"> </el-option>
+        <el-option label="Balance" value="BALANCE"> </el-option>
+        <el-option label="Recycle" value="RECLAIM"> </el-option>
+        <el-option label="Hang up" value="PENDING_ORDERS"> </el-option>
+        <el-option label="One -dollar purchase" value="ONE_DOLLAR"> </el-option>
+        <el-option label="withdraw" value="WITHDRAWALS"> </el-option>
+        <el-option label="Activity" value="ACTIVITY"> </el-option>
+        <el-option label="Blind box" value="BOX"> </el-option>
+        <el-option label="Flash" value="FLASH_EXCHANGE"> </el-option>
+        <el-option label="Currency war" value="WAR_GAME"> </el-option>
+        <el-option label="Exchange card" value="REDEEM_CARD"> </el-option>
+        <el-option label="gift card" value="GIFT_CARD"> </el-option>
       </el-select>
       <div class="public-date-box">
-        <span class="demonstration">账变时间</span>
+        <span class="demonstration">Account change time</span>
         <el-date-picker
           v-model="changeTime"
           type="datetimerange"
-          range-separator="到"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          range-separator="arrive"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
         >
         </el-date-picker>
       </div>
@@ -92,7 +92,7 @@
         class="public-search"
         @click="fetchAssetFlowList()"
       >
-        查询
+        Inquire
       </el-button>
       <el-button
         type="primary"
@@ -100,25 +100,25 @@
         class="public-search"
         @click="fetchAssetFlowListExport()"
       >
-        导出
+        Export
       </el-button>
     </div>
     <div class="remittance-box">
       <div class="remittance-amount remittance-more">
         <div class="remittance-item">
-          <div class="title">总流水数</div>
+          <div class="title">Total flowing water</div>
           <div class="val">
             {{ aggregateQuery && aggregateQuery.flowNumberTotal }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总ETH金额</div>
+          <div class="title">Total ETH amount</div>
           <div class="val">
             {{ (aggregateQuery && aggregateQuery.amountTotal) || 0 }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总USDT金额</div>
+          <div class="title">Total USDT amount</div>
           <div class="val">
             {{ (aggregateQuery && aggregateQuery.amountUTotal) || 0 }}
           </div>
@@ -135,7 +135,7 @@
       <el-table-column
         prop="id"
         sortable="custom"
-        label="流水号"
+        label="serial number"
         align="center"
         key="1"
       >
@@ -144,7 +144,7 @@
         prop="userId"
         sortable="custom"
         width="120"
-        label="用户ID"
+        label="User ID"
         align="center"
         key="3"
       >
@@ -152,7 +152,7 @@
       <el-table-column
         prop="flowType"
         sortable="custom"
-        label="金流类型"
+        label="Golden flow"
         align="center"
         key="4"
       >
@@ -163,7 +163,7 @@
       <el-table-column
         prop="flowSource"
         sortable="custom"
-        label="金流来源"
+        label="Sources of gold"
         align="center"
         key="5"
       >
@@ -171,23 +171,17 @@
           {{ formatSource(scope.row.flowSource) }}
         </template>
       </el-table-column>
-      <el-table-column prop="flashId" label="闪兑Id" align="center" key="6">
+      <el-table-column prop="flashId" label="Flash ID" align="center" key="6">
       </el-table-column>
-      <el-table-column prop="hash" label="Hash" align="center" key="7">
+      <el-table-column prop="hash" label="hash" align="center" key="7"> </el-table-column>
+      <el-table-column prop="walletAddress" label="Wallet address" align="center" key="8">
       </el-table-column>
-      <el-table-column
-        prop="walletAddress"
-        label="钱包地址"
-        align="center"
-        key="8"
-      >
-      </el-table-column>
-      <el-table-column prop="coin" label="金流币种" align="center" key="9">
+      <el-table-column prop="coin" label="Category" align="center" key="9">
       </el-table-column>
       <el-table-column
         prop="traPrice"
         sortable="custom"
-        label="金额"
+        label="Amount"
         align="center"
         key="10"
       >
@@ -202,7 +196,7 @@
       <el-table-column
         prop="assetBalance"
         sortable="custom"
-        label="余额"
+        label="Balance"
         align="center"
         key="12"
       >
@@ -210,7 +204,7 @@
       <el-table-column
         prop="createTime"
         sortable="custom"
-        label="账变时间"
+        label="Account change time"
         align="center"
         key="13"
       >
@@ -356,72 +350,72 @@ export default {
       };
 
       const urlStr = config.api + "/asset-flow/pageListExport";
-      exportExcel(urlStr, data, "金流管理导出");
+      exportExcel(urlStr, data, "Gold Stream Management Export");
     },
     // 格式化流水类型
     formatType(event) {
       if (!event) return "";
       if (event == "REWARD") {
-        return "奖励";
+        return "award";
       } else if (event == "DEDUCTIONS") {
-        return "扣款";
+        return "Deduction";
       } else if (event == "REVENUE") {
-        return "收入";
+        return "income";
       } else if (event == "CONSUME") {
-        return "消费";
+        return "Consumption";
       } else if (event == "RECHARGE") {
-        return "充值";
+        return "top up";
       } else if (event == "WITHDRAWALS") {
-        return "提现";
+        return "withdraw";
       } else if (event == "FEE") {
-        return "手续费";
+        return "Handling fee";
       } else if (event == "PENDING_ORDERS") {
-        return "挂单";
+        return "Hang up";
       } else if (event == "REFUND") {
-        return "退款";
+        return "Refund";
       } else if (event == "COMPENSATE") {
-        return "补偿";
+        return "compensate";
       } else if (event == "CONSUME_COIN") {
-        return "消耗";
+        return "Consume";
       } else if (event == "OBTAIN") {
-        return "获得";
+        return "get";
       } else if (event == "REDEEM_CARD") {
-        return "兑换卡";
+        return "Exchange card";
       } else if (event == "REG_BOUNS") {
-        return "送金";
+        return "money transfer";
       }
     },
     // 格式化流水来源
     formatSource(event) {
       if (!event) return "";
       if (event == "PLATFORM") {
-        return "平台";
+        return "platform";
       } else if (event == "WALLET") {
-        return "钱包";
+        return "wallet";
       } else if (event == "REBATES") {
-        return "返佣";
+        return "Rebate";
       } else if (event == "BALANCE") {
-        return "余额";
+        return "Balance";
       } else if (event == "RECLAIM") {
-        return "回收";
+        return "Recycle";
       } else if (event == "PENDING_ORDERS") {
-        return "挂单";
+        return "Hang up";
       } else if (event == "WITHDRAWALS") {
-        return "提现";
+        return "withdraw";
       } else if (event == "ONE_DOLLAR") {
-        return "一元购";
+        return "One -dollar purchase";
       } else if (event == "ACTIVITY") {
-        return "活动";
+        return "Activity";
       } else if (event == "BOX") {
-        return "盲盒";
+        return "Blind box";
       } else if (event == "FLASH_EXCHANGE") {
-        return "闪兑";
+        return "Flash";
       } else if (event == "WAR_GAME") {
-        return "货币战争";
+        return "Currency war";
       } else if (event == "REDEEM_CARD") {
-        return "兑换卡";
+        return "Exchange card";
       } else if (event == "GIFT_CARD") {
-        return "礼品卡";
+        return "gift card";
       }
     },
     // 获取充值币种

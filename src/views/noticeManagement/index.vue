@@ -4,20 +4,26 @@
       <el-input
         class="inner"
         v-model="noticeTitle"
-        placeholder="请输入公告标题"
+        placeholder="Please enter the announcement title"
         clearable
         oninput="if(value.length > 300)value=value.slice(0, 300)"
         @keyup.enter.native="getTableList"
       ></el-input>
 
-      <el-button type="primary" style="margin-left: 20px" icon="el-icon-search" @click="getTableList">搜索</el-button>
+      <el-button
+        type="primary"
+        style="margin-left: 20px"
+        icon="el-icon-search"
+        @click="getTableList"
+        >search</el-button
+      >
 
-      <el-button type="primary" @click="handleAdd">添加公告</el-button>
+      <el-button type="primary" @click="handleAdd">Add an announcement</el-button>
     </div>
     <br />
     <el-table border :data="protocolList" style="width: 100%">
       <el-table-column prop="id" label="ID" />
-      <el-table-column prop="title" label="标题" />
+      <el-table-column prop="title" label="title" />
 
       <!-- <el-table-column prop="content" label="公告内容(普通文本)">
         <template slot-scope="scope"> 
@@ -50,20 +56,24 @@
           </div>
         </template>
       </el-table-column> -->
-      <el-table-column prop="createTime" label="创建时间">
+      <el-table-column prop="createTime" label="Creation time">
         <template slot-scope="scope">
           {{ timeForStr(scope.row.createTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column prop="webTime" label="发布时间">
+      <el-table-column prop="webTime" label="release time">
         <template slot-scope="scope">
           {{ timeForStr(scope.row.webTime, "YYYY-MM-DD HH:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column prop="scope" label="操作" width="220" fixed="right">
+      <el-table-column prop="scope" label="operate" width="220" fixed="right">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" @click="handleEditor(scope.row)">编辑</el-button>
-          <el-button size="mini" type="danger" @click="handleDel(scope.row)"> 删除 </el-button>
+          <el-button size="mini" type="primary" @click="handleEditor(scope.row)"
+            >edit</el-button
+          >
+          <el-button size="mini" type="danger" @click="handleDel(scope.row)">
+            delete
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -81,7 +91,7 @@
     />
     <el-dialog
       v-if="dialogVisible"
-      :title="!id ? '添加公告' : '编辑公告'"
+      :title="!id ? 'Add an announcement' : 'Edit announcement'"
       :visible.sync="dialogVisible"
       width="1200px"
       top="2vh"
@@ -190,9 +200,9 @@ export default {
     },
 
     handleDel(row) {
-      this.$confirm("确定要执行此操作吗?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm("Are you sure to perform this operation?", "hint", {
+        confirmButtonText: "Sure",
+        cancelButtonText: "Cancel",
         type: "info",
       })
         .then(async () => {
@@ -201,7 +211,7 @@ export default {
           });
           if (res) {
             this.fetchGetBanner();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {

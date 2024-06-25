@@ -4,13 +4,13 @@
       <el-input
         class="public-input"
         style="width: 220px"
-        placeholder="输入ID、昵称、邮箱、钱包地址"
+        placeholder="Enter ID, nickname, mailbox, wallet address"
         v-model="obscureField"
         clearable
       />
       <el-input
         class="public-input"
-        placeholder="上级ID"
+        placeholder="Superior ID"
         type="number"
         v-model.number="upId"
         clearable
@@ -19,33 +19,33 @@
         v-model="userStatus"
         class="public-select-box"
         popper-class="public-select-box"
-        placeholder="全部状态"
+        placeholder="All states"
         clearable
       >
-        <el-option label="全部状态" value=""> </el-option>
-        <el-option label="封停" value="DISABLE"> </el-option>
-        <el-option label="限制提款" value="LIMIT_DRAW"> </el-option>
-        <el-option label="正常" value="NORMAL"> </el-option>
+        <el-option label="All states" value=""> </el-option>
+        <el-option label="Stop" value="DISABLE"> </el-option>
+        <el-option label="Restricted withdrawal" value="LIMIT_DRAW"> </el-option>
+        <el-option label="normal" value="NORMAL"> </el-option>
       </el-select>
       <div class="public-date-box">
-        <span class="demonstration"> 注册时间 </span>
+        <span class="demonstration"> Registration time </span>
         <el-date-picker
           v-model="registrationTime"
           type="datetimerange"
           range-separator="到"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
         >
         </el-date-picker>
       </div>
       <div class="public-date-box">
-        <span class="demonstration">最后登录时间:</span>
+        <span class="demonstration">last login time:</span>
         <el-date-picker
           v-model="loginedTime"
           type="datetimerange"
           range-separator="到"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          start-placeholder="Starting time"
+          end-placeholder="End Time"
         >
         </el-date-picker>
       </div>
@@ -55,7 +55,7 @@
         class="public-search"
         @click="fetchUserlist(true)"
       >
-        查询
+        Inquire
       </el-button>
       <el-button
         type="primary"
@@ -63,7 +63,7 @@
         class="public-search"
         @click="onExport()"
       >
-        导出
+        Export
       </el-button>
       <el-button
         type="primary"
@@ -71,14 +71,14 @@
         class="public-search"
         @click="showDialog = true"
       >
-        导入测试号
+        Import test number
       </el-button>
       <el-link
         icon="el-icon-download"
         type="primary"
         @click="downloadExcel('SIGN_ACCOUNT')"
         class="download-module"
-        >下载模板</el-link
+        >Download template</el-link
       >
       <el-upload
         class="upload-demo"
@@ -88,7 +88,7 @@
         :show-file-list="false"
       >
         <el-button icon="el-icon-upload2" type="primary" class="public-search"
-          >批量上分</el-button
+          >In batches</el-button
         >
       </el-upload>
       <el-link
@@ -96,7 +96,7 @@
         type="primary"
         @click="downloadExcel('BATCH_UP_AND_DOWN')"
         class="download-module"
-        >下载模板</el-link
+        >Download template</el-link
       >
       <el-button
         type="primary"
@@ -104,7 +104,7 @@
         class="public-search"
         @click="onExportCountry()"
       >
-        导出国家数据
+        Export national data
       </el-button>
       <el-button
         type="primary"
@@ -112,86 +112,86 @@
         class="public-search"
         @click="onExportUser()"
       >
-        导出用户充值数据
+        Export user recharge data
       </el-button>
     </div>
     <div class="remittance-box">
       <div class="remittance-amount remittance-more">
         <div class="remittance-item">
-          <div class="title">总用户数</div>
+          <div class="title">Total number of users</div>
           <div class="val">
             {{ aggregateQuery?.userNumberTotal }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总充值</div>
+          <div class="title">Total recharge</div>
           <div class="val">
             {{ accurateDecimal(aggregateQuery?.totalRecharges, 2) }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总奖励</div>
+          <div class="title">General reward</div>
           <div class="val">
             {{ accurateDecimal(aggregateQuery?.totalRewards, 2) }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总送金</div>
+          <div class="title">总 remittance</div>
           <div class="val">
             {{ accurateDecimal(aggregateQuery?.bounsTotal, 2) }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总收入金额</div>
+          <div class="title">Total income amount</div>
           <div class="val">
             {{ accurateDecimal(aggregateQuery?.revenueTotal, 2) }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总消费金额</div>
+          <div class="title">Total consumption amount</div>
           <div class="val">
             {{ accurateDecimal(aggregateQuery?.consumeTotal, 2) }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">累计提款</div>
+          <div class="title">Cumulative withdrawal</div>
           <div class="val">
             {{ accurateDecimal(aggregateQuery?.estimateDrawBanlanceTotal, 2) }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总扣款</div>
+          <div class="title">Total deduction</div>
           <div class="val">
             {{ accurateDecimal(aggregateQuery?.totalDeuctions, 2) }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总退款</div>
+          <div class="title">Total refund</div>
           <div class="val">
             {{ accurateDecimal(aggregateQuery?.totalRefund, 2) }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总余额</div>
+          <div class="title">Total balance</div>
           <div class="val">
             {{ accurateDecimal(aggregateQuery?.assetBalanceUTotal, 2) }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总积分</div>
+          <div class="title">total points</div>
           <div class="val">
             {{ aggregateQuery?.assetPointBalanceTotal }}
           </div>
         </div>
 
         <div class="remittance-item">
-          <div class="title">总兑换码</div>
+          <div class="title">Total exchange code</div>
           <div class="val">
             {{ aggregateQuery?.totalRedeemCard }}
           </div>
         </div>
         <div class="remittance-item">
-          <div class="title">总资产</div>
+          <div class="title">Total assets</div>
           <div class="val">
             {{ accurateDecimal(aggregateQuery?.estimateBanlanceTotal, 2) }}
           </div>
@@ -208,7 +208,7 @@
       <el-table-column
         prop="id"
         sortable="custom"
-        label="用户ID/昵称"
+        label="User ID/Nick name"
         align="center"
         width="110"
         key="0"
@@ -222,26 +222,14 @@
           </p>
         </template>
       </el-table-column>
-      <el-table-column
-        prop="upId"
-        label="上级ID"
-        align="center"
-        width="110"
-        key="2"
-      >
+      <el-table-column prop="upId" label="Superior ID" align="center" width="110" key="2">
       </el-table-column>
-      <el-table-column
-        prop="email"
-        label="邮箱"
-        align="center"
-        width="200"
-        key="3"
-      >
+      <el-table-column prop="email" label="Mail" align="center" width="200" key="3">
       </el-table-column>
       <el-table-column
         prop="totalRecharges"
         sortable="custom"
-        label="总充值(USDT)"
+        label="Total recharge(USDT)"
         align="center"
         width="120"
         key="4"
@@ -250,7 +238,7 @@
       <el-table-column
         prop="totalConsumps"
         sortable="custom"
-        label="总消费(USDT)"
+        label="Total consumption(USDT)"
         align="center"
         width="120"
         key="5"
@@ -259,7 +247,7 @@
       <el-table-column
         prop="totalRevenues"
         sortable="custom"
-        label="总收入(USDT)"
+        label="Total revenue(USDT)"
         align="center"
         width="120"
         key="6"
@@ -268,7 +256,7 @@
       <el-table-column
         prop="totalRewards"
         sortable="custom"
-        label="总奖励(USDT)"
+        label="General reward(USDT)"
         align="center"
         width="120"
         key="7"
@@ -277,7 +265,7 @@
       <el-table-column
         prop="totalBouns"
         sortable="custom"
-        label="总送金(USDT)"
+        label="总 remittance(USDT)"
         align="center"
         width="120"
         key="8"
@@ -286,7 +274,7 @@
       <el-table-column
         prop="totalDeuctions"
         sortable="custom"
-        label="总扣款(USDT)"
+        label="Total deduction(USDT)"
         align="center"
         width="120"
         key="9"
@@ -296,7 +284,7 @@
       <el-table-column
         prop="totalRefund"
         sortable="custom"
-        label="总退款(USDT)"
+        label="Total refund(USDT)"
         align="center"
         width="120"
         key="10"
@@ -305,7 +293,7 @@
       <el-table-column
         prop="redeemCard"
         sortable="custom"
-        label="总兑换"
+        label="Exchanges"
         align="center"
         width="120"
         key="11"
@@ -314,7 +302,7 @@
       <el-table-column
         prop="buyBoxNumbers"
         sortable="custom"
-        label="购买盲盒个数"
+        label="Buy the number of blind boxes"
         align="center"
         width="120"
         key="12"
@@ -323,7 +311,7 @@
       <el-table-column
         prop="totalCollects"
         sortable="custom"
-        label="获得藏品"
+        label="Obtain a collection"
         align="center"
         width="110"
         key="13"
@@ -332,7 +320,7 @@
       <el-table-column
         prop="remainderCollects"
         sortable="custom"
-        label="剩余藏品"
+        label="Remaining collections"
         align="center"
         width="110"
         key="14"
@@ -341,7 +329,7 @@
       <el-table-column
         prop="assetBalanceU"
         sortable="custom"
-        label="余额(USDT)"
+        label="Balance(USDT)"
         align="center"
         width="110"
         key="15"
@@ -350,7 +338,7 @@
       <el-table-column
         prop="estimateBanlanceTotal"
         sortable="custom"
-        label="资产预估"
+        label="Asset estimation"
         align="center"
         width="110"
         key="21"
@@ -367,7 +355,7 @@
       <el-table-column
         prop="estimateDrawBanlanceTotal"
         sortable="custom"
-        label="提款到账"
+        label="Withdraw money"
         align="center"
         width="110"
         key="14"
@@ -384,7 +372,7 @@
       <el-table-column
         prop="point"
         sortable="custom"
-        label="总积分"
+        label="total points"
         align="center"
         width="110"
         key="15"
@@ -393,7 +381,7 @@
       <el-table-column
         prop="createTime"
         sortable="custom"
-        label="注册时间"
+        label="Registration time"
         align="center"
         width="140"
         key="16"
@@ -405,7 +393,7 @@
       <el-table-column
         prop="lastLoginTime"
         sortable="custom"
-        label="最后登录时间"
+        label="last login time"
         align="center"
         width="140"
         key="17"
@@ -416,7 +404,7 @@
       </el-table-column>
       <el-table-column
         prop="lastLoginIp"
-        label="最后登录IP"
+        label="Last login IP"
         align="center"
         width="110"
         key="18"
@@ -424,26 +412,22 @@
       </el-table-column>
       <el-table-column
         prop="userStatus"
-        label="状态"
+        label="state"
         align="center"
         width="110"
         key="19"
       >
         <template slot-scope="scope">
-          <span style="color: red" v-if="scope.row.userStatus == 'DISABLE'"
-            >封停</span
+          <span style="color: red" v-if="scope.row.userStatus == 'DISABLE'">Stop</span>
+          <span style="color: #e6a23c" v-if="scope.row.userStatus == 'LIMIT_DRAW'"
+            >Restricted withdrawal</span
           >
-          <span
-            style="color: #e6a23c"
-            v-if="scope.row.userStatus == 'LIMIT_DRAW'"
-            >限制提款</span
-          >
-          <span style="color: #21ae04" v-else>正常</span>
+          <span style="color: #21ae04" v-else>normal</span>
         </template>
       </el-table-column>
       <el-table-column
         prop="id"
-        label="操作"
+        label="operate"
         align="center"
         width="140"
         key="20"
@@ -454,31 +438,28 @@
             class="blueColor publick-button cursor"
             @click="operatingScore(scope.row)"
           >
-            上下分
+            Up and down
           </span>
-          <span class="blueColor publick-button cursor"> 详情 </span>
+          <span class="blueColor publick-button cursor"> Detail </span>
           <span
             class="blueColor publick-button cursor"
             @click="operatingAccount(scope.row)"
           >
-            {{ scope.row.userStatus == "DISABLE" ? "解禁" : "封停" }}
+            {{ scope.row.userStatus == "DISABLE" ? "Ban" : "Stop" }}
           </span>
           <span
             class="blueColor publick-button cursor"
             @click="closeGoogle(scope.row)"
             v-if="scope.row.googleValidateStatus == 'TRUE'"
           >
-            关闭谷歌验证
+            Close Google Verification
           </span>
           <span
             class="blueColor publick-button cursor"
-            v-if="
-              scope.row.checkStatus != 'TRUE' &&
-              scope.row.userStatus == 'LIMIT_DRAW'
-            "
+            v-if="scope.row.checkStatus != 'TRUE' && scope.row.userStatus == 'LIMIT_DRAW'"
             @click="veriftyAccount(scope.row)"
           >
-            验证账号
+            Verification account number
           </span>
         </template>
       </el-table-column>
@@ -497,7 +478,7 @@
     >
     </el-pagination>
     <el-dialog
-      :title="uploadType == 1 ? '导入测试账号' : '导入结果'"
+      :title="uploadType == 1 ? 'Import test account' : 'Import result'"
       :visible.sync="showDialog"
       :width="uploadType == 1 ? '440px' : '1200px'"
       :close-on-click-modal="false"
@@ -525,7 +506,7 @@
       <el-table :data="testData" v-else style="width: auto" border>
         <el-table-column
           prop="chainId"
-          label="链ID"
+          label="Chain ID"
           align="center"
           width="110"
           key="1"
@@ -533,25 +514,25 @@
         </el-table-column>
         <el-table-column
           prop="walletAddress"
-          label="钱包地址"
+          label="Wallet address"
           align="center"
           key="2"
         >
         </el-table-column>
         <el-table-column
           prop="walletName"
-          label="钱包名称"
+          label="Wallet name"
           align="center"
           width="110"
           key="3"
         >
         </el-table-column>
-        <el-table-column prop="remark" label="备注" align="center" key="4">
+        <el-table-column prop="remark" label="Remark" align="center" key="4">
         </el-table-column>
       </el-table>
     </el-dialog>
     <el-dialog
-      title="上下分"
+      title="Up and down"
       :visible.sync="showUpDownDialog"
       width="440px"
       :close-on-click-modal="false"
@@ -564,17 +545,17 @@
           label-width="40px"
           class="demo-ruleForm"
         >
-          <el-form-item label="币种" prop="coin">
+          <el-form-item label="Currency" prop="coin">
             <el-select
               v-model="ruleForm.coin"
-              placeholder="请选择币种"
+              placeholder="Please select currency"
               style="width: 300px"
             >
-              <el-option label="USDT" value="USDT"> </el-option>
-              <el-option label="ETH" value="ETH"> </el-option>
+              <el-option label="usdt" value="USDT"> </el-option>
+              <el-option label="eth" value="ETH"> </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="上分" prop="score">
+          <el-form-item label="Score" prop="score">
             <el-input-number
               v-model="ruleForm.score"
               style="width: 300px"
@@ -583,43 +564,33 @@
         </el-form>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="handleClose()">取 消</el-button>
-        <el-button type="primary" @click="updateScore()">确 定</el-button>
+        <el-button @click="handleClose()">Cancel</el-button>
+        <el-button type="primary" @click="updateScore()">Sure</el-button>
       </span>
     </el-dialog>
     <el-dialog
-      title="批量上分"
+      title="In batches"
       :visible.sync="dialogVisible"
       width="440px"
       :close-on-click-modal="false"
     >
       <div>
         <div class="amount-input">
-          <p>数量</p>
-          <el-input
-            type="number"
-            v-model="upscoreNum"
-            style="width: 100%"
-          ></el-input>
+          <p>quantity</p>
+          <el-input type="number" v-model="upscoreNum" style="width: 100%"></el-input>
         </div>
         <div class="total-box">
-          <p>总人数：{{ upscoreList?.length }}</p>
-          <p>总上分：{{ upscoreList?.length * upscoreNum }}</p>
+          <p>total people:{{ upscoreList?.length }}</p>
+          <p>Total score:{{ upscoreList?.length * upscoreNum }}</p>
         </div>
         <el-table :data="upscoreList" style="width: auto" border>
-          <el-table-column
-            prop="id"
-            label="ID"
-            align="center"
-            width="110"
-            key="1"
-          >
+          <el-table-column prop="id" label="id" align="center" width="110" key="1">
           </el-table-column>
-          <el-table-column prop="email" label="邮箱" align="center" key="2">
+          <el-table-column prop="email" label="Mail" align="center" key="2">
           </el-table-column>
           <el-table-column
             prop="balance"
-            label="余额"
+            label="Balance"
             align="center"
             width="110"
             key="3"
@@ -628,49 +599,34 @@
         </el-table>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="batchUpAndDownSave">确 定</el-button>
+        <el-button @click="dialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="batchUpAndDownSave">Sure</el-button>
       </span>
     </el-dialog>
     <el-dialog
       v-if="assetBalanceDialog"
-      title="资产详情"
+      title="Asset details"
       :visible.sync="assetBalanceDialog"
       width="500px"
       :close-on-click-modal="false"
     >
       <el-table :data="assetBalanceList" style="width: 100%" border>
         <template v-if="assetDialogType == 'withdraw'">
-          <el-table-column prop="coin" label="币种" align="center" key="1">
+          <el-table-column prop="coin" label="Currency" align="center" key="1">
           </el-table-column>
-          <el-table-column
-            prop="withdrawalPrice"
-            label="金额"
-            align="center"
-            key="2"
-          >
+          <el-table-column prop="withdrawalPrice" label="Amount" align="center" key="2">
           </el-table-column>
-          <el-table-column
-            prop="serviceFee"
-            label="手续费"
-            align="center"
-            key="3"
-          >
+          <el-table-column prop="serviceFee" label="Handling fee" align="center" key="3">
           </el-table-column>
         </template>
         <template v-else>
-          <el-table-column prop="assetType" label="币种" align="center" key="4">
+          <el-table-column prop="assetType" label="Currency" align="center" key="4">
           </el-table-column>
-          <el-table-column
-            prop="assetBalance"
-            label="数量"
-            align="center"
-            key="5"
-          >
+          <el-table-column prop="assetBalance" label="quantity" align="center" key="5">
           </el-table-column>
           <el-table-column
             prop="conversionUsdtBalance"
-            label="U价"
+            label="U price"
             align="center"
             key="6"
           >
@@ -678,9 +634,7 @@
         </template>
       </el-table>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="assetBalanceDialog = false"
-          >关闭</el-button
-        >
+        <el-button type="primary" @click="assetBalanceDialog = false">closure</el-button>
       </span>
     </el-dialog>
   </div>
@@ -830,7 +784,7 @@ export default {
         ...search,
       };
 
-      exportExcel(urlStr, data, "用户列表导出");
+      exportExcel(urlStr, data, "User list export");
     },
     // 用户国家导出
     onExportCountry() {
@@ -847,11 +801,11 @@ export default {
       };
 
       if (search.lastLoginStartTime == null) {
-        alert("最后登录时间起始时间必填");
+        alert("The final time of the login time must be filled in");
         return;
       }
 
-      exportExcel(urlStr, data, "每日国家统计数据导出");
+      exportExcel(urlStr, data, "Daily national statistical data export");
     },
     onExportUser() {
       const search = this.searchFun();
@@ -867,11 +821,11 @@ export default {
       };
 
       if (search.lastLoginStartTime == null) {
-        alert("最后登录时间起始时间必填");
+        alert("The final time of the login time must be filled in");
         return;
       }
 
-      exportExcel(urlStr, data, "用户充值数据导出");
+      exportExcel(urlStr, data, "User recharge data export");
     },
     // 下载模板
     downloadExcel(name) {
@@ -879,7 +833,7 @@ export default {
       const data = {
         name,
       };
-      exportExcel(urlStr, data, "用户导入模板");
+      exportExcel(urlStr, data, "User import template");
     },
     async importBatchUpAndDownFunc(file) {
       const formData = new FormData();
@@ -890,7 +844,9 @@ export default {
         if (this.upscoreList?.length > 0) {
           this.dialogVisible = true;
         } else {
-          this.$message.error("上传数据不正确，请确认后重新上传！");
+          this.$message.error(
+            "The upload data is incorrect, please upload it after confirmation!"
+          );
         }
       } else {
         this.upscoreList = [];
@@ -898,7 +854,7 @@ export default {
     },
     async batchUpAndDownSave() {
       if (!this.upscoreNum) {
-        this.$message.error("请输入数量");
+        this.$message.error("Please enter the quantity");
         return;
       }
       const ids = this.upscoreList.map((x) => x.id);
@@ -910,7 +866,7 @@ export default {
       if (res) {
         this.dialogVisible = false;
         this.fetchUserlist();
-        this.$message.success("操作成功！");
+        this.$message.success("Successful operation!");
       }
     },
     assetBalanceDialogFunc(row, type) {
@@ -925,13 +881,13 @@ export default {
     // 封停/解禁
     operatingAccount(row) {
       this.$confirm(
-        `确定要${row.userStatus == "DISABLE" ? "解禁" : "封停"}用户『${
+        `Determine${row.userStatus == "DISABLE" ? "Ban" : "Stop"}user『${
           row.userName || row.id
-        }』吗?`,
-        "提示",
+        }』?`,
+        "hint",
         {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
+          confirmButtonText: "Sure",
+          cancelButtonText: "Cancel",
           type: "info",
         }
       )
@@ -950,7 +906,7 @@ export default {
           }
           if (res) {
             this.fetchUserlist();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {
@@ -960,11 +916,13 @@ export default {
     // 关闭谷歌验证
     closeGoogle(row) {
       this.$confirm(
-        `确定要关闭用户『${row.userName || row.id}』谷歌二级验证吗?`,
-        "提示",
+        `Are you sure to close the user "${
+          row.username || row.id
+        }" Google secondary verification?`,
+        "hint",
         {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
+          confirmButtonText: "Sure",
+          cancelButtonText: "Cancel",
           type: "info",
         }
       )
@@ -974,7 +932,7 @@ export default {
           });
           if (res) {
             this.fetchUserlist();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {
@@ -982,9 +940,9 @@ export default {
         });
     },
     veriftyAccount(row) {
-      this.$confirm(`确定要通过验证？`, "提示", {
-        confirmButtonText: "通过验证",
-        cancelButtonText: "取消",
+      this.$confirm(`Are you surehinto pass the verification?`, "hint", {
+        confirmButtonText: "approved",
+        cancelButtonText: "Cancel",
         type: "info",
       })
         .then(async () => {
@@ -993,7 +951,7 @@ export default {
           });
           if (res) {
             this.fetchUserlist();
-            this.$message.success("操作成功");
+            this.$message.success("Successful operation");
           }
         })
         .catch((err) => {
@@ -1016,7 +974,7 @@ export default {
       if (res) {
         this.fetchUserlist();
         this.handleClose();
-        this.$message.success("操作成功");
+        this.$message.success("Successful operation");
       }
     },
     handleClose(done) {
@@ -1040,13 +998,15 @@ export default {
         return;
       }
 
-      this.$message.error("上传失败");
+      this.$message.error("upload failed");
     },
     handleBefore(file) {
       const _this = this;
       const is1M = file.size / 1024 / 1024 < 100; // 限制小于100M
       if (!is1M) {
-        _this.$message.error("文件过大，文件大小小于100M");
+        _this.$message.error(
+          "The file is too large, the file size is small and small is less than 100M"
+        );
       }
       return is1M;
     },
@@ -1058,7 +1018,7 @@ export default {
       this.fileImg = [];
     },
     handExceed(fiel) {
-      this.$message.error("文件只能上传一个");
+      this.$message.error("File can only upload one");
     },
     //控制每页数量
     handleSizeChange(val) {

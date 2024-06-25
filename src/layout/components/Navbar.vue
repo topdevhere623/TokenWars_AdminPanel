@@ -13,11 +13,11 @@
       <template v-if="device !== 'mobile'">
         <error-log class="errLog-container right-menu-item hover-effect" />
 
-        <el-tooltip content="最大化" effect="dark" placement="bottom">
+        <el-tooltip content="maximize" effect="dark" placement="bottom">
           <screenfull id="screenfull" class="right-menu-item hover-effect" />
         </el-tooltip>
 
-        <el-tooltip content="布局大小" effect="dark" placement="bottom">
+        <el-tooltip content="Layout" effect="dark" placement="bottom">
           <size-select id="size-select" class="right-menu-item hover-effect" />
         </el-tooltip>
       </template>
@@ -27,16 +27,9 @@
         style="margin-right: 20px"
       >
         <div class="avatar-wrapper">
-          <el-button
-            style="padding: 6px 13px"
-            class="user-logout"
-            @click="logout"
-          >
-            <svg-icon
-              style="margin-right: 5px; font-size: 14px"
-              icon-class="poweroff"
-            />
-            退出
+          <el-button style="padding: 6px 13px" class="user-logout" @click="logout">
+            <svg-icon style="margin-right: 5px; font-size: 14px" icon-class="poweroff" />
+            quit
           </el-button>
         </div>
       </div>
@@ -51,16 +44,16 @@
         </div>
         <el-dropdown-menu slot="dropdown">
           <router-link to="/profile/index">
-            <el-dropdown-item> 个人中心 </el-dropdown-item>
+            <el-dropdown-item> Personal center </el-dropdown-item>
           </router-link>
           <router-link to="/">
-            <el-dropdown-item> 首页 </el-dropdown-item>
+            <el-dropdown-item> front page </el-dropdown-item>
           </router-link>
           <a
             target="_blank"
             href="https://github.com/PanJiaChen/vue-element-admin/"
           >
-            <el-dropdown-item> 项目地址 </el-dropdown-item>
+            <el-dropdown-item> project address </el-dropdown-item>
           </a>
           <a
             target="_blank"
@@ -69,7 +62,7 @@
             <el-dropdown-item>Docs</el-dropdown-item>
           </a>
           <el-dropdown-item divided @click.native="logout">
-            <span style="display: block">退出登录</span>
+            <span style="display: block">sign out</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown> -->

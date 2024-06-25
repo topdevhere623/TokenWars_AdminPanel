@@ -1,6 +1,12 @@
 <template>
   <div class="quillEditorBox">
-    <quill-editor ref="newEditor" v-model="ruleForm.content" class="editor" :options="editorOption" @change="onEditorChange($event)" />
+    <quill-editor
+      ref="newEditor"
+      v-model="ruleForm.content"
+      class="editor"
+      :options="editorOption"
+      @change="onEditorChange($event)"
+    />
   </div>
 </template>
 <script>
@@ -13,32 +19,42 @@ Quill.register(Video, true);
 
 import quillConfig from "@/utils/quill-config";
 
-// 设置字体大小
-const fontSizeStyle = Quill.import("attributors/style/size"); // 引入这个后会把样式写在style上
-fontSizeStyle.whitelist = ["12px", "14px", "16px", "18px", "20px", "24px", "28px", "32px", "36px"];
+//Set font size
+const fontSizeStyle = Quill.import("attributors/style/size"); //After introducing this, you will write the style on style
+fontSizeStyle.whitelist = [
+  "12px",
+  "14px",
+  "16px",
+  "18px",
+  "20px",
+  "24px",
+  "28px",
+  "32px",
+  "36px",
+];
 Quill.register(fontSizeStyle, true);
-// 设置字体样式
-const Font = Quill.import("attributors/style/font"); // 引入这个后会把样式写在style上
+//Set font style
+const Font = Quill.import("attributors/style/font"); //After introducing this, you will write the style on style
 const fonts = ["SimSun", "SimHei", "Microsoft-YaHei", "KaiTi", "FangSong"];
-Font.whitelist = fonts; // 将字体加入到白名单
+Font.whitelist = fonts; //Add the font to the white list
 Quill.register(Font, true);
 
-// 工具栏
+//toolbar
 const toolbarOptions = [
-  ["bold", "italic", "underline", "strike"], // 加粗 斜体 下划线 删除线 -----['bold', 'italic', 'underline', 'strike']
-  [{ color: [] }, { background: [] }], // 字体颜色、字体背景颜色-----[{ color: [] }, { background: [] }]
-  [{ align: [] }], // 对齐方式-----[{ align: [] }]
-  [{ size: fontSizeStyle.whitelist }], // 字体大小-----[{ size: ['small', false, 'large', 'huge'] }]
-  [{ font: fonts }], // 字体种类-----[{ font: [] }]
-  [{ header: [1, 2, 3, 4, 5, 6, false] }], // 标题
-  [{ direction: "ltl" }], // 文本方向-----[{'direction': 'rtl'}]
-  [{ direction: "rtl" }], // 文本方向-----[{'direction': 'rtl'}]
-  [{ indent: "-1" }, { indent: "+1" }], // 缩进-----[{ indent: '-1' }, { indent: '+1' }]
-  [{ list: "ordered" }, { list: "bullet" }], // 有序、无序列表-----[{ list: 'ordered' }, { list: 'bullet' }]
-  [{ script: "sub" }, { script: "super" }], // 上标/下标-----[{ script: 'sub' }, { script: 'super' }]
-  ["blockquote", "code-block"], // 引用  代码块-----['blockquote', 'code-block']
-  ["clean"], // 清除文本格式-----['clean']
-  ["link", "image", "video"], // 链接、图片、视频-----['link', 'image', 'video']
+  ["bold", "italic", "underline", "strike"], //Delete lines in thickened oblique body-['bold', 'italic', 'underline', 'Strike']
+  [{ color: [] }, { background: [] }], //Font color, font background color ----- [{color: []}, {background: []}]
+  [{ align: [] }], //Alignment method ----- [{align: []}]
+  [{ size: fontSizeStyle.whitelist }], //Font size ----- [{size: ['small', false, 'large', 'huge']}]
+  [{ font: fonts }], //Font type ----- [{font: []}]
+  [{ header: [1, 2, 3, 4, 5, 6, false] }], //title
+  [{ direction: "ltl" }], //Text direction ----- [{'direction': 'rtl'}]
+  [{ direction: "rtl" }], //Text direction ----- [{'direction': 'rtl'}]
+  [{ indent: "-1" }, { indent: "+1" }], //Endment ---- [{Indent: '-1'}, {Indent: '+1'}]
+  [{ list: "ordered" }, { list: "bullet" }], //Order, sequence list ----- [{list: 'Ordered'}, {list: 'bullet'}]
+  [{ script: "sub" }, { script: "super" }], //Angle/lowering ----- [{SCRIPT: 'Sub'}, {script: 'super'}]
+  ["blockquote", "code-block"], //Quote code block ----- ['blockquote', 'code-block']
+  ["clean"], //Clear text format ----- ['clean']
+  ["link", "image", "video"], //Links, pictures, videos ----- ['link', 'Image', 'Video']
 ];
 
 export default {
