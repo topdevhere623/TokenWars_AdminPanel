@@ -1,15 +1,15 @@
 const config = {
   dev: {
-    api: "http://34.247.193.168:6601/mystery-web-admin",
+    api: "https://dev.tokenwars.org/mystery-web-admin",
   },
   test: {
-    api: "http://34.247.193.168:6601/mystery-web-admin",
+    api: "https://dev.tokenwars.org/mystery-web-admin",
   },
   pre: {
-    api: "http://34.247.193.168:6601/mystery-web-admin",
+    api: "https://dev.tokenwars.org/mystery-web-admin",
   },
   pro: {
-    api: "http://34.247.193.168:6601/mystery-web-admin",
+    api: "https://dev.tokenwars.org/mystery-web-admin",
   },
 };
 
